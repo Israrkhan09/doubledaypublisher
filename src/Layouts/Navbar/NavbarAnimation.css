@@ -1,0 +1,28 @@
+/*
+ * NOTE: These styles rely on your JavaScript adding the 'scrolled' class
+ * to the '.navbar-container' element when the user scrolls down the page.
+ */
+
+/* --- SCROLLING ANIMATION STYLES --- */
+
+/* State when the user has scrolled down (JS adds this class) */
+.navbar-container.scrolled {
+    /* 1. Change Background Color on Scroll 
+       Using your defined light background color: #F7F9FC (Light Gray/White) */
+    background-color: #F7F9FC; 
+    
+    /* 2. Enhance Box Shadow on Scroll 
+       Makes the navbar "float" more visibly above the content */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); 
+}
+
+/* Optional: Transition for the logo color */
+.navbar-container .navbar-logo {
+    transition: color 0.3s ease;
+}
+
+/* 3. Change logo color when scrolled for better contrast */
+.navbar-container.scrolled .navbar-logo {
+    /* Using your Primary Blue color: #173F5F */
+    color: #173F5F; 
+}

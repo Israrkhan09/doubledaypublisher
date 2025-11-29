@@ -1,0 +1,30 @@
+/* src/components/BookServicesAnimation.css */
+
+/* --- Base Hidden State for Animated Items --- */
+
+.reveal-item {
+    opacity: 0;
+    /* Use a combined transition property for transform and opacity */
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Specific Initial States --- */
+
+/* Fades up from the bottom (Used for text, buttons, and CTAs) */
+.fade-up {
+    transform: translateY(30px);
+}
+
+/* Fades in slightly scaled (Used for grid items/cards) */
+.fade-in-stagger {
+    transform: scale(0.9);
+}
+
+
+/* --- Final Visible State (Triggered by the JS hook) --- */
+
+/* When the parent container has the 'is-visible' class, execute the animation */
+.services-section-container.is-visible .reveal-item {
+    opacity: 1;
+    transform: none; /* Reset transform to the final position */
+}

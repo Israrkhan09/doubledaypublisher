@@ -1,0 +1,30 @@
+/* src/components/SectionAnimation.css */
+
+/* --- 1. Base Hidden State for Animated Items --- */
+/* Used for both headers/buttons and grid items */
+.reveal-item {
+    opacity: 0;
+    /* Use a combined transition property for transform and opacity */
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- 2. Specific Initial States --- */
+/* For elements coming up from below (e.g., headers, buttons) */
+.fade-up {
+    transform: translateY(30px);
+}
+
+/* For elements scaling in (e.g., staggered cards) */
+.fade-in-stagger {
+    transform: scale(0.9);
+}
+
+
+/* --- 3. Final Visible State (The trigger class is applied to the container) --- */
+
+/* This class applies the final visible state to all elements inside the container 
+   that have the .reveal-item class (or fade-up/fade-in-stagger) */
+.books-section-container.is-visible .reveal-item {
+    opacity: 1;
+    transform: none; 
+}

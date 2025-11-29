@@ -1,0 +1,300 @@
+/* -------------------------------------- */
+/* 💻 Base Footer & Layout */
+/* -------------------------------------- */
+
+.footer {
+  background-color: #0A0F1F;
+  padding: 15px 1px;
+  font-family: 'Arial', sans-serif;
+  color: #ffffff;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  /* DESKTOP (Default): 4 equal columns */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 30px; 
+  grid-row-gap: 30px; 
+}
+
+
+.footer-heading {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+  color: #ffffff; 
+}
+
+/* -------------------------------------- */
+/* ✨ Link & Animation Styling */
+/* -------------------------------------- */
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 13px;
+  transition: color 0.3s ease-in-out, transform 0.1s ease-out;
+  display: inline-block;
+  position: relative;
+}
+
+.footer-links a:hover {
+  color: #00bfff; 
+  transform: translateX(3px);
+}
+
+.footer-links a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #00bfff; 
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.footer-links a:hover::before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+
+/* -------------------------------------- */
+/* 📬 CONNECT Column Styling */
+/* -------------------------------------- */
+
+.connect-text {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.stay-in-touch-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 12px 10px;
+  margin-bottom: 25px;
+  border-radius: 4px;
+  border: 2px solid #000; 
+  width: 100%; 
+  max-width: none;
+  transition: background-color 0.3s ease-in-out, color 0.4s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.4s ease-in-out;
+}
+
+.stay-in-touch-btn:hover {
+  background-color: transparent; 
+  color: white;
+  border: 1px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.stay-in-touch-btn .icon {
+  width: 15px; 
+  height: 15px; 
+  background-color: transparent; 
+  margin-right: 8px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* -------------------------------------- */
+/* 🌐 Social Icons Styling */
+/* -------------------------------------- */
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.social-icons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #ccc; 
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.social-icons a:hover {
+  background-color: #00bfff; 
+  border-color: #00bfff;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.copyright-info {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #b7b7b7;
+}
+
+.copyright-info a {
+  color: #b7b7b7; 
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.copyright-info a:hover {
+  color: #00bfff; 
+}
+
+.icon-placeholder {
+    font-weight: bold;
+}
+
+/* -------------------------------------- */
+/* 📱 Responsive Design (Media Queries) */
+/* -------------------------------------- */
+
+/* TABLET LAYOUT (900px and down) - 2x2 Layout */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px; 
+    grid-row-gap: 40px;
+  }
+  .footer-container > * { 
+      text-align: left; 
+  }
+  
+  .footer-container > *:last-child {
+      grid-column: auto;
+      text-align: left;
+  }
+}
+
+/* MOBILE LAYOUT (550px and down) - Compact 2x2 Layout, ALL LEFT-ALIGNED */
+@media (max-width: 550px) {
+  /* 1. Overall Footer Reduction */
+  .footer {
+    padding: 10px 10px; 
+  }
+
+  /* 2. LAYOUT: Sets a 2-column layout (2x2 structure) */
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr); 
+    grid-column-gap: 15px; 
+    grid-row-gap: 25px;
+  }
+  
+  /* ❗ UPDATE: Left-align ALL columns to match HELP section */
+  .footer-container > * { 
+      text-align: left;
+  }
+  
+  /* 3. Text and Link Reductions */
+  .footer-heading {
+    /* ❗ UPDATE: Left-align heading text */
+    text-align: left; 
+    font-size: 11px; 
+    margin-bottom: 8px; 
+  }
+
+  /* ❗ UPDATE: Left-align link list */
+  .footer-links {
+    text-align: left;
+  }
+
+  .footer-links li {
+    margin-bottom: 4px; 
+  }
+
+  .footer-links a {
+    font-size: 10px; 
+  }
+
+  .connect-text {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    /* ❗ UPDATE: Remove auto-margins to left-align */
+    max-width: 100%; 
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* 4. CONNECT Column Spanning */
+  .footer-container > *:last-child {
+      grid-column: auto; 
+      /* text-align: left is inherited from .footer-container > * */
+  }
+
+  /* 5. Button Reductions (Fitted for narrow column) */
+  .stay-in-touch-btn {
+    font-size: 10px; 
+    padding: 6px 4px; 
+    border-width: 1px; 
+    /* Max width is needed to keep button reasonably sized in the narrow column */
+    max-width: 120px; 
+    width: 90%; 
+    margin-bottom: 15px; 
+    /* ❗ UPDATE: Remove auto-margins to left-align */
+    margin-left: 0;
+    margin-right: auto; /* Keeping right auto margin can help push it left */
+  }
+
+  .stay-in-touch-btn .icon {
+    width: 10px; 
+    height: 10px;
+    margin-right: 4px;
+  }
+  
+  /* 6. Social Icons & Copyright */
+  .social-icons {
+      /* ❗ UPDATE: Left-align icons */
+      justify-content: flex-start;
+      margin-left: 0;
+      margin-right: 0;
+      gap: 5px; 
+      margin-bottom: 15px;
+  }
+
+  .social-icons a {
+    width: 20px; 
+    height: 20px; 
+    font-size: 10px; 
+  }
+
+  /* Copyright should span both columns and is typically centered */
+  .copyright-info {
+    grid-column: span 2; 
+    text-align: center; 
+    font-size: 9px; 
+    line-height: 1.5;
+    color: #888888; 
+  }
+  
+  /* Disable the shift animation on mobile */
+  .footer-links a:hover {
+    transform: none; 
+  }
+}

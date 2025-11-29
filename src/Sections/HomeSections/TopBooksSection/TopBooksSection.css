@@ -1,0 +1,345 @@
+/* --- Global Container and Layout --- */
+.books-section-container {
+    display: flex;
+    /* FIX: Precise height setting to align arrows with content */
+    min-height: 280px; 
+    max-height: 330px; 
+    margin-top: 30px;
+    /* margin-bottom: 25px; */
+    
+    overflow-x: hidden; 
+    overflow-y: hidden; /* Ensures no vertical scrollbar */
+    position: relative;
+    --primary-text-color: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px;
+    font-family: Arial, sans-serif; 
+    transition: all 0.3s ease-in-out; 
+}
+
+/* --- 1. Featured Block Styling --- */
+.featured-block {
+    height: 78%;
+    width: 250px; 
+    min-width: 300px;
+    /* Updated gradient to match image */
+    background: #F5F5F7;
+    border-radius: 8px 0 0 8px; 
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1; 
+    transition: all 0.3s ease-in-out;
+}
+
+.featured-content {
+    padding: 39px 0px 45px 40px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: flex-start;
+    gap: 30px; 
+    /* margin-right: 10px; */
+}
+
+/* FIX: Arrange Icon and Text block horizontally */
+.header-group {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+.featured-content h1 {
+    display: block; 
+    font-size: 26px; 
+    font-weight: 900;
+    line-height: 1.15; 
+    color: var(--primary-text-color);
+    /* margin: 0;  i change this one right now for bottom spae for left card */
+    letter-spacing: -0.5px; 
+    width: 100%; 
+    text-align: left;
+}
+
+.icon-box {
+    background-color: var(--primary-text-color);
+    padding: 12px; 
+    border-radius: 5px;
+    color: #fff;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; 
+}
+
+.chart-icon {
+    width: 35px; 
+    height: 35px; 
+}
+
+.check-charts-button {
+    background-color: #F5F5F7;
+    color: black;
+    padding: 15px 25px; 
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 14px; 
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    white-space: nowrap; 
+    transition: all 0.3s ease-in-out; 
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+.check-charts-button:hover {
+    background-color: #533549; 
+    color: white;
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+/* --- 2. Book List and Card Styling --- */
+.books-list-wrapper {
+    display: flex;
+    /* FIX: Light blue background for the gaps between cards */
+    /* background-color: #977232;  */
+    
+
+    backdrop-filter: blur(20px);
+    background-color: rgb(255, 255, 255);
+    /* border-radius: 30px; */
+  /* border-radius: 22px; */
+  transform-origin: center;
+  /* opacity: 0; */
+  /* transform: scale(0.99); */
+  transition: all 0.7s ease;
+
+
+    padding: 0 10px 0 20px; 
+    box-shadow: inset 5px 0 8px -5px rgba(0, 0, 0, 0.1);
+    
+    height: 100%; 
+    overflow-x: scroll; 
+    /* Hide the horizontal scrollbar */
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    
+    position: relative;
+    left: -0.8%; 
+    transition: left 0.3s ease-in-out;
+}
+
+.books-list-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.book-card {
+    position: relative;
+    width: 200px; 
+    min-width: 200px; 
+    height: 100%;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    /* FIX: Sufficient padding to fit within the container height */
+    padding: 55px 0; 
+    /* Margin creates the gap */
+    margin-right: 8px; 
+    background-color: #F5F5F7; 
+    border-radius: 10px;
+    /* border-radius: 20px; */
+}
+
+.book-card:last-child {
+    margin-right: 0;
+}
+
+
+/* --- Book Cover Animation (Sizing) --- */
+.book-cover-container {
+    width: 120px;
+    height: 135px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.book-cover-placeholder {
+    width: 100%;
+    height: 120%;
+    /* background-color: #c50707;  */
+    box-shadow: 0 0 0 2px #000, 5px 5px 15px rgba(0, 0, 0, 0.3);
+    
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    border-radius: 2px;
+    /* padding-bottom: 10px; */
+    /* margin-bottom: 20px; */
+}
+
+.book-cover-container:hover .book-cover-placeholder {
+    transform: rotateY(5deg) rotateX(2deg) scale(1.05) translateZ(10px);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.book-cover-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+}
+
+
+/* --- Ranking Circle Styling --- */
+.ranking-circle {
+    position: absolute;
+    bottom: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    line-height: 30px; 
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid var(--primary-text-color);
+    color: var(--primary-text-color);
+    background-color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 5; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    /* margin-top: 50px; */
+}
+
+
+/* --- Arrow Styling and Visibility --- */
+.scroll-arrow {
+    position: absolute;
+    top: 0;
+    /* Arrow takes full height of the container */
+    height: 50%; 
+    width: 50px;
+    background-color: #928383;
+    border: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 300;
+    color: #888;
+    cursor: pointer;
+    z-index: 11; 
+    transition: color 0.2s, background-color 0.2s, opacity 0.3s, visibility 0.3s;
+}
+
+/* Class to hide arrows */
+.scroll-arrow.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; 
+}
+
+.scroll-arrow.right {
+    right: 0;
+    /* left: 0;  */
+    /* right: auto; */
+    border-radius: 8px 0 0 8px; 
+    border-right: none;
+    box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.1);
+    width: 50px; 
+    margin-right: 12px;
+}
+
+.scroll-arrow.left {
+    left: 0; 
+    right: auto;
+    border-radius: 8px 0 0 8px; 
+    border-right: none;
+    box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.1);
+    width: 50px;
+}
+
+/* When the featured block is hidden, the left arrow moves to the container edge */
+.books-section-container.feature-hidden .scroll-arrow.left {
+    left: 0; 
+    border-radius: 8px 0 0 8px;
+}
+
+.scroll-arrow:hover {
+    color: var(--primary-text-color);
+    background-color: #f0f0f0;
+}
+
+/* When the featured block is hidden, expand the scroll wrapper to the left */
+.books-list-wrapper.expanded {
+    margin-left: -300px; 
+    width: calc(100% + 300px); 
+    border-radius: 8px; 
+}
+
+
+
+/* --- Single Scroll Arrow --- */
+.scroll-arrow {
+    position: absolute;
+    top: 50%;
+    right: 20px; /* Fixed to the right */
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    color: #555;
+    cursor: pointer;
+    z-index: 12;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+}
+
+/* Hover animation */
+.scroll-arrow:hover {
+    background-color: #533549;
+    color: #fff;
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Click bounce effect */
+.scroll-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Arrow icon using pseudo-element */
+.scroll-arrow::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.scroll-arrow:hover::after {
+    transform: rotate(0deg);
+}
+/* Left arrow icon */
+.scroll-arrow.left::after {
+    transform: rotate(-135deg); /* points left */
+}
+
+/* Right arrow icon */
+.scroll-arrow.right::after {
+    transform: rotate(45deg); /* points right */
+}
+

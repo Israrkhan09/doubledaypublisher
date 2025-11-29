@@ -1,0 +1,1636 @@
+<!-- NewBookSection
+
+
+
+
+import React, { useState, useEffect, useRef } from 'react';
+import sectionImage from '../../images/fiction/section-image1.png'; 
+
+// All custom CSS is defined here and injected via a <style> tag in the render.
+const getCustomStyles = () => `
+    /* Animation Styles */
+    /* Base state: Hidden and slightly down */
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: opacity, transform;
+    }
+    /* Visible state: Opaque and in place */
+    .is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Outer Wrapper (Overall Page Background) */
+    .section-outer-wrapper {
+        background-color: #ffffffff;
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        font-family: 'Inter', sans-serif;
+        color: #555;
+        /* Added min-height to enable scrolling and showcase the animation */
+        min-height: 50vh; 
+    }
+
+    /* Left Content Block (The Beige Container) */
+    .content-block-left-v3 {
+        background-color: #F4EFEA;
+        width: 850px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        min-height: 453px;
+        padding: 35px 40px 30px 40px;
+        border-radius: 10px;
+        margin-right: -1px;
+        box-sizing: border-box;
+        z-index: 1;
+        text-align: left;
+    }
+
+    /* Right Image Column */
+    .image-column-right-v3 {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-left: 25px;
+        border-radius: 10px;
+        height: 453px;
+        gap: 10px;
+        max-width: 450px;
+        overflow: hidden;
+    }
+
+    .image-column-right-v3 .product-image-v3 {
+        max-width: 100%;
+        width: 450px;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+    }
+
+    /* Text Styling */
+    .main-title-text-v3 {
+        font-size: 3.2em;
+        font-weight: 800;
+        color: #222;
+        margin: 0 0 10px 0;
+        line-height: 1.1;
+    }
+
+    .title-divider-v3 {
+        width: 100%;
+        height: 1px;
+        background-color: #ccc;
+        margin-bottom: 30px;
+    }
+
+    /* Inner 2-column grid for sub-sections */
+    .inner-content-grid-v3 {
+        flex-grow: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .sub-section-item-v3 h3 {
+        font-size: 0.95em;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+        color: #222;
+        line-height: 1.3;
+    }
+
+    .sub-section-item-v3 p {
+        font-size: 0.85em;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    /* Icon styles */
+    .icon-wrap-v3 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        width: 25px;
+        height: 25px;
+        border: 1px solid #555;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #222;
+    }
+    .icon-symbol {
+        font-size: 1.1em;
+        line-height: 1;
+        display: inline-block;
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 1100px) {
+        .content-block-left-v3 {
+            width: 55%;
+        }
+        .image-column-right-v3 {
+            height: 400px;
+        }
+        .image-column-right-v3 .product-image-v3 {
+            width: 350px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .section-outer-wrapper {
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .content-block-left-v3 {
+            width: 100%;
+            margin-right: 0;
+            padding: 30px;
+            margin-bottom: 30px;
+            min-height: auto; /* Remove fixed height on mobile */
+        }
+
+        .image-column-right-v3 {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            overflow: visible;
+            margin-left: 0;
+        }
+
+        .image-column-right-v3 .product-image-v3 {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .inner-content-grid-v3 {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+    }
+`;
+
+// --- Updated Custom Intersection Observer Hook ---
+// This hook now continuously observes the element and updates the visibility state.
+const useIntersectionObserver = (options = { threshold: 0.1, rootMargin: '0px' }) => {
+    const ref = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+            // Update visibility state based on whether the element is intersecting (true) or not (false)
+            setIsVisible(entry.isIntersecting);
+            
+            // NOTE: We do NOT unobserve the target, allowing the animation to fire on scroll out (reset) 
+            // and scroll in (animate) repeatedly.
+
+        }, options);
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => {
+            // Cleanup function to stop observing when the component unmounts
+            if (ref.current) {
+                // Ensure ref.current is not null before attempting to unobserve
+                observer.unobserve(ref.current);
+            }
+        };
+    }, [ref, options]); 
+
+    return [ref, isVisible];
+};
+
+// --- Main Component ---
+const NewBookSection = () => {
+    // Note: Local image imports like 'sectionimage' cannot be resolved in this environment.
+    // Using a reliable placeholder image instead.
+    const SECTION_IMAGE_URL = sectionImage;
+
+    // Apply the hook to the two main animated sections
+    // Note: For 'scroll-up' animation, we keep the threshold low so the element resets when mostly out of view.
+    const [contentRef, isContentVisible] = useIntersectionObserver({ threshold: 0.05 }); // Set lower threshold for quicker reset
+    const [imageRef, isImageVisible] = useIntersectionObserver({ threshold: 0.05 });
+
+    // Helper to join the animation classes
+    const getAnimationClasses = (isVisible) =>
+        `scroll-reveal ${isVisible ? 'is-visible' : ''}`;
+
+    return (
+        <div className="NewBookSection">
+            {/* Inject custom styles */}
+            <style dangerouslySetInnerHTML={{ __html: getCustomStyles() }} />
+
+           
+            {/* Outer container: Relies on .section-outer-wrapper */}
+            <section className="section-outer-wrapper"> 
+                
+                {/* 1. The Left Content Block (The Beige Container) */}
+                <div 
+                    ref={contentRef} 
+                    className={`content-block-left-v3 ${getAnimationClasses(isContentVisible)}`}
+                > 
+                    
+                    <h2 className="main-title-text-v3">
+                        Creativity & Self-Expression
+                    </h2>
+                    {/* Title divider */}
+                    <div className="title-divider-v3"></div>
+
+                    <div className="inner-content-grid-v3">
+                        
+                        {/* Sub-section 1 */}
+                        <div className="sub-section-item-v3">
+                            <div className="icon-wrap-v3">
+                                {/* Using your custom symbol */}
+                                <span className="icon-symbol">{'<'}</span>
+                                <span className="icon-symbol">{'>'}</span>
+                            </div>
+                            <h3>VOICE. STRUCTURE. IMPACT.</h3>
+                            <p>
+                                Every book journey is founded on a deep love for creativity and self-expression, with one goal in mind: to make your story stand out. Our process began with the vision of creating a resource that makes authorship as dynamic and powerful as the message you hold.
+                            </p>
+                        </div>
+
+                        {/* Sub-section 2 */}
+                        <div className="sub-section-item-v3">
+                            <div className="icon-wrap-v3">
+                                {/* Using your custom symbol */}
+                                <span className="icon-symbol">◪</span>
+                            </div>
+                            <h3>WE'RE MORE THAN JUST A SERVICE</h3>
+                            <p>
+                                We are a dedicated community committed to innovators, storytellers, and aspiring authors across all genres. The inspiration for simplifying the complex publishing landscape came from a desire to create a straightforward path that truly empowers every writer.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 2. Right Image Column */}
+                <div 
+                    ref={imageRef} 
+                    className={`image-column-right-v3 ${getAnimationClasses(isImageVisible)}`}
+                    // Added a style delay for a staggered effect
+                    style={{ transitionDelay: '0.15s' }}
+                >
+                    <img 
+                        src={SECTION_IMAGE_URL} 
+                        alt="A stylish product placeholder image" 
+                        className="product-image-v3"
+                    />
+                </div>
+            </section>
+
+             {/* Added a scroll spacer below the content */}
+            <div className="h-[70vh] bg-gray-100"></div>
+        </div>
+    );
+};
+
+export default NewBookSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NewBookCss
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * The original CSS was syntactically correct. I've removed the lengthy
+ * section divider comments to eliminate potential parsing issues in
+ * overly strict or non-standard environments.
+ */
+
+/* Outer Wrapper (Overall Page Background) */
+.section-outer-wrapper {
+  background-color: #f7f7f7;
+  padding: 80px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align both containers to the top */
+  font-family: Arial, sans-serif;
+  color: #555;
+}
+
+/* Left Content Block (The Beige Container) */
+.content-block-left-v3 {
+  /* Exact color from the image */
+  background-color: #d29428;
+
+  /* Sizing and Positioning */
+  width: 850px;
+
+  /* FIX 1: Make it a flex container to manage vertical space */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  /* FIX 2: Lock the minimum height to match the right image height (453px) */
+  min-height: 453px;
+
+  padding: 35px 40px 30px 40px;
+
+  border-radius: 10px;
+  margin-right: -1px;
+  box-sizing: border-box;
+  z-index: 1;
+  text-align: left;
+}
+
+/* Right Image Column */
+.image-column-right-v3 {
+  /* This container needs to manage the crop and alignment */
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 25px;
+  border-radius: 10px;
+
+  /* CRUCIAL FOR IMAGE HEIGHT/CROP: */
+  height: 453px; /* Fixed height for the image wrapper */
+  gap: 10px;
+  max-width: 450px;
+  overflow: hidden;
+}
+
+.image-column-right-v3 .product-image-v3 {
+  max-width: 100%;
+  width: 450px; /* Explicit width for the image */
+  height: auto;
+  display: block;
+}
+
+/* Text Styling */
+.main-title-text-v3 {
+  font-size: 3.2em;
+  font-weight: 800;
+  color: #222;
+  margin: 0 0 10px 0;
+  line-height: 1.1;
+}
+
+.title-divider-v3 {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin-bottom: 30px;
+}
+
+/* Inner 2-column grid for sub-sections */
+.inner-content-grid-v3 {
+  /* FIX 3: Allows the grid to consume the remaining vertical space inside the flex column */
+  flex-grow: 1;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.sub-section-item-v3 h3 {
+  font-size: 0.95em;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #222;
+  line-height: 1.3;
+}
+
+.sub-section-item-v3 p {
+  font-size: 0.85em;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Icon styles */
+.icon-wrap-v3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1100px) {
+  .content-block-left-v3 {
+    width: 55%;
+  }
+  .image-column-right-v3 {
+    height: 400px;
+  }
+  .image-column-right-v3 .product-image-v3 {
+    width: 350px;
+  }
+}
+
+@media (max-width: 900px) {
+  .section-outer-wrapper {
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  .content-block-left-v3 {
+    width: 100%;
+    margin-right: 0;
+    padding: 30px;
+    margin-bottom: 30px;
+    min-height: auto; /* Remove fixed height on mobile */
+  }
+
+  .image-column-right-v3 {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .image-column-right-v3 .product-image-v3 {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .inner-content-grid-v3 {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------- 
+   Top Books Section jsx
+
+
+
+
+
+
+
+
+
+
+
+   import React, { useRef, useState, useEffect } from 'react';
+import './TopBooksSection.css'; 
+import './SectionAnimation.css';
+import useIntersectionObserver from '../hooks/UserObservationSection';
+
+// Book cover images
+import bookCover1 from '../../images/Memoirs/memoirs1.jpg';
+import bookCover2 from '../../images/Memoirs/memoirs2.jpg';
+import bookCover3 from '../../images/Memoirs/memoirs3.jpg';
+import bookCover4 from '../../images/Memoirs/memoirs4.jpg';
+import bookCover5 from '../../images/Memoirs/memoirs5.jpg';
+import bookCover6 from '../../images/Memoirs/memoirs6.jpg';
+import bookCover7 from '../../images/Memoirs/memoirs7.jpg';
+
+const TopBooksSection = () => {
+    const scrollRef = useRef(null);
+    const [refToObserve, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+
+    const [showFeaturedBlock, setShowFeaturedBlock] = useState(true);
+    const [showLeftArrow, setShowLeftArrow] = useState(false);
+    const [showRightArrow, setShowRightArrow] = useState(true);
+
+    const scrollAmount = 300;
+
+    const books = [
+        { id: 1, title: 'Be Useful: Seven Tools for Life', author: 'Arnold Schwarzenegger', imageUrl: bookCover1 },
+        { id: 2, title: 'The Light We Carry', author: 'Michelle Obama', imageUrl: bookCover6 },
+        { id: 3, title: 'The Overstory', author: 'Richard Powers', imageUrl: bookCover2 },
+        { id: 4, title: 'Save Me (Again) - 2', author: 'Mona Kasten', imageUrl: bookCover3 },
+        { id: 5, title: 'Save Me (Again) - 3', author: 'Mona Kasten', imageUrl: bookCover4 },
+        { id: 6, title: 'Save Me (Again) - 4', author: 'Mona Kasten', imageUrl: bookCover5 },
+        { id: 7, title: 'Extra Book 1', author: 'Author X', imageUrl: bookCover6 },
+        { id: 8, title: 'Extra Book 2', author: 'Author Y', imageUrl: bookCover3 },
+        { id: 9, title: 'Extra Book 3', author: 'Author Z', imageUrl: bookCover2 },
+        { id: 10, title: 'Extra Book 4', author: 'Author A', imageUrl: bookCover5 },
+        { id: 11, title: 'Extra Book 5', author: 'Author B', imageUrl: bookCover7 },
+        { id: 12, title: 'Extra Book 6', author: 'Author C', imageUrl: bookCover7 },
+    ];
+
+    const handleScroll = () => {
+        const currentRef = scrollRef.current;
+        if (!currentRef) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = currentRef;
+        const scrollEnd = scrollWidth - clientWidth;
+        const tolerance = 2;
+
+        setShowFeaturedBlock(scrollLeft < tolerance);
+        setShowLeftArrow(scrollLeft > tolerance);
+        setShowRightArrow(scrollLeft < scrollEnd - tolerance);
+    };
+
+    useEffect(() => {
+        const currentRef = scrollRef.current;
+        if (currentRef) {
+            handleScroll();
+            currentRef.addEventListener('scroll', handleScroll);
+        }
+        return () => {
+            if (currentRef) {
+                currentRef.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, []);
+
+    const scrollRight = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    };
+
+    const scrollLeft = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
+    };
+
+    const containerClasses = [
+        'books-section-container',
+        !showFeaturedBlock ? 'feature-hidden' : '',
+        isVisible ? 'is-visible' : ''
+    ].join(' ').trim();
+
+    return (
+        <div ref={refToObserve} className={containerClasses}>
+
+            {/* Featured Block */}
+            {showFeaturedBlock && (
+                <div className="featured-block reveal-item fade-up staggered-item" style={{ transitionDelay: '0.1s' }}>
+                    <div className="featured-content">
+                        <div className="header-group">
+                            <div className="icon-box">
+                                <svg className="chart-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 2H8c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 20V4h12v16H8zm9.5-12.5l-3.5 3.5-2-2-4 4V17h12v-2.5l-2.5-2.5zM15 9h2v2h-2z"/>
+                                    <path d="M12.5 14.5l-2-2-3 3V17h10v-3.5l-5-5z"/>
+                                </svg>
+                            </div>
+                            <h1>TODAY'S TOP BOOKS</h1>
+                        </div>
+                        <button className="check-charts-button">CHECK THE CHARTS &rarr;</button>
+                    </div>
+                </div>
+            )}
+
+            {/* Scrollable Book List */}
+            <div className={`books-list-wrapper ${!showFeaturedBlock ? 'expanded' : ''}`} ref={scrollRef}>
+                {books.map((book, index) => (
+                    <div key={`${book.id}-${book.imageUrl}`} className="book-card reveal-item fade-in-stagger" style={{ transitionDelay: `${0.3 + index * 0.1}s` }}>
+                        <div className="book-cover-container">
+                            <div className="book-cover-placeholder">
+                                <img src={book.imageUrl} alt={book.title} onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.style.display = 'none';
+                                    e.target.parentNode.style.backgroundColor = '#ccc';
+                                    e.target.parentNode.innerHTML += `<p>${book.title}</p>`;
+                                }}/>
+                            </div>
+                        </div>
+                        <div className="ranking-circle">{book.id}</div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Left Arrow */}
+            {showLeftArrow && <div className="scroll-arrow left" onClick={scrollLeft} />}
+
+            {/* Right Arrow */}
+            {showRightArrow && <div className="scroll-arrow right" onClick={scrollRight} />}
+
+        </div>
+    );
+};
+
+export default TopBooksSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------- 
+   Top Books Section css
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   /* --- Global Container and Layout --- */
+.books-section-container {
+    display: flex;
+    /* FIX: Precise height setting to align arrows with content */
+    min-height: 300px; 
+    max-height: 350px; 
+    
+    overflow-x: hidden; 
+    overflow-y: hidden; /* Ensures no vertical scrollbar */
+    position: relative;
+    --primary-text-color: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px;
+    font-family: Arial, sans-serif; 
+    transition: all 0.3s ease-in-out; 
+}
+
+/* --- 1. Featured Block Styling --- */
+.featured-block {
+    height: 100%;
+    width: 250px; 
+    min-width: 300px;
+    /* Updated gradient to match image */
+    background: linear-gradient(50deg, #e8e5e0 0%, #ffffff 100%);
+    border-radius: 8px 0 0 8px; 
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1; 
+    transition: all 0.3s ease-in-out;
+}
+
+.featured-content {
+    padding: 39px 0px 45px 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: flex-start;
+    gap: 30px; 
+    /* margin-right: 10px; */
+}
+
+/* FIX: Arrange Icon and Text block horizontally */
+.header-group {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+.featured-content h1 {
+    display: block; 
+    font-size: 32px; 
+    font-weight: 900;
+    line-height: 1.1; 
+    color: var(--primary-text-color);
+    /* margin: 0;  i change this one right now for bottom spae for left card */
+    letter-spacing: -0.5px; 
+    width: 100%; 
+    text-align: left;
+}
+
+.icon-box {
+    background-color: var(--primary-text-color);
+    padding: 12px; 
+    border-radius: 5px;
+    color: #fff;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; 
+}
+
+.chart-icon {
+    width: 35px; 
+    height: 35px; 
+}
+
+.check-charts-button {
+    background-color: #FFC300;
+    color: black;
+    padding: 15px 25px; 
+    border: none;
+    border-radius: 4px;
+    font-size: 16px; 
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    white-space: nowrap; 
+    transition: all 0.3s ease-in-out; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.check-charts-button:hover {
+    background-color: #333; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+/* --- 2. Book List and Card Styling --- */
+.books-list-wrapper {
+    display: flex;
+    /* FIX: Light blue background for the gaps between cards */
+    /* background-color: #977232;  */
+    
+
+    backdrop-filter: blur(20px);
+    background-color: white;
+    /* border-radius: 30px; */
+  /* border-radius: 22px; */
+  transform-origin: center;
+  /* opacity: 0; */
+  /* transform: scale(0.99); */
+  transition: all 0.7s ease;
+
+
+    padding: 0 10px 0 20px; 
+    box-shadow: inset 5px 0 8px -5px rgba(0, 0, 0, 0.1);
+    
+    height: 100%; 
+    overflow-x: scroll; 
+    /* Hide the horizontal scrollbar */
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    
+    position: relative;
+    left: -0.8%; 
+    transition: left 0.3s ease-in-out;
+}
+
+.books-list-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.book-card {
+    position: relative;
+    width: 200px; 
+    min-width: 200px; 
+    height: 100%;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    /* FIX: Sufficient padding to fit within the container height */
+    padding: 53px 0; 
+    /* Margin creates the gap */
+    margin-right: 8px; 
+    background-color: #F4EFEA; 
+    border-radius: 10px;
+    /* border-radius: 20px; */
+}
+
+.book-card:last-child {
+    margin-right: 0;
+}
+
+
+/* --- Book Cover Animation (Sizing) --- */
+.book-cover-container {
+    width: 130px;
+    height: 200px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.book-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #995353; 
+    box-shadow: 0 0 0 2px #000, 5px 5px 15px rgba(0, 0, 0, 0.3);
+    
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    border-radius: 2px;
+}
+
+.book-cover-container:hover .book-cover-placeholder {
+    transform: rotateY(5deg) rotateX(2deg) scale(1.05) translateZ(10px);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.book-cover-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+}
+
+
+/* --- Ranking Circle Styling --- */
+.ranking-circle {
+    position: absolute;
+    bottom: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    line-height: 30px; 
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid var(--primary-text-color);
+    color: var(--primary-text-color);
+    background-color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 5; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* --- Arrow Styling and Visibility --- */
+.scroll-arrow {
+    position: absolute;
+    top: 0;
+    /* Arrow takes full height of the container */
+    height: 50%; 
+    width: 50px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 300;
+    color: #888;
+    cursor: pointer;
+    z-index: 11; 
+    transition: color 0.2s, background-color 0.2s, opacity 0.3s, visibility 0.3s;
+}
+
+/* Class to hide arrows */
+.scroll-arrow.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; 
+}
+
+.scroll-arrow.right {
+    right: 0;
+    border-radius: 0 8px 8px 0; 
+}
+
+.scroll-arrow.left {
+    left: 0; 
+    right: auto;
+    border-radius: 8px 0 0 8px; 
+    border-right: none;
+    box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.1);
+    width: 50px;
+}
+
+/* When the featured block is hidden, the left arrow moves to the container edge */
+.books-section-container.feature-hidden .scroll-arrow.left {
+    left: 0; 
+    border-radius: 8px 0 0 8px;
+}
+
+.scroll-arrow:hover {
+    color: var(--primary-text-color);
+    background-color: #f0f0f0;
+}
+
+/* When the featured block is hidden, expand the scroll wrapper to the left */
+.books-list-wrapper.expanded {
+    margin-left: -300px; 
+    width: calc(100% + 300px); 
+    border-radius: 8px; 
+}
+
+
+
+/* --- Single Scroll Arrow --- */
+.scroll-arrow {
+    position: absolute;
+    top: 50%;
+    right: 20px; /* Fixed to the right */
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    color: #555;
+    cursor: pointer;
+    z-index: 12;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+}
+
+/* Hover animation */
+.scroll-arrow:hover {
+    background-color: #3b82f6;
+    color: #fff;
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Click bounce effect */
+.scroll-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Arrow icon using pseudo-element */
+.scroll-arrow::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.scroll-arrow:hover::after {
+    transform: rotate(0deg);
+}
+/* Left arrow icon */
+.scroll-arrow.left::after {
+    transform: rotate(-135deg); /* points left */
+}
+
+/* Right arrow icon */
+.scroll-arrow.right::after {
+    transform: rotate(45deg); /* points right */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Book Services Section jsx
+
+
+
+
+
+
+
+
+// src/components/BookServicesSection.jsx
+import React from 'react';
+import './BookServicesSection.css';
+import './BookServicesSectionAnimation.css'; // Assuming you create this file for the animation styles
+import useIntersectionObserver from '../hooks/UserObservationSection';
+
+
+const servicesData = [
+    { 
+        title: "Ghostwriting Services", 
+        description: "Our team of professional editors and ghostwriters provides top-notch ghostwriting services to help you pull your book all together." 
+    },
+    { 
+        title: "Book Editing Services", 
+        description: "Seeking an authentic writing and editing source to eliminate all mistakes? Our team has the editors onboard to fine-tune your script!" 
+    },
+    { 
+        title: "Proofreading Services", 
+        description: "Our Book Proofreading service ensures your manuscript is free from errors and ready to captivate readers with its brilliance." 
+    },
+    { 
+        title: "Book Formatting Services", 
+        description: "Transform your script into a beautifully formatted book that attracts readers from the first page to the last with our expert service." 
+    },
+    { 
+        title: "Book Marketing Services", 
+        description: "Maximize your book sales potential with the best book promotion services offered by a leading book marketing company." 
+    },
+    { 
+        title: "Book Cover Designs Services", 
+        description: "Great ideas for your book cover design but lacking the ability to execute them? You need professional assistance, and you are good to go!" 
+    },
+];
+
+const BookServicesSection = () => {
+    // 1. Integrate the Intersection Observer Hook
+    const [servicesRef, isVisible] = useIntersectionObserver({
+        threshold: 0.15, // Start animation when 15% of the section is visible
+    });
+
+    return (
+        <section 
+            ref={servicesRef} // 2. Attach the ref
+            className={`services-section-container ${isVisible ? 'is-visible' : ''}`} // 3. Apply the visibility class
+        >
+            <div className="services-header">
+                {/* Header: Fade Up, small delay */}
+                <h2 
+                    className="services-heading reveal-item fade-up"
+                    style={{ transitionDelay: '0s' }}
+                >
+                    Our Book Writing Services!
+                </h2>
+                {/* Intro: Fade Up, slight delay */}
+                <p 
+                    className="services-intro reveal-item fade-up"
+                    style={{ transitionDelay: '0.1s' }}
+                >
+                    Our immensely skilled authors are well-versed in how to create compelling and thought provoking work regardless of the genre. It brings us tremendous pride to share that we are powered by industry veterans who produce top-notch work.
+                </p>
+            </div>
+          
+            {/* Grid: Staggered animation */}
+            <div className="services-grid">
+                {servicesData.map((service, index) => {
+                    // Calculate staggered delay for each card
+                    const staggerDelay = 0.2 + (index * 0.1); 
+
+                    return (
+                        <div 
+                            className="service-card reveal-item fade-in-stagger" // Use stagger animation for cards
+                            key={index}
+                            style={{ transitionDelay: `${staggerDelay}s` }}
+                        >
+                            <div className="card-icon-placeholder">📚</div> 
+                            <h3 className="card-title">{service.title}</h3>
+                            <p className="card-description">{service.description}</p>
+                            <a href="#consultation" className="card-cta">Learn More &rarr;</a>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Main CTA: Fade Up, delay after all cards have started */}
+            <button 
+                className="services-main-cta reveal-item fade-up"
+                style={{ transitionDelay: `${0.2 + servicesData.length * 0.1 + 0.1}s` }}
+            >
+                Get a Free Consultation
+            </button>
+        </section>
+    );
+};
+
+export default BookServicesSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BestSellerSection jsx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// src/components/BestsellerSection.jsx
+import React from 'react';
+import './BestsellerSection.css';
+import './BestSellerAnimation.css'; // Scroll animations
+import useIntersectionObserver from '../hooks/UserObservationSection';
+import bestsellerBookCover from '../../images/nonfiction/nonfiction1.jpg';
+
+const BestsellerSection = () => {
+  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.3 });
+
+  return (
+    <section ref={sectionRef} className={`bestseller-section-container ${isVisible ? 'is-visible' : ''}`}>
+      <div className="bestseller-content-wrapper">
+
+        {/* Left Text Content */}
+        <div className="bestseller-text-content">
+          <p className="bestseller-tagline reveal-item fade-up" style={{ transitionDelay: '0.1s' }}>
+            🏆 Top Seller of the Month
+          </p>
+
+          <h2 className="bestseller-heading reveal-item fade-up" style={{ transitionDelay: '0.2s' }}>
+            Master Your Potential: "The Ultimate Guide to Productivity"
+          </h2>
+
+          <h3 className="bestseller-title reveal-item fade-up" style={{ transitionDelay: '0.3s' }}>
+            "The Ultimate Guide to Productivity"
+          </h3>
+          <p className="bestseller-author reveal-item fade-up" style={{ transitionDelay: '0.4s' }}>
+            Authored by: Jordan Reeves, the productivity expert transforming modern workflows
+          </p>
+
+          <p className="bestseller-description reveal-item fade-up" style={{ transitionDelay: '0.5s' }}>
+            This bestseller empowers professionals to optimize focus, time, and results. Jordan Reeves shares actionable strategies and real-world tips for maximum productivity without burnout.
+            <br /><br />
+            Perfect for entrepreneurs, students, and corporate professionals seeking peak performance.
+          </p>
+
+          <div className="bestseller-cta-group reveal-item fade-up" style={{ transitionDelay: '0.6s' }}>
+            <button className="bestseller-cta-main">Get Your Copy Now</button>
+            <button className="bestseller-cta-secondary">Read Reviews & Ratings</button>
+          </div>
+        </div>
+
+        {/* Right Image Content */}
+        <div className="bestseller-image-wrapper reveal-item fade-in-stagger" style={{ transitionDelay: '0.4s' }}>
+          <img 
+            src={bestsellerBookCover} 
+            alt="Top Seller Book Cover" 
+            className="bestseller-book-cover"
+          />
+          <div className="bestseller-badge">
+            <span className="badge-text">#1</span>
+            <span className="badge-subtext">BEST<br />SELLER</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export default BestsellerSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BestSellerSection css
+
+
+
+
+
+
+
+
+
+
+
+/* --- Variables --- */
+:root {
+  --primary-blue: #0B1E5A;
+  --accent-yellow: #FFC107;
+  --background-cream: #fdfaf6;
+  --text-dark: #222;
+  --shadow-main: rgba(0, 0, 0, 0.25);
+}
+
+/* --- Section Container --- */
+.bestseller-section-container {
+  padding: 100px 40px;
+  background-color: var(--background-cream);
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.9s ease-out;
+}
+
+.bestseller-section-container.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bestseller-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  gap: 60px;
+}
+
+/* --- Left Text Content --- */
+.bestseller-text-content {
+  flex: 1;
+  max-width: 600px;
+  text-align: left;
+}
+
+.bestseller-tagline {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.bestseller-heading {
+  font-size: 2.8em;
+  font-weight: 800;
+  color: var(--primary-blue);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.bestseller-title {
+  font-size: 1.9em;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.bestseller-author {
+  font-size: 1em;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.bestseller-description {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 35px;
+}
+
+/* --- CTA Buttons --- */
+.bestseller-cta-group {
+  display: flex;
+  gap: 15px;
+}
+
+.bestseller-cta-main {
+  background-color: var(--primary-blue);
+  color: #fff;
+  border: none;
+  padding: 14px 30px;
+  font-weight: 700;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px var(--shadow-main);
+  transition: all 0.3s ease;
+}
+
+.bestseller-cta-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--shadow-main);
+  background-color: #06214A;
+}
+
+.bestseller-cta-secondary {
+  background-color: transparent;
+  border: 2px solid var(--primary-blue);
+  color: var(--primary-blue);
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bestseller-cta-secondary:hover {
+  background-color: var(--primary-blue);
+  color: #fff;
+}
+
+/* --- Right Image Content --- */
+.bestseller-image-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 320px;
+  perspective: 1000px;
+  opacity: 0;
+  transform: translateX(50px) scale(0.9);
+  transition: all 1s ease-out;
+}
+
+.bestseller-section-container.is-visible .bestseller-image-wrapper {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.bestseller-book-cover {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px var(--shadow-main);
+  transition: transform 0.8s ease-out;
+}
+
+.bestseller-image-wrapper:hover .bestseller-book-cover {
+  transform: rotateY(5deg) scale(1.03);
+}
+
+/* --- Bestseller Badge --- */
+.bestseller-badge {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 70px;
+  height: 70px;
+  background-color: var(--accent-yellow);
+  color: var(--primary-blue);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  box-shadow: 0 5px 15px var(--shadow-main);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition-delay: 0.8s;
+}
+
+.bestseller-section-container.is-visible .bestseller-badge {
+  transform: scale(1);
+}
+
+.badge-text {
+  font-size: 1em;
+  text-align: center;
+}
+
+.badge-subtext {
+  font-size: 0.65em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .bestseller-content-wrapper {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 40px;
+  }
+  .bestseller-text-content {
+    max-width: 100%;
+  }
+  .bestseller-cta-group {
+    justify-content: center;
+    flex-direction: column;
+  }
+  .bestseller-cta-main, .bestseller-cta-secondary {
+    width: 100%;
+  }
+  .bestseller-image-wrapper {
+    width: 60vw;
+    max-width: 220px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .bestseller-heading {
+    font-size: 1.8em;
+  }
+  .bestseller-title {
+    font-size: 1.5em;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->

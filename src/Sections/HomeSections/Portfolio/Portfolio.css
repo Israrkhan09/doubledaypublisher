@@ -1,0 +1,301 @@
+/*
+ * Updated Portfolio Showcase Styles
+ * Fixes:
+ * 1. Global size reduction (160px min-width, 250px height).
+ * 2. Absolute positioning to fix inconsistent image fitting.
+ * 3. 🔑 SCROLLING ANIMATION CSS RESTORED AND CONFIRMED.
+ */
+
+/* ------------------------------------ */
+/* --- 1. BASE STYLES & TYPOGRAPHY --- */
+/* ------------------------------------ */
+
+:root {
+    --color-primary: #1e40af; /* Indigo 700 */
+    --color-secondary: #059669; /* Emerald 600 */
+    --color-background: #f9fafb; /* Light Gray Background */
+    --color-text-dark: #1f2937;
+    --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-showcase-container {
+    padding: 5rem 5rem;
+    /* max-width: 1110px; */
+    margin: 0 auto;
+    width: 100%;
+    background-color: #533549;
+    font-family: 'Inter', sans-serif;
+}
+
+.portfolio-heading {
+    font-size: 37px;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.portfolio-subtitle {
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 500;
+}
+
+/* ------------------------------------ */
+/* --- 2. CATEGORY BUTTONS --- */
+/* ------------------------------------ */
+.category-buttons-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+}
+
+.category-btn {
+    padding: 0.65rem 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #F5F5F7;
+    color: var(--color-text-dark);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    box-shadow: var(--shadow-light);
+    border: none;
+    border-radius: 4px;
+}
+
+.category-btn:hover {
+    background-color: #000000;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.category-btn.active {
+    background-color: transparent;
+    border: 1px solid black;
+    color: white;
+    transform: scale(1.05);
+    /* box-shadow: 0 10px 20px -5px rgba(30, 64, 175, 0.4); */
+}
+
+/* ------------------------------------ */
+/* --- 3. COVER GRID & ANIMATION --- */
+/* ------------------------------------ */
+.cover-grid {
+    display: grid;
+    /* Denser grid: 160px min-width */
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    gap: 3rem;
+    /* background-color: #059669; */
+}
+
+/* Define the single-item animation keyframes (for category click) */
+@keyframes cover-enter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Class for category click animation (takes precedence) */
+.cover-enter-stagger {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    animation: cover-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 🔑 SCROLL ANIMATION CSS RESTORATION (CRITICAL FOR SCROLL EFFECT) */
+/* 1. Base hidden state (applies to all elements with 'reveal-item') */
+.reveal-item {
+    opacity: 0;
+    /* This transition is how the element smoothly moves from hidden to visible */
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. Initial state transform (applies only to the staggered items) */
+.fade-in-stagger {
+    transform: translateY(20px);
+}
+
+/* 3. Visible state (Triggered when the Intersection Observer adds 'is-visible' to the parent) */
+.portfolio-showcase-container.is-visible .reveal-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* 🔑 END SCROLL ANIMATION RESTORATION */
+
+.cover-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    /* box-shadow: black (0.2 , 0.1 , 0.4 , 0.5); */
+     filter: drop-shadow(0 20px 15px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    background-color: white;
+
+    /* --- CRITICAL FIX 1: Use Aspect Ratio (1:1.5 standard book cover ratio) --- */
+    /* Set a fixed width (or let it be defined by the grid minmax(160px)) */
+    width: 115%;
+    /* Use padding-bottom for the height to maintain aspect ratio */
+    height: 320px;
+    padding-bottom: 80%; /* 100% (width) * 1.5 (ratio) = 150% */
+}
+
+.cover-image-wrapper:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* --- CRITICAL FIX 2: FORCING IMAGE TO FILL THE ASPECT RATIO CONTAINER --- */
+.cover-image {
+    /* Ensure the image fills the wrapper completely */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+
+    /* 'cover' scales the image to cover the entire container */
+    object-fit: cover !important;
+
+    display: block !important;
+    transition: transform 0.4s ease-in-out;
+}
+/* --- END CRITICAL FIX 2 --- */
+
+.cover-image-wrapper:hover .cover-image {
+    transform: scale(1.05);
+}
+
+/* ------------------------------------ */
+/* --- 4. QUICK VIEW BUTTON OVERLAY --- */
+/* ------------------------------------ */
+
+.quick-view-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(3px);
+}
+
+/* HOVER CONTROL */
+@media (hover: hover) and (min-width: 641px) {
+    .cover-image-wrapper:hover .quick-view-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quick-view-overlay strong {
+    padding: 0.5rem 1.25rem;
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s;
+}
+
+.quick-view-overlay:hover strong {
+    background-color: var(--color-secondary);
+}
+
+/* ------------------------------------ */
+/* --- 5. CTA BUTTON & RESPONSIVENESS --- */
+/* ------------------------------------ */
+.portfolio-cta-btn {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 3rem auto 0;
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #533549;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px -3px rgba(30, 64, 175, 0.5);
+}
+
+.portfolio-cta-btn:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.no-images-message {
+    text-align: center;
+    padding: 4rem;
+    font-size: 1.25rem;
+    color: #9ca3af;
+}
+
+/* Mobile Responsiveness (Screen width up to 640px) */
+@media (max-width: 640px) {
+    .portfolio-showcase-container {
+        padding: 2rem 1rem;
+    }
+
+    .portfolio-heading {
+        font-size: 2rem;
+    }
+
+    .cover-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .cover-image-wrapper {
+        /* Aspect ratio fix applied here for mobile as well */
+        height: 0;
+        padding-bottom: 150%;
+    }
+
+    .cover-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .quick-view-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        z-index: 10;
+    }
+}

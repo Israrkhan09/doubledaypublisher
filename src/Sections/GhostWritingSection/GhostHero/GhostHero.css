@@ -1,0 +1,145 @@
+/* --- Ghost Hero Section Container --- */
+.ghost-container {
+      display: grid; 
+    place-items: center; /* Centers content both horizontally and vertically */
+    
+    text-align: center;
+    padding: 20px 50px;
+    min-height: 100vh;
+
+    position: relative;
+    background-color: transparent; /* Must be transparent to see GlobalAurora */
+    color: white;
+    overflow: hidden;
+    z-index: 10; 
+
+    /* Optional: push content below navbar */
+    padding-top: 120px;
+
+    /* Background animation */
+    transition: background-position 1.5s ease-out;
+}
+
+
+/* Dark Overlay */
+.ghost-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+/* Hero Content Styling (Centered Layout) */
+.ghost-hero-content {
+    z-index: 2;
+    max-width: 700px;
+    padding: 0 20px;
+    margin: auto; 
+}
+
+.ghost-title {
+    font-size: 37px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.ghost-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    color: white;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Buttons --- */
+.ghost-hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.ghost-hero-btn {
+    padding: 14px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: #e54d2e;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #c94025;
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: white;
+    color: #e54d2e;
+    transform: translateY(-3px);
+}
+
+
+/* ================================== */
+/* ( ANIMATION ) CSS                 */
+/* ================================== */
+
+/* --- 1. Background Image Animation END STATE --- */
+.ghost-container.is-visible {
+    background-position: center center; /* Slides up to the center */
+    /* Removed conflicting transforms/opacity */
+}
+
+/* --- 2. Content Animation Initial State --- */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease-out;
+}
+
+/* Delay for staggering effect */
+.ghost-title { transition-delay: 0s; }
+.ghost-description { transition-delay: 0.3s; }
+.ghost-buttons { transition-delay: 0.6s; }
+
+
+/* --- 3. Content Animation Final State (Triggered by Intersection Observer) --- */
+.is-visible .reveal-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .ghost-title { font-size: 3rem; }
+    .ghost-description { font-size: 1.2rem; }
+}
+
+@media (max-width: 768px) {
+    .ghost-container {
+        padding: 80px 20px;
+    }
+    .ghost-title { font-size: 2.2rem; }
+    .ghost-description { font-size: 1.1rem; }
+    .ghost-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

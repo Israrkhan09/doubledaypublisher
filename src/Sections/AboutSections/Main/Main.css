@@ -1,0 +1,227 @@
+/* -------------------------------------- */
+/* 1. BASE LAYOUT & LUXURY STYLING */
+/* -------------------------------------- */
+
+.about-section {
+    /* Main container layout (adjust min-height/padding as needed) */
+    display: flex;
+    flex-wrap: wrap; /* Allows stacking on smaller screens */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 70px 5%;
+    background-color: #F4EFEA;
+    gap: 50px;
+    align-items: center;
+    font-family: 'Georgia', serif; /* Classic, luxurious font base */
+    overflow-x: hidden;
+}
+
+/* Image Container Styling */
+.about-left {
+    flex: 1;
+    min-width: 400px;
+    height: 100%;
+    /* background-color: #a87d60; */
+     /* Ensure a minimum size */
+}
+
+.about-left img {
+    /* background-color: #666; */
+    /* *** RESPONSIVENESS FIX 1: Changed from 120% to 100% to prevent horizontal overflow on smaller screens. *** */
+    max-width: 100%; 
+    max-height: 150%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); /* Deep, clean shadow */
+}
+
+/* Content Styling */
+.about-right {
+    flex: 1.5; /* Gives content more space than the image */
+    min-width: 350px;
+    /* background-color: turquoise; */
+}
+
+.about-section-title {
+    font-size: 38px;
+    font-weight: 700;
+    color: #4a3f4e; /* Deep, luxury color */
+    background-color: rgb(243, 228, 210);
+    margin-bottom: 15px;
+    line-height: 1;
+    border-left: 4px solid #a87d60; /* Subtle bronze/gold accent */
+    padding-left: 20px;
+}
+
+.about-section-subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: #666;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.about-section-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* --- Responsive Adjustments for Mobile (Original Block with Fixes) --- */
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column;
+        padding: 50px 5%;
+        gap: 30px;
+    }
+    
+    /* *** RESPONSIVENESS FIX 2: Ensure elements take up full width when stacked. *** */
+    .about-left,
+    .about-right {
+        min-width: 100%; 
+        flex: none;
+    }
+    
+    /* *** RESPONSIVENESS FIX 3: Corrected selector to target the defined title class. *** */
+    .about-section-title { 
+        font-size: 28px; /* Adjusted font size for mobile */
+        padding-left: 15px;
+    }
+    
+    /* Reverse order on mobile so image is above text */
+    .about-left { order: 1; }
+    .about-right { order: 2; }
+    
+    /* Removed redundant .about-title since .about-section-title is used above */
+}
+
+
+/* -------------------------------------- */
+/* 2. SCROLL ANIMATION STATES (Two-Way Trigger) */
+/* -------------------------------------- */
+
+/* INITIAL (HIDDEN) STATE: Define transitions here for two-way animation */
+.about-left,
+.about-right {
+    opacity: 0;
+    transform: translateY(40px); /* Start below the final position */
+    /* Ensure transition is applied in the non-intersecting state */
+    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                 transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+}
+
+/* FINAL (VISIBLE) STATE: Applied when the parent receives the 'show-about' class */
+.about-section.show-about .about-left,
+.about-section.show-about .about-right {
+    opacity: 1;
+    transform: translateY(0); /* Slide up to the final position */
+}
+
+/* STAGGERED EFFECT: Delay the content side for a smoother, layered entrance */
+.about-section.show-about .about-right {
+    transition-delay: 0.3s; 
+}
+
+
+/* ===== Scroll Animation Base ===== */
+
+
+/* slide directions */
+/* .fade-left {
+     transform: translateX(-60px);
+}
+
+.fade-right {
+     transform: translateX(60px);
+} */
+
+/* When element becomes visible */
+.show-about .fade-about,
+.show-about .fade-left,
+.show-about .fade-right {
+    opacity: 1;
+    transform: translate(0px, 0px);
+}
+
+/* ====== Section Styling (Redundant Block 1 - Kept for preservation) ====== */
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 10%;
+    gap: 50px;
+}
+
+.about-left img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 14px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+}
+
+.about-right {
+    max-width: 600px;
+}
+
+.about-title {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.about-subtitle {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.about-text {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: #444;
+    line-height: 1.6;
+}
+
+/* Responsive (Redundant Media Query Block - Kept for preservation) */
+@media (max-width: 900px) {
+    .about-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-left img {
+        max-width: 350px;
+    }
+}
+
+
+/* Apply font only to About section (Redundant Block 2 - Font preserved) */
+.about-section {
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+}
+
+/* Headings Matching Screenshot (Redundant Block 3 - Kept for preservation) */
+.about-title {
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+/* Subheading Style (Redundant Block 3 - Kept for preservation) */
+.about-subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+/* Paragraph Styling Similar to Screenshot (Redundant Block 3 - Kept for preservation) */
+.about-text {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-bottom: 15px;
+}

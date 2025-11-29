@@ -1,0 +1,172 @@
+/* --- Section Layout --- */
+.non-fiction-section {
+    padding: 80px 50px;
+    background-color: color-mix(in srgb, var(--theme-color, #111827) 5%, #111827); /* Light background for contrast */
+}
+
+.section-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 50px;
+}
+
+.non-fiction-content {
+    flex: 1;
+    max-width: 55%;
+}
+
+.non-fiction-title {
+    font-size: 38px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 30px;
+    /* background-color: #914438; */
+    color: #ffffff;
+}
+
+.non-fiction-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* --- Image Sizing and Image Shadow (UPDATED) --- */
+.non-fiction-image-wrapper {
+    flex: 1;
+    max-width: 50%; /* Keeps the slightly bigger image size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Essential for positioning the ::after shadow */
+    
+    transition: all 1s ease-out; 
+    
+    /* Removed box-shadow from here */
+    border-radius: 4px; 
+    z-index: 1; /* Ensure wrapper content is above the shadow */
+}
+
+/* New: Shadow below the image using a pseudo-element */
+.non-fiction-image-wrapper::after {
+    content: "";
+    position: absolute;
+    bottom: -15px; /* Adjust to move shadow further down */
+    left: 10%;
+    width: 80%; /* Adjust width of the shadow */
+    height: 20px; /* Adjust height/blur of the shadow */
+    background: rgba(0, 0, 0, 0.4); /* Darker shadow color */
+    filter: blur(10px); /* Blur effect for the shadow */
+    border-radius: 50%; /* Makes the shadow elliptical/oval */
+    z-index: 0; /* Ensure shadow is below the image */
+}
+
+
+.non-fiction-illustration {
+    max-width: 100%; 
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    position: relative; /* Ensure the image is above its own wrapper's shadow */
+    z-index: 2;
+}
+
+/* --- Buttons --- */
+.button-group {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 6px;
+    gap: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+}
+
+.btn-call {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.btn-consultation {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn-call:hover {
+    background-color: #ffffff;
+    color: black;
+}
+
+.btn-consultation:hover {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+/* ================================== */
+/* ( ANIMATION )                    */
+/* ================================== */
+
+/* Initial State (Invisible and shifted) */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(30px); /* Content initial position */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Final State (Visible and in place) */
+.is-visible .reveal-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.is-visible .non-fiction-image-wrapper {
+    /* No specific animation for the wrapper itself, but its content animates */
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .section-inner {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .non-fiction-content,
+    .non-fiction-image-wrapper {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .non-fiction-image-wrapper::after {
+        left: 20%; /* Adjust shadow for smaller screens */
+        width: 60%;
+    }
+
+    .non-fiction-title {
+        font-size: 2rem;
+    }
+
+    .button-group {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .non-fiction-section {
+        padding: 50px 20px;
+    }
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

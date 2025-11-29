@@ -1,0 +1,31 @@
+/* src/components/AboutSection/AboutSectionAnimation.css */
+
+/* 1. Base Hidden State */
+.reveal-item {
+    opacity: 0;
+    /* Define the transition for both opacity and transform */
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Will be overridden by inline style for staggering */
+    transition-delay: 0s; 
+}
+
+/* 2. Specific Hidden States (Where the animation starts) */
+
+/* For Header/CTA (Fade Up) */
+.fade-up {
+    transform: translateY(40px);
+}
+
+/* For Grid Items (Fade In and Scale Down) */
+.fade-in-stagger {
+    transform: translateY(20px) scale(0.95);
+}
+
+/* 3. Final Visible State (When the parent container has the 'is-visible' class) */
+
+/* When the section is visible, apply the final state to all reveal items */
+.about-section-container.is-visible .reveal-item {
+    opacity: 1;
+    transform: none; /* Reset transform to initial position */
+}

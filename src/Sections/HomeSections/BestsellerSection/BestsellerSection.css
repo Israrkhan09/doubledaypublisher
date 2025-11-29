@@ -1,0 +1,221 @@
+/* --- Variables --- */
+:root {
+  --primary-blue: #0B1E5A;
+  --accent-yellow: #FFC107;
+  --background-cream: #fdfaf6;
+  --text-dark: #222;
+  --shadow-main: rgba(0, 0, 0, 0.25);
+}
+
+/* --- Section Container --- */
+.bestseller-section-container {
+  padding: 90px 40px;
+  background-color: #F5F5F7;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.9s ease-out;
+}
+
+.bestseller-section-container.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bestseller-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  gap: 60px;
+}
+
+/* --- Left Text Content --- */
+.bestseller-text-content {
+  flex: 1;
+  max-width: 500px;
+  text-align: left;
+}
+
+.bestseller-tagline {
+  font-size: 1.0em;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.bestseller-heading {
+  font-size: 37px;
+  font-weight: 800;
+  color: var(--primary-blue);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.bestseller-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.bestseller-author {
+  font-size: 15px;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.bestseller-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 35px;
+}
+
+/* --- CTA Buttons --- */
+.bestseller-cta-group {
+  display: flex;
+  gap: 15px;
+}
+
+.bestseller-cta-main {
+  background-color: #533549;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  font-weight: 700;
+  font-size: 0.9em;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px var(--shadow-main);
+  transition: all 0.3s ease;
+}
+
+.bestseller-cta-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--shadow-main);
+  background-color: #000000;
+}
+
+.bestseller-cta-secondary {
+  background-color: transparent;
+  border: 2px solid #533549;
+  color: #533549;
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bestseller-cta-secondary:hover {
+  background-color: black;
+  color: #fff;
+}
+
+/* --- Right Image Content --- */
+.bestseller-image-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 270px;
+  perspective: 1000px;
+  opacity: 0;
+  transform: translateX(50px) scale(0.9);
+  transition: all 1s ease-out;
+}
+
+.bestseller-section-container.is-visible .bestseller-image-wrapper {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.bestseller-book-cover {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px var(--shadow-main);
+  transition: transform 0.8s ease-out;
+}
+
+.bestseller-image-wrapper:hover .bestseller-book-cover {
+  transform: rotateY(5deg) scale(1.03);
+}
+
+/* --- Bestseller Badge --- */
+.bestseller-badge {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 70px;
+  height: 70px;
+  background-color: var(--accent-yellow);
+  color: var(--primary-blue);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  box-shadow: 0 5px 15px var(--shadow-main);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition-delay: 0.8s;
+}
+
+.bestseller-section-container.is-visible .bestseller-badge {
+  transform: scale(1);
+}
+
+.badge-text {
+  font-size: 1em;
+  text-align: center;
+}
+
+.badge-subtext {
+  font-size: 0.65em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .bestseller-content-wrapper {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 40px;
+  }
+  .bestseller-text-content {
+    max-width: 100%;
+  }
+  .bestseller-cta-group {
+    justify-content: center;
+    flex-direction: column;
+  }
+  .bestseller-cta-main, .bestseller-cta-secondary {
+    width: 100%;
+  }
+  .bestseller-image-wrapper {
+    width: 60vw;
+    max-width: 220px;
+    margin-left: -122px;
+    margin-bottom: 20px;
+    /* align-items: flex-start; */
+    /* background-color: #0B1E5A; */
+  }
+}
+
+@media (max-width: 600px) {
+  .bestseller-heading {
+    font-size: 1.8em;
+  }
+  .bestseller-title {
+    font-size: 1.5em;
+  }
+}

@@ -1,0 +1,183 @@
+/* CardSlider.module.css */
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: true;
+}
+
+.cards {
+    --img-w: 200px;
+    --duration: 300ms;
+    --img-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    width: min(100% - 4rem, 800px);
+    margin-inline: auto;
+    display: grid;
+    counter-reset: my-counter;
+}
+
+.card {
+    --cards-grid-cols: auto;
+    --cards-grid-rows: var(--img-w) auto;
+    --cards-grid-gap: 2rem;
+    --cards-footer-justify: center;
+    
+    grid-area: 1/1;
+    display: grid;
+    place-items: center;
+    grid-template-columns: var(--cards-grid-cols);
+    grid-template-rows: var(--cards-grid-rows);
+    gap: var(--cards-grid-gap);
+    
+    transition: z-index;
+    transition-delay: 300ms;
+    z-index: -1;
+}
+
+@media (min-width: 600px) {
+    .card {
+        --cards-grid-cols: var(--img-w) auto;
+        --cards-grid-rows: auto;
+        --cards-grid-gap: 4rem;
+        --cards-footer-justify: start;
+    }
+}
+
+
+.cardImg {
+    width: 200px;
+    height: 200px;
+    aspect-ratio: 1 / 1;
+    rotate: var(--angle, 0deg);
+    border-radius: 10px;
+    border: 3px solid #FFF;
+    overflow: hidden;
+    transform-origin: center;
+    object-fit: cover;
+    box-shadow: 0 0 5px 3px rgba(0 0 0 / .05);
+}
+
+.cardData {
+    display: grid;
+    gap: 1rem;
+    
+    --data-opacity: 0;
+    --data-y: 20px;
+    --data-delay: 0ms;
+    --card-events: none;
+    
+    /* VISIBILITY FIX: Text color white */
+    color: #FFF; 
+}
+
+.cardNum {
+    opacity: var(--data-opacity, 0);
+    font-size: .8rem;
+    /* VISIBILITY FIX: Lighter grey for number */
+    color: #999;
+}
+
+.cardData h2,
+.cardData p {
+    font-size: 0.9rem;
+    transition: var(--duration) ease-in-out;
+    transition-delay: var(--data-delay, 0ms);
+    opacity: var(--data-opacity, 0);
+    translate: 0 var(--data-y, 20px);
+}
+
+.cardData footer {
+    display: flex;
+    justify-content: var(--cards-footer-justify);
+    gap: 2rem;
+}
+
+.cardData footer label {
+    margin-block-start: auto;
+    cursor: pointer;
+    pointer-events: var(--card-events, none);
+    opacity: var(--data-opacity, 0);
+    transition: color var(--duration) ease-in-out;
+    
+    /* VISIBILITY FIX: Label colors for contrast */
+    color: var(--label-clr-txt, #FFF);
+    background-color: var(--label-clr-bg, #333);
+    
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    aspect-ratio: 1/1;
+    display: grid;
+    place-content: center;
+    transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+/* ---------------------------------------------------- */
+/* INPUT/CHECKED STATES AND ANIMATIONS                  */
+/* ---------------------------------------------------- */
+
+.radioInput {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.radioInput:checked + .card {
+    --data-opacity: 1;
+    --data-y: 0;
+    --data-delay: var(--duration);
+    --card-events: auto;
+    z-index: 10 !important;
+}
+
+.radioInput:checked + .card .cardImg {
+    animation: reveal-img calc(var(--duration) * 2) forwards;
+}
+
+@keyframes reveal-img {
+    50% {
+        translate: -150% 0;
+        --angle: 0deg;
+    }
+}
+
+.radioInput:checked:focus-visible + .card .cardData footer label,
+.cardData footer label:hover {
+    --label-clr-txt: #FFF;
+    --label-clr-bg: steelblue;
+}
+
+
+/* Stacking Order Logic */
+.card:has(+ .radioInput:checked) { z-index: 9; }
+.card:has(+ .radioInput + .card + .radioInput:checked) { z-index: 8; }
+.card:has(+ .radioInput + .card + .radioInput + .card + .radioInput:checked) { z-index: 7; }
+.card:has(+ .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput:checked) { z-index: 6; }
+.card:has(+ .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput:checked) { z-index: 5; }
+.card:has(+ .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput:checked) { z-index: 4; }
+.card:has(+ .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput + .card + .radioInput:checked) { z-index: 3; }
+
+
+/* Straightening Animation for other cards */
+.radioInput:checked + .card ~ .card .cardImg {
+    animation: straighten-img calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+.card:has(~ .radioInput:checked) .cardImg {
+    animation: straighten-img calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+@keyframes straighten-img {
+    50% {
+        --angle: 0deg;
+    }
+}

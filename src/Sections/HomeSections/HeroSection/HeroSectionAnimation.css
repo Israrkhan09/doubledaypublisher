@@ -1,0 +1,24 @@
+/* src/components/HeroSectionAnimation.css */
+
+/* Base hidden state for all reveal items */
+.reveal-item {
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Fade-up animation for headings/buttons */
+.fade-up {
+    transform: translateY(30px);
+}
+
+/* Fade-in and scale for form wrapper */
+.fade-in-stagger {
+    transform: scale(0.95);
+}
+
+/* Final visible state triggered by intersection observer */
+.hero-container.is-visible .reveal-item {
+    opacity: 1;
+    transform: none;
+}

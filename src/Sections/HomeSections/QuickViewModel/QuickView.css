@@ -1,0 +1,242 @@
+/*
+ * Quick View Modal Styles (Modernized)
+ * Goal: Modern aesthetic, easy closing, and appropriate sizing for book detail view.
+ */
+
+/* ------------------------------------ */
+/* --- Modal Overlay (Dark background, full screen) --- */
+/* ------------------------------------ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Slightly lighter overlay for modern look */
+    background-color: rgba(0, 0, 0, 0.75); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Ensure it's the highest element */
+    z-index: 1000; 
+    height: 100%;
+    backdrop-filter: blur(4px); /* Subtle blur effect on background */
+    font-family: 'Inter', sans-serif;
+}
+
+/* ------------------------------------ */
+/* --- The Modal Content Box (Small and Modern) --- */
+/* ------------------------------------ */
+.quick-view-modal-content {
+    background-color: #fff;
+    /* Softer rounded corners */
+    border-radius: 12px;
+    width: 90%;
+    /* Increased max-width for modern spacious feel, but still relatively small */
+    max-width: 950px; 
+    max-height: 90vh; /* Prevents modal from exceeding viewport height */
+    overflow-y: auto; /* Allows scrolling if content is too tall */
+    position: relative;
+    padding: 40px; /* Generous padding */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); /* Stronger shadow for lift */
+    transition: transform 0.3s ease-out;
+    transform: scale(0.95); /* Initial subtle scaling */
+    opacity: 1;
+}
+
+/* Close Button (Easy to Close) */
+.modal-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    /* Larger and clearer X symbol */
+    font-size: 36px;
+    cursor: pointer;
+    color: #4b5563; /* Darker gray color */
+    line-height: 1;
+    font-weight: 300;
+    transition: color 0.2s, transform 0.2s;
+    z-index: 10;
+}
+
+.modal-close-button:hover {
+    color: var(--color-primary, #1e40af); /* Hover color for feedback */
+    transform: rotate(90deg);
+}
+
+/* ------------------------------------ */
+/* --- Layout for Image and Text (Flexbox) --- */
+/* ------------------------------------ */
+.modal-book-details {
+    display: flex;
+    gap: 40px; /* Increased gap for modern spacing */
+    padding-top: 10px; 
+}
+
+/* Left Section - Image */
+.modal-book-cover-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Set a flexible base width for the image section */
+    flex-basis: 300px;
+    flex-shrink: 0;
+}
+
+.modal-book-image {
+    width: 100%;
+    /* Ensure height adapts to width for aspect ratio */
+    height: auto; 
+    display: block;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.15); /* Modern shadow */
+    border-radius: 6px;
+}
+
+.modal-learn-more-link {
+    text-decoration: none;
+    color: var(--color-primary, #1e40af);
+    font-weight: 600;
+    transition: color 0.2s;
+}
+.modal-learn-more-link:hover {
+    color: var(--color-secondary, #059669);
+    text-decoration: underline;
+}
+
+/* Right Section - Text */
+.modal-book-info-section {
+    flex-grow: 1;
+}
+
+.modal-book-title {
+    font-size: 2.5rem; /* Large, impressive title */
+    font-weight: 800;
+    color: var(--color-text-dark, #1f2937);
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.modal-book-author {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 15px;
+}
+
+.modal-bestseller-tag {
+    font-size: 0.875rem;
+    background-color: #fca5a5; /* Light red background */
+    color: #991b1b; /* Dark red text */
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.modal-book-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #374151;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-read-more-link {
+    color: var(--color-primary, #1e40af);
+    text-decoration: none;
+    font-weight: 600;
+    transition: text-decoration 0.2s;
+}
+.modal-read-more-link:hover {
+    text-decoration: underline;
+}
+
+/* Retailer Buttons */
+.modal-order-section h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-dark, #1f2937);
+    margin-bottom: 10px;
+}
+
+.modal-retailer-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.modal-retailer-btn {
+    padding: 10px 20px;
+    border: 1px solid #d1d5db;
+    background-color: #f9fafb;
+    text-decoration: none;
+    color: #374151;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.modal-retailer-btn:hover {
+    background-color: #e5e7eb;
+    border-color: #9ca3af;
+    color: var(--color-primary, #1e40af);
+    transform: translateY(-1px);
+}
+
+/* ------------------------------------ */
+/* --- Responsive adjustments for smaller screens (Mobile) --- */
+/* ------------------------------------ */
+@media (max-width: 768px) {
+    .quick-view-modal-content {
+        padding: 20px;
+        /* Ensure it's full width minus a small margin */
+        width: calc(100% - 40px);
+        margin: 20px auto;
+        max-height: 85vh;
+    }
+    
+    .modal-close-button {
+        /* Smaller close button on mobile */
+        font-size: 30px; 
+    }
+
+    .modal-book-details {
+        /* background-color: #991b1b; */
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+        padding-top: 0;
+    }
+    /* .modal-overlay
+    {
+        height: 1000px;
+    }
+     */
+    .modal-book-cover-section {
+        /* Set a reasonable fixed width for the cover on mobile */
+        max-width: 200px; 
+        flex-basis: auto;
+        /* background-color: #991b1b; */
+    }
+    
+    .modal-book-title {
+        font-size: 2rem;
+    }
+    
+    .modal-book-author {
+        font-size: 1.1rem;
+    }
+    
+    .modal-retailer-buttons {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,184 @@
+/* --- SECTION STYLES --- */
+.ghostwriting-section {
+    padding: 60px 20px;
+    background-color: #ffffff; /* Light background for contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+/* --- MAIN CONTENT CONTAINER STYLES (WITH SCROLL ANIMATION) --- */
+.ghostwriting-content {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    gap: 60px; 
+    align-items: center;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.0s ease-out, transform 1.0s ease-out;
+}
+
+.ghostwriting-content.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- Image and Decorative Elements --- */
+
+.image-wrapper {
+    flex: 1;
+    min-width: 350px;
+    max-width: 690px;
+    position: relative;
+    padding: 25px; 
+}
+
+.image-wrapper img {
+    max-width: 100%;
+    width: 690px;
+    height: 400px;
+    display: block;
+    z-index: 10;
+    position: relative; 
+    border-radius: 4px; 
+    
+    /* --- ANIMATION FOR IMAGE HOVER --- */
+    /* Initial state for realism */
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+    transform: rotate(-3deg); /* Slightly different initial rotation for variety */
+    
+    /* Smooth transition for the hover effect */
+    transition: transform 0.4s ease-out, filter 0.4s ease-out;
+    cursor: pointer; /* Indicate it's interactive */
+}
+
+/* HOVER EFFECT: When cursor is over the image */
+.image-wrapper img:hover {
+    transform: 
+        translateY(-15px) /* Lift up */
+        rotate(0deg)    /* Straighten it out */
+        scale(1.03);    /* Zoom in slightly */
+    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5)); /* Enhance shadow */
+}
+
+
+/* Decorative element 1 (Top-Left Swirl) */
+.image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 120px;
+    opacity: 0.8;
+    clip-path: polygon(0% 0%, 50% 0%, 50% 50%, 0% 50%);
+    transform: rotate(15deg);
+    z-index: 1;
+}
+
+/* Decorative element 2 (Bottom-Right Circle) */
+.image-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+/* --- Text Content --- */
+
+.text-content {
+    flex: 2;
+    width: 450px;
+    min-width: 370px;
+}
+
+.text-content h2 {
+    font-size: 35px;
+    color: #000000;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.text-content p {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.text-content ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.text-content ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.6;
+}
+
+.text-content ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-size: 1.2em;
+    font-weight: bold;
+    top: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    /* Reset scroll animation for mobile/smaller screens where content stacks */
+    .ghostwriting-content {
+        flex-direction: column;
+        align-items: center;
+        opacity: 1;
+        transform: none;
+    }
+
+    .image-wrapper,
+    .text-content {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .image-wrapper {
+        margin-bottom: 30px;
+        padding: 20px;
+    }
+
+    .image-wrapper::before,
+    .image-wrapper::after {
+        display: none; 
+    }
+
+    .text-content h2 {
+        font-size: 2em;
+        text-align: center;
+    }
+
+    /* Disable hover animation on small screens for better UX */
+    .image-wrapper img {
+        transform: none !important;
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2)); /* Keep a light shadow */
+    }
+
+    .image-wrapper img:hover {
+        transform: none;
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+    }
+}

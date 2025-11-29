@@ -1,0 +1,198 @@
+/* src/components/BookServicesSection.css */
+
+/* Define variables for easy maintenance */
+:root {
+  --primary-blue: #173F5F; /* From your Hero Section/Navbar */
+  --accent-red: #D64545; /* Call Now button color */
+  --background-light: #F4F6F9; /* Modern Cool Gray */
+  --text-dark: #333;
+}
+
+/* --- Section Container --- */
+.services-section-container {
+  padding: 70px 30px;
+  background-color: #ffffff; /* Use the modern Cool Gray */
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.services-header {
+    max-width: 700px;
+    margin: 0 auto 50px auto;
+}
+
+.services-heading {
+  font-size: 37px;
+  font-weight: 800;
+  color: black;
+  margin-bottom: 15px;
+}
+
+.services-intro {
+  font-size: 16px;
+  color: #000000;
+  line-height: 1.6;
+}
+
+/* --- Services Grid Layout --- */
+.services-grid {
+  display: grid;
+  /* Creates a responsive grid: 
+  - 3 columns wide by default 
+  - minimum column width is 300px, but adjusts to fit */
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); 
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto 40px auto;
+  background-color: #ffffff;
+}
+
+/* --- Individual Service Card --- */
+.Book-service-card {
+  background-color: #F5F5F7;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 5px solid #533549; /* Accent line for visual pop */
+}
+
+.Book-service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon-placeholder {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.card-title {
+  font-size: 1.4em;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 1em;
+  color: #555;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.card-cta {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.card-cta:hover {
+    color: #533549;
+}
+
+/* --- Main Call to Action Button --- */
+.services-main-cta {
+  background-color: #b2b2b2;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.services-main-cta:hover {
+  filter: brightness(110%);
+  transform: translateY(-1px);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+  }
+}
+
+@media (max-width: 768px) {
+  .services-section-container {
+    padding: 60px 20px;
+  }
+
+  .services-heading {
+    font-size: 2em;
+    text-align: left;
+  }
+  .services-intro 
+  {
+    text-align: left;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr; /* Stack cards on very small screens */
+    gap: 20px;
+  }
+  
+  /* === MOBILE CARD REFINEMENT === */
+  .Book-service-card {
+    /* Reduce padding for a smaller, more compact card */
+    padding: 20px; 
+  }
+
+  .card-icon-placeholder {
+    /* Slightly smaller icon */
+    font-size: 2em; 
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    /* Reduce title size slightly for mobile */
+    font-size: 1.2em; 
+    margin-bottom: 8px;
+  }
+
+  .card-description {
+    /* Reduce description margin */
+    margin-bottom: 15px;
+  }
+  /* =============================== */
+}
+
+
+
+/* --- Individual Service Card --- */
+.service-card {
+  /* background-color: #e8e5e0; */
+  
+  backdrop-filter: blur(20px);
+  background: #F4EFEA;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+
+
+  padding: 30px;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+  /* Smooth animation */
+  transition: transform 0.35s ease,
+  box-shadow 0.35s ease,
+  background-color 0.35s ease,
+  opacity 0.35s ease;
+  border-top: 5px solid #533549;
+  opacity: 0.95; /* Slight dim before hover */
+}
+
+.service-card:hover {
+  transform: translateY(-10px); /* lift upward */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+
+  background-color: #ffffff; /* brighter clean background */
+
+  opacity: 2; /* fade-in effect */
+}

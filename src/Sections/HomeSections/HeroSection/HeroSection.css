@@ -1,0 +1,448 @@
+/* src/components/HeroSection.css */
+
+/* --- Global Fixes for Preventing Horizontal Scroll/Movement and Double Scrolling --- */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* --- Global Box-Sizing Reset --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --background-light: #e8e5e0;
+    --accent-unique: #A85547;
+    --accent-hover: #914438;
+    --accent-dark-purple: #533549;
+    --text-light: #FFFFFF;
+    --form-bg: #FFFFFF;
+    --form-border: #DCDCDC;
+    --text-dark: #1B1B1B;
+} 
+
+/* --- Hero Section Container (Outer Wrapper) --- */
+.hero-section {
+    position: relative;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent; /* Ensures it doesn't interfere */
+}
+
+/* * 🎯 1. Hero Content Container: Holds the Background Image and the Content 
+*/
+.hero-container {
+    /* Layout */
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 30px 50px; 
+    color: white;
+    min-height: 60vh;
+    gap: 60px;
+    font-family: 'Inter', sans-serif;
+    margin: 0 auto;
+    width: 100%;
+    
+    /* **REQUIRED for overlay positioning** */
+    position: relative; 
+    /* Base z-index for the image layer */
+    z-index: 1; 
+
+    /* 🖼️ Background Image Settings (Correctly here) */
+    background-image: url('../images/Home-bg/main-home-hero-image.jpg');
+    background-size: cover;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 500px;
+}
+
+/* * ⚫ 2. Dark Opacity Overlay (::after): Placed inside the .hero-container 
+*/
+.hero-container::after {
+    content: "";
+    position: absolute;
+    /* Covers the entire container */
+    inset: 0; 
+    
+    /* **HIGH OPACITY BLACK COLOR:** Black (0, 0, 0) with 85% opacity (0.85) */
+    background: rgba(0.2, 0.8, 0.5, 0.61); 
+    
+    /* Placed above the background image (1) */
+    z-index: 2; 
+}
+
+
+/* * 📝 3. Hero Content: Must be Above the Overlay 
+*/
+.hero-content {
+    flex: 1.5;
+    max-width: 600px;
+    
+    /* **REQUIRED to accept z-index** */
+    position: relative; 
+    /* Placed above the overlay (2) */
+    z-index: 3; 
+    
+    text-align: left;
+    margin-top: 0; 
+    word-break: break-word; 
+}
+
+
+
+
+
+.hero-content {
+    flex: 1.5;
+    max-width: 600px;
+    z-index: 4; /* Higher than the container for good measure */
+    text-align: left;
+    margin-top: 0; 
+    word-break: break-word; 
+}
+
+.hero-title {
+    font-size: 37px;
+    font-weight: 800;
+    line-height: 1.0;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 25px;
+} 
+
+.hero-description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 35px;
+    max-width: 550px;
+}
+
+.ghost-link {
+    color: #D3D1CD;
+    text-decoration: underline;
+    /* font-weight: 500; */
+    font-size: 16px;
+}
+
+.ghost-link:hover {
+    color: var(--accent-unique);
+}
+
+.main-hero-buttons {
+    display: flex;
+    gap: 20px;
+    /* background-color: #155724; */
+}
+
+.main-home-btn {
+    padding: 12px 25px;
+    /* background-color: #533549; */
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    white-space: nowrap;
+    /* list-style-type: none; */
+    text-decoration: none;
+}
+
+.main-btn-primary {
+    text-decoration: none;
+    background-color: #533549;
+    color: white;
+}
+
+.main-btn-primary:hover {
+    background-color: #F5F5F7;
+    color: black;
+    transform: translateY(-2px);
+}
+
+.main-btn-secondary {
+    background-color: transparent;
+    justify-content: flex-start;
+    border: 1px solid white;
+    text-decoration: none;
+    color: var(--text-light);
+}
+
+.main-btn-secondary:hover {
+    background-color: #533549;
+    transform: translateY(-2px);
+}
+
+/* --- Hero Form Wrapper --- */
+/* --- Hero Section Container (Default/Desktop) --- */
+
+/* --- Hero Form Wrapper (Default/Desktop) --- */
+.hero-form-wrapper {
+    background-color: #F5F5F7; 
+    padding: 30px 50px;
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    max-width: 800px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    /* ADJUSTMENT: Removed most/all negative offset */
+    top: 0; 
+    z-index: 3; 
+}
+/* --- Discount Badge --- */
+.hero-discount-badge {
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    color: rgb(0, 0, 0);
+}
+
+.hero-discount-percent {
+    background-color: var(--accent-dark-purple);
+    color: var(--text-light);
+    border-radius: 50%;
+    padding: 8px 12px;
+    font-size: 1em;
+    font-weight: 700;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.hero-discount-text {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    margin-right: 15px;
+}
+
+.hero-discount-brief {
+    font-size: 0.95em;
+    line-height: 1.4;
+    margin: 0;
+    /* color: red; */
+}
+
+.hero-discount-brief .bold {
+    font-weight: 700;
+}
+
+/* --- Hero Form --- */
+.hero-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--form-border);
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--form-bg);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.hero-btn-submit {
+    background-color: var(--accent-dark-purple);
+    color: var(--text-light);
+    padding: 15px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: var(--accent-hover);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.85em;
+    color: #666;
+    line-height: 1.4;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.form-checkbox {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.success-message {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* --- Responsive --- */
+/* src/components/HeroSection.css (Mobile Responsive Update) */
+
+/* ... (Existing global styles and default styles remain unchanged) ... */
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    
+    /* New: Allow Hero Section to wrap stacked content */
+    .hero-section {
+        min-height: auto; 
+        padding-top: 60px;
+        padding-bottom: 100px; 
+        /* background-color: #A85547; */
+    }
+    
+    .hero-container {
+        flex-direction: column; /* Stack content and form vertically */
+        /* --- FIX: Increased vertical padding (30px 10px -> 60px 10px) --- */
+        padding: 60px 10px; 
+        gap: 40px;
+        align-items: center;
+        /* --- FIX: Removed min-height to allow expansion --- */
+        min-height: auto; 
+        /* height: 500px; */ /* Removed commented out static height */
+        background-color: #000000;
+    }
+
+    .hero-content {
+        max-width: 75%;
+        text-align: center; 
+        /* background-color: #999; */
+        margin-top: 20px; 
+        order: 1; /* Place content first */
+        padding: 10px 20px; /* Add horizontal padding back to content */
+        margin-bottom: 10px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+        justify-content: left;
+        align-items: left;
+        /* background-color: turquoise; */
+        text-align: left;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+        text-align: left;
+        /* align-items: baseline; */
+    }
+
+    .hero-form-wrapper {
+        max-width: 100%;
+        padding: 40px 30px; 
+        top: 0; /* REMOVE negative top offset */
+        order: 2; /* Place form second */
+        margin: 0 20px; /* Add margin to prevent the form from hitting the edge */
+        /* --- ADJUSTMENT: Increased margin-bottom for gap below form --- */
+        margin-bottom: 40px; 
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding-top: 40px; /* Reduce vertical padding further */
+        padding-bottom: 40px;
+    }
+    
+    .hero-container {
+        /* Reduce padding slightly for 768px screens */
+        padding: 40px 10px; 
+    }
+
+    .hero-title { font-size: 2em; }
+    .hero-subtitle { font-size: 1.1em; }
+    .hero-description { font-size: 0.95em; }
+    .btn { padding: 10px 20px; font-size: 1em; }
+    
+    .hero-form-wrapper {
+        padding: 30px 20px; /* Slightly less padding on smaller screens */
+        margin: 0 15px;
+    }
+    .hero-content {
+        padding: 0 15px;
+    }
+    
+    .discount-badge {
+        flex-wrap: wrap; 
+        justify-content: center;
+        text-align: center;
+    }
+    .discount-percent {
+        margin-bottom: 10px;
+    }
+    .discount-text {
+        margin-right: 0;
+        width: 100%; 
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-container { padding: 40px 0; } /* Adjusted padding for 480px */
+    .hero-title { font-size: 1.8em; }
+    .hero-subtitle { font-size: 1em; }
+}
+
+/* --- Small Form Adjustments --- */
+.small-form {
+    max-width: 320px !important;
+    padding: 18px 20px !important;
+    border-radius: 14px;
+    min-height: 380px;
+    top: 0 !important; 
+}
+
+.small-form .form-input,
+.small-form .form-textarea {
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+}
+
+.small-form .hero-form {
+    gap: 10px !important;
+}
