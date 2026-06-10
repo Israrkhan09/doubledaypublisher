@@ -1,7 +1,8 @@
 import { Stars } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { useEffect, createContext, useContext, useState } from "react";
+import React, { useEffect, createContext, useContext } from "react";
 import { motion, useMotionTemplate, useMotionValue, animate } from "framer-motion";
+import { ThemeContext } from "../Context/DarkContext";
 
 const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 
@@ -28,29 +29,8 @@ const styles = {
 export const GlobalAuroraBackground = ({ children }) => {
 
   const color = useMotionValue(COLORS_TOP[0]);
-
-  const [isLight, setIsLight] = useState(false);
-
-  // detect theme
-  useEffect(() => {
-
-    const checkTheme = () => {
-      const light = document.body.classList.contains("light-mode");
-      setIsLight(light);
-    };
-
-    checkTheme();
-
-    const observer = new MutationObserver(checkTheme);
-
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-
-  }, []);
+  const { theme } = useContext(ThemeContext);
+  const isLight = theme === 'light';
 
   useEffect(() => {
     animate(color, COLORS_TOP, {

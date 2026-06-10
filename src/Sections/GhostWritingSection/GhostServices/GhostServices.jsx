@@ -44,7 +44,6 @@ const fadeLeftVariant = {
 };
 
 const GhostServices = () => {
-  const containerRef = useRef(null);
 
   const customStyles = `
     .ghost-sticky-services-section {
@@ -355,7 +354,7 @@ const GhostServices = () => {
               />
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* RIGHT COLUMN: SCROLLABLE GHOSTWRITING DETAILS */}
         <motion.div

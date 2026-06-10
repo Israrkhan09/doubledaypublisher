@@ -169,6 +169,7 @@ const itemVariants = {
     });
   };
 
+  const trialButtonBorder = useMotionTemplate`1px solid black`;
 
   // Responsive adjustments
   const sectionContainer = {

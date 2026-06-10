@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../Context/DarkContext';
 import logoWhite from '../../Sections/Image/Doubleday-Publisher-White.png';
 import logoBlack from '../../Sections/Image/Doubleday-Publisher.png';
 import './Navbar.css';
@@ -83,25 +84,7 @@ const Navbar = () => {
     const [activeDropdown, setActiveDropdown] = useState(null); 
     const [isScrolled, setIsScrolled] = useState(false); 
     
-    // ✅ Default set to 'light'
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
-
-    // ✅ Apply theme globally
-    useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-
-        // Ensures the .light-mode class is synced for your other sections
-        if (theme === 'light') {
-            document.body.classList.add('light-mode');
-        } else {
-            document.body.classList.remove('light-mode');
-        }
-    }, [theme]);
-
-    const toggleTheme = () => {
-        setTheme(theme === 'light' ? 'dark' : 'light');
-    };
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     // ✅ Scroll effect
     useEffect(() => {
