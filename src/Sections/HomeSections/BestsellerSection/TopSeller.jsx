@@ -84,7 +84,7 @@ const getStyles = (isMobile, isTabletOrMobile) => ({
   bookTitle: {
     fontSize: isTabletOrMobile ? '28px' : '35px',
     marginBottom: '15px',
-    color: '#173F5F', // Dynamic title color
+    color: 'var(--headline-color)', // Dynamic title color
     fontWeight: 600,
     transition: "color 0.3s ease",
   },

@@ -60,8 +60,8 @@ const BookWritingProcess = () => {
     }
 
     .process-heading {
-        font-size: clamp(28px, 4vw, 36px);
-        font-weight: 700;
+        font-size: 35px;
+        font-weight: 600;
         color: #ffffff;
         margin: 0 auto 10px;
         text-transform: uppercase;
@@ -259,6 +259,12 @@ const BookWritingProcess = () => {
 
     .process-card-back .process-card-description {
         color: #e2e8f0 !important;
+    }
+
+    @media (max-width: 1024px) {
+        .process-heading {
+            font-size: 28px;
+        }
     }
 
     /* --- MOBILE STYLING --- */

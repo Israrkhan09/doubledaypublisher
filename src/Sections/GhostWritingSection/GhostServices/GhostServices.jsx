@@ -338,23 +338,23 @@ const GhostServices = () => {
       <div className="ghost-sticky-container">
 
         {/* LEFT COLUMN: PINNED BOOK WRITING ILLUSTRATION */}
-        <motion.div
-          className="ghost-sticky-left"
-          variants={fadeLeftVariant}
-          initial="hidden"
-          animate={isSectionVisible ? "visible" : "hidden"}
-        >
+        <div className="ghost-sticky-left">
           <div className="ghost-sticky-wrapper">
-            <div className="ghost-sticky-image-container">
+            <motion.div
+              className="ghost-sticky-image-container"
+              variants={fadeLeftVariant}
+              initial="hidden"
+              animate={isSectionVisible ? "visible" : "hidden"}
+            >
               <DotLottieReact
                 src="https://lottie.host/c74f14f2-ffd1-4dbd-a200-da00eceb39fe/Od7hAJhDgt.lottie"
                 loop
                 autoplay
                 className="ghost-sticky-lottie"
               />
-            </div>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
 
         {/* RIGHT COLUMN: SCROLLABLE GHOSTWRITING DETAILS */}
         <motion.div

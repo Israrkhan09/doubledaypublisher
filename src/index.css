@@ -15,6 +15,7 @@ html, body {
 :root[data-theme='light'] {
   --bg-color: #f7f9fc; /* Solid color for the whole site */
   --text-color: #173f5f;
+  --headline-color: #173F5F; /* Navy for headlines */
   --card-color: #ffffff;
   --nav-bg: rgba(255, 255, 255, 0.8);
   --glass-border: rgba(0, 0, 0, 0.1);
@@ -28,6 +29,7 @@ html, body {
 :root[data-theme='dark'] {
   --bg-color: #0f172a; 
   --text-color: #f7f9fc;
+  --headline-color: #ffffff; /* White for headlines */
   --card-color: #1e293b;
   --nav-bg: rgba(0, 0, 0, 0.5);
   --glass-border: rgba(255, 255, 255, 0.1);
