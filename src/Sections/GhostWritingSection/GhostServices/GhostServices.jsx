@@ -1,6 +1,47 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Award, BookOpen } from "lucide-react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
+// --- Scroll Animation Hook ---
+const useScrollReveal = (threshold = 0.15) => {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const currentRef = ref.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold }
+    );
+    if (currentRef) observer.observe(currentRef);
+    return () => { if (currentRef) observer.unobserve(currentRef); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return [ref, isVisible];
+};
+
+// --- Animation Variants ---
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const fadeLeftVariant = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
 
 const GhostServices = () => {
   const containerRef = useRef(null);
@@ -289,13 +330,21 @@ const GhostServices = () => {
     }
   `;
 
+  const [sectionRef, isSectionVisible] = useScrollReveal(0.1);
+  const [rightRef, isRightVisible] = useScrollReveal(0.1);
+
   return (
-    <section ref={containerRef} className="ghost-sticky-services-section">
+    <section ref={sectionRef} className="ghost-sticky-services-section">
       <style>{customStyles}</style>
       <div className="ghost-sticky-container">
 
         {/* LEFT COLUMN: PINNED BOOK WRITING ILLUSTRATION */}
-        <div className="ghost-sticky-left">
+        <motion.div
+          className="ghost-sticky-left"
+          variants={fadeLeftVariant}
+          initial="hidden"
+          animate={isSectionVisible ? "visible" : "hidden"}
+        >
           <div className="ghost-sticky-wrapper">
             <div className="ghost-sticky-image-container">
               <DotLottieReact
@@ -309,35 +358,41 @@ const GhostServices = () => {
         </div>
 
         {/* RIGHT COLUMN: SCROLLABLE GHOSTWRITING DETAILS */}
-        <div className="ghost-sticky-right">
-          <h2 className="ghost-sticky-heading">
+        <motion.div
+          className="ghost-sticky-right"
+          ref={rightRef}
+          variants={containerVariants}
+          initial="hidden"
+          animate={isRightVisible ? "visible" : "hidden"}
+        >
+          <motion.h2 className="ghost-sticky-heading" variants={fadeUpVariant}>
             EVER DREAM OF BEING A BESTSELLING AUTHOR?
-          </h2>
-          <div className="ghost-sticky-divider"></div>
+          </motion.h2>
+          <motion.div className="ghost-sticky-divider" variants={fadeUpVariant}></motion.div>
 
-          <p className="ghost-sticky-desc">
+          <motion.p className="ghost-sticky-desc" variants={fadeUpVariant}>
             Doubleday Publisher provides top quality ghostwriting services that translate your thoughts into expertly written content. When you’re writing your book, article blog, or other written work, our team of experienced writers will ensure that your idea is delivered accurately and professionally.
-          </p>
+          </motion.p>
 
-          <p className="ghost-sticky-desc">
+          <motion.p className="ghost-sticky-desc" variants={fadeUpVariant}>
             Our ghostwriters are skilled in adjusting to your style and voice, ensuring your message is conveyed effectively and clearly. We are aware of the importance of collaboration and confidentiality. That is why we offer an uncomplicated experience through the entire writing process, from the initial idea to the final draft.
-          </p>
+          </motion.p>
 
-          <p className="ghost-sticky-desc">
+          <motion.p className="ghost-sticky-desc" variants={fadeUpVariant}>
             With a wide range of writers with expertise in various styles and genres, We can tackle any task. You may be an entrepreneur searching for captivating blog posts or an author looking to write a novel. Our ghostwriting services can be tailored to meet your needs. We proudly provide top-quality, original content within the desired time frame.
-          </p>
+          </motion.p>
 
-          <p className="ghost-sticky-desc">
+          <motion.p className="ghost-sticky-desc" variants={fadeUpVariant}>
             Our dedication to excellence and confidentiality ensures that you can count on our team to help bring your thoughts to life. You have complete control over your work. We can help you reach your writing goals by providing expert support.
-          </p>
+          </motion.p>
 
-          <p className="ghost-sticky-desc">
+          <motion.p className="ghost-sticky-desc" variants={fadeUpVariant}>
             Find out how the book writing services can assist you in writing a captivating and well-structured manuscript. You can also visit our professional <strong>editing services</strong> for your book. Editing services to refine your <strong>manuscript</strong> further.
-          </p>
+          </motion.p>
 
           {/* STATISTICS GRID */}
-          <div className="ghost-sticky-stats-row">
-            <div className="ghost-sticky-stat-item">
+          <motion.div className="ghost-sticky-stats-row" variants={fadeUpVariant}>
+            <motion.div className="ghost-sticky-stat-item" variants={fadeUpVariant}>
               <div className="ghost-sticky-stat-icon-wrapper">
                 <Award size={26} />
               </div>
@@ -345,9 +400,9 @@ const GhostServices = () => {
                 <span className="ghost-sticky-stat-number">10+</span>
                 <span className="ghost-sticky-stat-label">Years of Experience</span>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="ghost-sticky-stat-item">
+            <motion.div className="ghost-sticky-stat-item" variants={fadeUpVariant}>
               <div className="ghost-sticky-stat-icon-wrapper">
                 <BookOpen size={26} />
               </div>
@@ -355,10 +410,10 @@ const GhostServices = () => {
                 <span className="ghost-sticky-stat-number">700+</span>
                 <span className="ghost-sticky-stat-label">Books Written</span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
       </div>
     </section>

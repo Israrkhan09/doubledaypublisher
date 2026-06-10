@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, useMotionValue, useMotionTemplate, animate } from "framer-motion";
 
 
+
 // Aurora colors (example)
 const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 const MOBILE_BREAKPOINT = 768;
