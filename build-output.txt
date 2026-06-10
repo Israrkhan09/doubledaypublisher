@@ -1,0 +1,103 @@
+﻿npx : [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, 
+please update: `npm i baseline-browser-mapping@latest -D`
+At line:1 char:1
++ npx react-scripts build 2>&1 | Out-String | Out-File -FilePath "build ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([baseline-brows...ping@latest -D`:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Creating an optimized production build...
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please 
+update: `npm i baseline-browser-mapping@latest -D`
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Compiled with warnings.
+
+Failed to parse source map from 'C:\Book_Website_Project\book-web-project\node_modules\@mediapipe\tasks-vision\vision_bundle_mjs.js.map' file: Error: ENOENT: no such file or directory, open 'C:\Book_Website_Project\book-web-project\node_modules\@mediapipe\tasks-vision\vision_bundle_mjs.js.map'
+
+[eslint] 
+src\Layouts\Navbar\MagneticNavbar.jsx
+  Line 5:8:  'useIntersectionObserver' is defined but never used  no-unused-vars
+
+src\Pages\CustomGlobalCursor.jsx
+  Line 83:8:  React Hook useEffect has a missing dependency: 'animateSize'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+src\Pages\FictionWriting.jsx
+  Line 7:10:  'MagneticNavbar' is defined but never used  no-unused-vars
+
+src\Pages\GhostWriting.jsx
+  Line 5:8:   'GhostwritingSection' is defined but never used  no-unused-vars
+  Line 7:8:   'FlowingMenu' is defined but never used          no-unused-vars
+  Line 9:8:   'GhostHeroSection' is defined but never used     no-unused-vars
+  Line 11:8:  'CardSwap3D' is defined but never used           no-unused-vars
+  Line 13:8:  'GhostCardsSection' is defined but never used    no-unused-vars
+  Line 14:8:  'DataCardGrid' is defined but never used         no-unused-vars
+  Line 15:8:  'GhostCards' is defined but never used           no-unused-vars
+  Line 22:7:  'menuItems' is assigned a value but never used   no-unused-vars
+
+src\Pages\Home.jsx
+  Line 16:10:  'BookCarousel' is defined but never used               no-unused-vars
+  Line 18:10:  'ParallaxText' is defined but never used               no-unused-vars
+  Line 21:10:  'MagneticNavbar' is defined but never used             no-unused-vars
+  Line 36:10:  'isPaused' is assigned a value but never used          no-unused-vars
+  Line 38:9:   'handleMouseEnter' is assigned a value but never used  no-unused-vars
+  Line 39:9:   'handleMouseLeave' is assigned a value but never used  no-unused-vars
+
+src\Sections\AboutSections\FeaturedPressSection\FeaturedPressSectionAbout.jsx
+  Line 1:17:  'useState' is defined but never used  no-unused-vars
+
+src\Sections\FictionWritingSection\FictionHero\FictionHero.jsx
+  Line 173:9:  'trialButtonBoxShadow' is assigned a value but never used  no-unused-vars
+
+src\Sections\GhostWritingSection\FloatingText\FloatingText.jsx
+  Line 5:8:  'image_path_3' is defined but never used  no-unused-vars
+  Line 6:8:  'image_path_4' is defined but never used  no-unused-vars
+
+src\Sections\GhostWritingSection\GhostHero\GhostHero.jsx
+  Line 3:62:   'color' is defined but never used                          no-unused-vars
+  Line 4:10:   'Color' is defined but never used                          no-unused-vars
+  Line 176:9:  'trialButtonBoxShadow' is assigned a value but never used  no-unused-vars
+
+src\Sections\HomeSections\HeroSection\Header.jsx
+  Line 195:9:  'trialButtonBoxShadow' is assigned a value but never used  no-unused-vars
+
+src\Sections\HomeSections\ModernBookSlider\BookCard.jsx
+  Line 17:8:  React Hook useEffect has a missing dependency: 'controls'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+src\Sections\HomeSections\Portfolio\PortfolioData.jsx
+  Line 201:7:  'sectionVariants' is assigned a value but never used  no-unused-vars
+
+src\Sections\HomeSections\TextScrollerSection\TextScroller.jsx
+  Line 64:9:  'animationRef' is assigned a value but never used  no-unused-vars
+
+src\Sections\NonFictionSection\NonFictionHero\NonFiction.jsx
+  Line 3:62:  'color' is defined but never used  no-unused-vars
+  Line 4:10:  'Color' is defined but never used  no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+File sizes after gzip:
+
+  682.32 kB  build\static\js\main.403cf895.js
+  8.5 kB     build\static\css\main.dae12a90.css
+  1.77 kB    build\static\js\453.402eca3c.chunk.js
+
+The bundle size is significantly larger than recommended.
+Consider reducing it with code splitting: https://goo.gl/9VhYWB
+You can also analyze the project dependencies: https://goo.gl/LeUzfb
+
+The project was built assuming it is hosted at ./.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+
+

@@ -14,7 +14,7 @@ export const BookCard = ({ book, isActive, openModal }) => {
     useEffect(() => {
         if (isActive) controls.start("visible");
         else controls.start("hidden");
-    }, [isActive]);
+    }, [isActive, controls]);
 
     return (
         <motion.div

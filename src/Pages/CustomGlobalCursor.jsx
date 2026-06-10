@@ -80,6 +80,7 @@ export const CustomGlobalCursor = () => {
                 element.removeEventListener('mouseleave', handleMouseLeave);
             });
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mouseX, mouseY]);
 
     // --- 4. Render ---

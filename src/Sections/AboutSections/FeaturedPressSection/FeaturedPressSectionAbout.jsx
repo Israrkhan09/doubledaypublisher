@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import logo1 from "../Images/aboutcarousel/bl-1.png";
 import logo2 from "../Images/aboutcarousel/bl-2.png";

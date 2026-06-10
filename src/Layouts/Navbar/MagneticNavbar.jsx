@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logoImage from '../../Sections/Image/Doubleday-Publisher.png';
 import './Navbar.css';
-import useIntersectionObserver from '../../Sections/HomeSections/hooks/UserObservationSection'
 
 // --- Data Structure for the Entire Navigation (UPDATED TO CONTAIN ALL LISTED ITEMS) ---
 const navData = {

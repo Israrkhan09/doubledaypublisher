@@ -61,7 +61,6 @@ export const ParallaxText = ({
   
   const containerRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
-  const animationRef = useRef(null);
 
   // Intersection Observer - FIXED
   useEffect(() => {

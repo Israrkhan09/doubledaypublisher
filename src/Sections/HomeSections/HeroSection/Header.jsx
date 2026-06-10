@@ -192,7 +192,6 @@ export const AuroraHero = () => {
   };
 
   const trialButtonBorder = useMotionTemplate`1px solid black`;
-  const trialButtonBoxShadow = useMotionTemplate`0px 0px 10px ${color}30`;
 
   const sectionContainer = {
     ...styles.sectionContainer,

@@ -2,8 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import image_path_1 from '../FloatingText/image/ghost-1.webp'
 import image_path_2 from '../FloatingText/image/crop-man-studying-near-laptop.jpg'
-import image_path_3 from '../FloatingText/image/open-book-stacks-books.jpg'
-import image_path_4 from '../FloatingText/image/two-students-studing-library.jpg'
 
 // --- Book Writing Specific Menu Data ---
 const MENU_ITEMS = [

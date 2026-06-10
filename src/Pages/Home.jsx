@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 // import Navbar from '../Layouts/Navbar/Navbar'
 // import PortfolioShowcase from '../Sections/HomeSections/Portfolio/Portfolio'
 // import ModernBookSlider from '../Sections/HomeSections/ModernBookSlider/ModernBookSlider'
+import Navbar from '../Layouts/Navbar/Navbar'
 import BookServicesSection from '../Sections/HomeSections/BookServicesSection/BookServicesSection'
 // import BestsellerSection from '../Sections/HomeSections/BestsellerSection/BestsellerSection'
 // import NewBookSection from '../Sections/HomeSections/NewBookSection/NewBookSection'
@@ -13,12 +14,6 @@ import Footer from '../Layouts/Footer/Footer'
 // import { MagneticNavbar } from '../Layouts/Navbar/MagneticNavbar'
 import { AuroraHero } from '../Sections/HomeSections/HeroSection/Header'
 import { PortfolioSection } from '../Sections/HomeSections/Portfolio/PortfolioData'
-import { BookCarousel } from '../Sections/HomeSections/ModernBookSlider/BookCarousel'
-// Updated import for ParallaxText
-import { ParallaxText } from '../Sections/HomeSections/TextScrollerSection/TextScroller'
-import { TopSeller } from '../Sections/HomeSections/BestsellerSection/TopSeller'
-import Navbar from '../Layouts/Navbar/Navbar'
-import { MagneticNavbar } from '../Layouts/Navbar/MagneticNavbar'
 import FeaturedPressSection from '../Sections/HomeSections/FeaturedPressSection/FeaturedPressSection'
 import BookWritingProcess from '../Sections/HomeSections/BookWritingProcess/BookWritingProcess'
 import FeaturedCarousel from '../Sections/AboutSections/FeaturedCarousel/FeaturedCarousel'
@@ -33,10 +28,6 @@ import { WhyChooseUs, ReviewsCarousel, DreamBookCTA } from '../Sections/HomeSect
 
 
 const Home = () => {
-  const [isPaused, setIsPaused] = useState(false)
-
-  const handleMouseEnter = () => setIsPaused(true)
-  const handleMouseLeave = () => setIsPaused(false)
 
   return (
     <div>

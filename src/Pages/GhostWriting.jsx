@@ -2,29 +2,12 @@ import React from 'react'
 import Footer from '../Layouts/Footer/Footer'
 // import HeroGhost from '../Sections/GhostWritingSection/GhostHero/GhostHero'
 import GhostServices from '../Sections/GhostWritingSection/GhostServices/GhostServices'
-import GhostwritingSection from '../Sections/GhostWritingSection/GhostWritingSection/GhostWriting'
-import image_path from '../Sections/HomeSections/images/Home-bg/main-home-hero-image.jpg'
-import FlowingMenu from '../Sections/GhostWritingSection/FloatingText/FloatingText'
 import Navbar from '../Layouts/Navbar/Navbar'
-import GhostHeroSection from '../Sections/GhostWritingSection/GhostHero/GhostHero'
 import GhostMainHero from '../Sections/GhostWritingSection/GhostHero/GhostHero'
-import CardSwap3D from '../Sections/MemoirWritingSection/CardSwiper/CardSwiper'
 import GhostStepsSection from '../Sections/GhostWritingSection/GhostSteps/GhostSteps'
-import GhostCardsSection from '../Sections/GhostWritingSection/GhostCardsSection/GhostCardsSection'
-import DataCardGrid from '../Sections/HomeSections/BookServicesSection/BookServicesSection'
-import GhostCards from '../Sections/GhostWritingSection/GhostCardsSection/GhostCardsSection'
 import { TopSeller } from '../Sections/HomeSections/BestsellerSection/TopSeller'
 import { WhyChooseUs, ReviewsCarousel, DreamBookCTA } from '../Sections/HomeSections/BrandSections/BrandSections'
 import GhostCTASection from '../Sections/GhostWritingSection/GhostCTASection/GhostCTASection'
-// import ScriptServices from '../Sections/ScriptWritingSection/ScriptServices/ScriptServices'
-// import { MagneticNavbar } from '../Layouts/Navbar/MagneticNavbar'
-
-const menuItems = [
-    { link: '#home', text: 'Home', image: image_path },
-    { link: '#about', text: 'About Us', image: 'url/to/image2.jpg' },
-    { link: '#work', text: 'Our Work', image: 'url/to/image3.jpg' },
-    { link: '#contact', text: 'Contact', image: 'url/to/image4.jpg' },
-];
 
 const GhostWriting = () => {
     return (
