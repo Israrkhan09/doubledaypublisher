@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, useMotionValue, useMotionTemplate, animate, color } from "framer-motion";
-import { Color } from "three";
+import { motion, useMotionValue, useMotionTemplate, animate } from "framer-motion";
+
 import './GhostHero.css'
 
 // Aurora colors (example)

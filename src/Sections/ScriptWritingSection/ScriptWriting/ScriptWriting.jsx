@@ -21,16 +21,18 @@ const useIntersectionObserverGhost = ({ threshold = 0.1 } = {}) => {
       { threshold }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-  }, []); // Empty deps — run once on mount only
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return [ref, isVisible];
 };
