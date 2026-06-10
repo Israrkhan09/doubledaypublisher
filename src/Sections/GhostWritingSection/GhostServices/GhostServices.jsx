@@ -54,33 +54,40 @@ const GhostServices = () => {
     }
 
     .ghost-sticky-container {
-        display: grid;
-        grid-template-columns: 1fr 1.2fr;
+        display: flex;
         gap: 30px;
         max-width: 1360px;
         margin: 0 auto;
         padding: 0 20px;
-        align-items: stretch;
         box-sizing: border-box;
+        position: relative;
+        align-items: flex-start;
     }
 
     .ghost-sticky-left {
-        position: relative;
-        height: 100%;
-    }
-
-    .ghost-sticky-wrapper {
+        flex: 0 0 calc(100% / 2.2 - 15px);
         position: sticky;
-        top: 140px; /* Comfortable margin below the fixed navbar */
-        align-self: start;
+        top: max(140px, calc(50vh - 225px));
+        height: 450px;
+        z-index: 10;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
+    .ghost-sticky-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
     .ghost-sticky-image-container {
         width: 100%;
         max-width: 650px;
+        height: 450px;
         border-radius: 20px;
         display: flex;
         justify-content: center;
@@ -98,10 +105,12 @@ const GhostServices = () => {
     }
 
     .ghost-sticky-right {
+        flex: 0 0 calc(100% / 2 + 15px);
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         text-align: left;
+        padding-right: 10px;
     }
 
     .ghost-sticky-heading {
@@ -240,13 +249,18 @@ const GhostServices = () => {
         }
 
         .ghost-sticky-container {
-            grid-template-columns: 1fr;
+            flex-direction: column;
             gap: 50px;
         }
 
         .ghost-sticky-left {
-            height: auto;
+            position: relative;
+            top: auto;
+            display: flex;
             width: 100%;
+            height: auto;
+            z-index: auto;
+            flex: 0 0 auto;
         }
 
         .ghost-sticky-wrapper {
@@ -256,12 +270,14 @@ const GhostServices = () => {
             width: 100%;
             display: flex;
             justify-content: center;
+            height: auto;
         }
 
         .ghost-sticky-image-container {
             width: 100%;
             max-width: 450px;
             margin: 0 auto;
+            height: auto;
         }
 
         .ghost-sticky-lottie {
@@ -273,6 +289,8 @@ const GhostServices = () => {
         .ghost-sticky-right {
             text-align: center;
             align-items: center;
+            padding-right: 0;
+            flex: 0 0 auto;
         }
 
         .ghost-sticky-divider {

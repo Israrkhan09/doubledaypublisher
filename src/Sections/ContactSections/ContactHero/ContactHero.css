@@ -115,27 +115,41 @@ font-size:30px;
 @media(max-width:768px){
 
 .contact-hero{
-padding:40px 20px;
+    padding:40px 20px;
+    justify-content:center;
+}
+
+.contact-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
 }
 
 .contact-title{
-font-size:28px;
+    font-size:26px;
+}
+
+.contact-divider{
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .contact-description{
-font-size:16px;
+    font-size:16px;
+}
+
+.contact-logos{
+    justify-content:center;
+    width:100%;
 }
 
 }
 
 @media(max-width:480px){
 
-.contact-title{
-font-size:24px;
-}
-
 .contact-logos img{
-height:32px;
+    height:32px;
 }
 
 }
