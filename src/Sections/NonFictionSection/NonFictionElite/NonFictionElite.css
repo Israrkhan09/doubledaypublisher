@@ -1,7 +1,22 @@
+/* --- 1. Theme Variables --- */
+:root {
+    --hero-bg: #FFFFFF;
+    --heading-color: #000000;   /* Black heading in light mode */
+    --text-color: #000000;      /* Black paragraph in light mode */
+}
+
+[data-theme='dark'], 
+.dark-mode {
+    --hero-bg: #0A0F1F;
+    --heading-color: #FFFFFF;   /* White heading in dark mode */
+    --text-color: #FFFFFF;      /* White paragraph in dark mode */
+}
+
 /* --- Section Layout --- */
 .non-fiction-section {
-    padding: 80px 50px;
-    background-color: color-mix(in srgb, var(--theme-color, #111827) 5%, #111827); /* Light background for contrast */
+    padding: 30px 30px;
+    background-color: var(--hero-bg);
+    transition: background-color 0.3s ease;
 }
 
 .section-inner {
@@ -18,123 +33,71 @@
     max-width: 55%;
 }
 
+/* ✅ HEADING FIXED */
 .non-fiction-title {
     font-size: 38px;
     font-weight: bold;
     line-height: 1.2;
     margin-bottom: 30px;
-    /* background-color: #914438; */
-    color: #ffffff;
+    color: var(--heading-color) !important;  /* Force correct theme color */
 }
 
+/* ✅ PARAGRAPH FIXED */
 .non-fiction-text {
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 20px;
-    color: #ffffff;
+    color: var(--headline-color) !important;
 }
 
-/* --- Image Sizing and Image Shadow (UPDATED) --- */
+/* --- Image Wrapper --- */
 .non-fiction-image-wrapper {
     flex: 1;
-    max-width: 50%; /* Keeps the slightly bigger image size */
+    max-width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Essential for positioning the ::after shadow */
-    
-    transition: all 1s ease-out; 
-    
-    /* Removed box-shadow from here */
-    border-radius: 4px; 
-    z-index: 1; /* Ensure wrapper content is above the shadow */
+    position: relative;
+    transition: all 1s ease-out;
+    border-radius: 4px;
+    z-index: 1;
 }
 
-/* New: Shadow below the image using a pseudo-element */
 .non-fiction-image-wrapper::after {
     content: "";
     position: absolute;
-    bottom: -15px; /* Adjust to move shadow further down */
+    bottom: -15px;
     left: 10%;
-    width: 80%; /* Adjust width of the shadow */
-    height: 20px; /* Adjust height/blur of the shadow */
-    background: rgba(0, 0, 0, 0.4); /* Darker shadow color */
-    filter: blur(10px); /* Blur effect for the shadow */
-    border-radius: 50%; /* Makes the shadow elliptical/oval */
-    z-index: 0; /* Ensure shadow is below the image */
+    width: 80%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    filter: blur(10px);
+    border-radius: 50%;
+    z-index: 0;
 }
 
-
 .non-fiction-illustration {
-    max-width: 100%; 
+    max-width: 100%;
     height: auto;
     display: block;
     border-radius: 4px;
-    position: relative; /* Ensure the image is above its own wrapper's shadow */
+    position: relative;
     z-index: 2;
 }
 
-/* --- Buttons --- */
-.button-group {
-    display: flex;
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.btn {
-    padding: 12px 25px;
-    border-radius: 6px;
-    gap: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    border: none;
-}
-
-.btn-call {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-}
-
-.btn-consultation {
-    background-color: transparent;
-    border: 2px solid #ffffff;
-    color: #ffffff;
-}
-
-.btn-call:hover {
-    background-color: #ffffff;
-    color: black;
-}
-
-.btn-consultation:hover {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-}
-
-/* ================================== */
-/* ( ANIMATION )                    */
-/* ================================== */
-
-/* Initial State (Invisible and shifted) */
+/* --- Animation --- */
 .reveal-item {
     opacity: 0;
-    transform: translateY(30px); /* Content initial position */
+    transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* Final State (Visible and in place) */
 .is-visible .reveal-item {
     opacity: 1;
     transform: translateY(0);
 }
 
-.is-visible .non-fiction-image-wrapper {
-    /* No specific animation for the wrapper itself, but its content animates */
-}
-
-
-/* --- Responsive Adjustments --- */
+/* --- Responsive --- */
 @media (max-width: 992px) {
     .section-inner {
         flex-direction: column;
@@ -147,26 +110,7 @@
         text-align: center;
     }
 
-    .non-fiction-image-wrapper::after {
-        left: 20%; /* Adjust shadow for smaller screens */
-        width: 60%;
-    }
-
     .non-fiction-title {
         font-size: 2rem;
-    }
-
-    .button-group {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 600px) {
-    .non-fiction-section {
-        padding: 50px 20px;
-    }
-    .button-group {
-        flex-direction: column;
-        gap: 10px;
     }
 }

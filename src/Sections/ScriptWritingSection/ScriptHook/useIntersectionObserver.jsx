@@ -1,9 +1,13 @@
 // src/hooks/useIntersectionObserver.js
+// "trigger once" version — animation plays only on first scroll into view,
+// does NOT reverse when scrolling back up.
 
 import { useEffect, useRef, useState } from 'react';
 
 /**
  * Custom hook to detect when an element scrolls into the viewport.
+ * Once the element becomes visible, the state locks to true permanently
+ * so that animations only play once (scroll-down trigger only).
  * @param {object} options - Options for the Intersection Observer (root, rootMargin, threshold)
  * @returns {[object, boolean]} - A ref to attach to the element, and the visibility state.
  */
@@ -13,8 +17,11 @@ const useIntersectionObserver = (options) => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
-      // Update our state when the observer callback fires
-      setIsVisible(entry.isIntersecting);
+      if (entry.isIntersecting) {
+        // Lock to visible permanently and stop observing
+        setIsVisible(true);
+        observer.unobserve(entry.target);
+      }
     }, options);
 
     // Get the DOM element to observe
@@ -30,7 +37,7 @@ const useIntersectionObserver = (options) => {
         observer.unobserve(currentRef);
       }
     };
-  }, [options]); // Re-run effect if options change
+  }, []); // Empty deps — run once on mount only
 
   return [ref, isVisible];
 };

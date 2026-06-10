@@ -18,7 +18,7 @@ const ContactUs = () => {
                 
                 {/* === COLUMN 1: INTRO & CONTACT DETAILS (The Luxury Info Panel) === */}
                 <div className="contact-details-panel">
-                    <h2 className="contact-title">
+                    <h2 className="contact-details-title">
                         Connect with Our Team
                     </h2>
                     
@@ -93,7 +93,7 @@ const ContactUs = () => {
                         {/* Message Field */}
                         <div className="form-group">
                             <label htmlFor="message">Project Brief / Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <textarea id="message" name="message" rows="3" required></textarea>
                         </div>
                         
                         {/* Submit Button */}

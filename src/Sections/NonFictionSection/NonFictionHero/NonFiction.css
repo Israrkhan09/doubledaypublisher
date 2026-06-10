@@ -1,4 +1,15 @@
-/* --- Nonfiction Hero Section with Background Image --- */
+/* --- 1. Theme Variables --- */
+:root {
+    --hero-bg: #FFFFFF;
+    --hero-text: #000000;
+}
+
+[data-theme='dark'], .dark-mode {
+    --hero-bg: #0A0F1F; /* Dark background */
+    --hero-text: #FFFFFF; /* White text */
+}
+
+/* --- 2. Hero Container --- */
 .nonfiction-hero-container {
     display: flex;
     justify-content: center;
@@ -7,29 +18,24 @@
     text-align: center;
     padding: 110px 50px;
     min-height: 100vh;
-
-    /* Background image */
-    /* background-image: url('../NonFictionImages/image.png'); */
-
+    background-color: var(--hero-bg);
+    color: var(--hero-text);
     position: relative;
-    color: white;
     overflow: hidden;
+    margin-bottom: -120px;
     z-index: 1;
-
-    /* Add Transition for the Background Position */
-    /* transition: background-position 1.5s ease-out; */
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Dark overlay */
+/* Background image overlay logic preserved */
 .nonfiction-hero-container::after {
     content: "";
     position: absolute;
     inset: 0;
-    /* background: rgba(0,0,0,0.6); */
+    background: transparent; 
     z-index: 1;
 }
 
-/* Hero Content Above Overlay */
 .nonfiction-hero-content {
     position: relative;
     z-index: 2;
@@ -37,117 +43,99 @@
     padding: 0 20px;
 }
 
-/* --- Background Animation Trigger --- */
-.nonfiction-hero-container.is-visible {
-    /* Final position for animation (moves up to center) */
-    background-position: center center; 
-}
-/* The background image will smoothly transition from 
-    "center 105%" (just off the bottom of the container) 
-    to "center center" (its final, centered state) 
-    when the 'is-visible' class is applied by the Intersection Observer.
-*/
-
-/* (Remaining CSS unchanged for brevity) */
-
-
-
-
-
-
-
+/* --- 3. Content Styling --- */
 .nonfiction-hero-title {
     font-size: 37px;
     font-weight: 800;
-    line-height: 1.0;
-    margin-bottom: 10px;
-    /* transition-delay: 0s;  */
+    line-height: 1.1;
+    margin-bottom: 15px;
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease-out;
+    color: var(--hero-text);
 }
 
 .nonfiction-hero-description {
     font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 15px;
+    line-height: 1.6;
+    margin-bottom: 25px;
     max-width: 550px;
-    transition-delay: 0.4s; 
-    margin-left: auto; /* Center description */
+    margin-left: auto; 
     margin-right: auto;
+    opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease-out 0.3s;
+    color: var(--hero-text);
+    opacity: 0.9;
 }
 
 .nonfiction-hero-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    gap: 10px;
-    /* transition-delay: 0.6s;  */
+    gap: 15px;
     transition: all 1s ease-out 0.6s;
+    transform: translateY(50px);
+    opacity: 0;
 }
 
-.nonfiction-btn-primary {
-    /* background-color: transparent; */
-     padding: 12px 25px;
-    color: #000000;
-    border: 1px solid #FFFFFF;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 15px;
-    font-weight: 600;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    /* white-space: nowrap; */
-}
-
-.nonfiction-btn-primary:hover {
-    background-color: #FFFFFF;
-    color: var(--text-dark); /* Changed text color to dark on hover */
-    transform: translateY(-2px);
-}
-
+/* --- 4. 🎯 Button Fix (Color Combination & Contrast) --- */
 .nonfiction-btn-secondary {
-    background-color: transparent;;
-    color: white;
-    padding: 12px 25px;
+    display: inline-block;
+    padding: 14px 30px;
+    font-weight: 600;
+    text-decoration: none;
     border-radius: 6px;
-    border: 1px solid rgb(255, 255, 255);
     cursor: pointer;
     transition: all 0.3s ease;
+    
+    /* Default (Light Mode): Black Button / White Text */
+    background-color: #000000; 
+    color: #FFFFFF !important; 
+    border: 1px solid #000000;
+}
+
+/* Dark Mode Fix: White Button / Black Text */
+[data-theme='dark'] .nonfiction-btn-secondary, 
+.dark-mode .nonfiction-btn-secondary {
+    background-color: #FFFFFF !important;
+    color: #000000 !important; /* This fixes the white-on-white issue */
+    border: 1px solid #FFFFFF;
 }
 
 .nonfiction-btn-secondary:hover {
-    background-color: #ffffff;
-    color: black;
+    opacity: 0.8;
     transform: translateY(-3px);
 }
 
-/* Scroll animation */
-.is-visible .reveal-item {
-    opacity: 1;
-    transform: translateY(0);
+/* --- 5. Scroll Animation Trigger --- */
+.nonfiction-hero-container.is-visible .nonfiction-hero-title,
+.nonfiction-hero-container.is-visible .nonfiction-hero-description,
+.nonfiction-hero-container.is-visible .nonfiction-hero-buttons {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
-/* --- Responsive --- */
+/* --- 6. Responsive Design --- */
 @media (max-width: 1024px) {
     .nonfiction-hero-container {
-        padding: 60px 20px;
+        padding: 80px 20px;
     }
     .nonfiction-hero-title { font-size: 2.5rem; }
-    .nonfiction-hero-description { font-size: 1.1rem; }
 }
 
 @media (max-width: 768px) {
     .nonfiction-hero-title { font-size: 2.2rem; }
-    .nonfiction-hero-description { font-size: 1rem; }
-}
-
-@media (max-width: 480px) {
-    .nonfiction-hero-title { font-size: 1.8rem; }
-    .nonfiction-hero-description { font-size: 0.95rem; }
+    
+    .nonfiction-hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 20px;
+    }
+    
+    .nonfiction-btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
 }

@@ -1,0 +1,7 @@
+:root{
+  --headline-color: #000000;   /* light mode = black */
+}
+
+[data-theme="dark"], .dark-mode{
+  --headline-color: #ffffff;   /* dark mode = white */
+}

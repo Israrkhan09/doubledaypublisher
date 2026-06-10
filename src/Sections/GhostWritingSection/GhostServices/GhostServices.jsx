@@ -1,321 +1,368 @@
-import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion'; // Import motion from framer-motion
-
-import image_path from '../Image/ghostwriting-updated-removebg-preview.png'
-
-const BOOKS_IMAGE_PLACEHOLDER = image_path; 
-
-// NOTE: Since this is a single file, we'll define a simple mock for the external hook.
-const useIntersectionObserver = ({ threshold = 0.1 } = {}) => {
-  const ref = useRef(null);
-  const [isVisible, setIsVisible] = React.useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [threshold]);
-
-  return [ref, isVisible];
-};
-
-// --- Data for the Bullet Points ---
-const services = [
-    ['Ghostwriting', 'Book Formatting'],
-    ['eBook Writing', 'Book Marketing'],
-    ['Book Editing', 'Book Cover Designs'],
-];
-
-// --- Framer Motion Variants for Staggered Animations ---
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15, // Delay between child animations
-      delayChildren: 0.2 // Initial delay before first child starts
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring", // Use a spring animation for a natural feel
-      damping: 10,
-      stiffness: 100,
-      duration: 0.7
-    },
-  },
-};
-
-const imageVariants = {
-  hidden: { opacity: 0, x: 100, rotate: 5 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    rotate: 2, // Initial rotation for the image
-    transition: {
-      type: "spring",
-      damping: 15,
-      stiffness: 100,
-      duration: 1
-    },
-  },
-};
-
-// --- CSS STYLES (INJECTED) ---
-
-const BACKGROUND_COLOR = '#0A0F1F'; 
-
-const CSS_STYLES = `
-/* --- SECTION STYLES --- */
-.ghostwriting-hero-section {
-    background-color: ${BACKGROUND_COLOR}; 
-    padding: 60px 0;
-    position: relative;
-    overflow: hidden; 
-}
-
-/* ------------------------------------------------------------------------ */
-/* --- MAIN CONTENT CONTAINER STYLES (Framed by Framer Motion now) --- */
-/* ------------------------------------------------------------------------ */
-.ghost-content-container {
-    display: flex;
-    max-width: 1200px; 
-    margin: 0 auto;
-    padding: 0 40px; 
-    gap: 40px;
-    align-items: center; 
-
-    /* Removed previous opacity/transform transitions as Framer Motion will handle them */
-}
-
-
-/* --- LEFT TEXT AREA STYLES --- */
-.ghost-hero-text-area {
-    flex: 1; 
-    max-width: 55%; 
-}
-
-.ghost-hero-title {
-    font-size: 35px; 
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    color: #fff; 
-}
-
-.ghost-hero-description {
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    color: #ccc; 
-}
-
-/* --- SERVICE LIST --- */
-.service-list-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 15px 30px; 
-    margin-top: 20px;
-}
-
-.service-item {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff; 
-}
-
-.check-icon {
-    color: #13FFAA; 
-    font-weight: 900;
-    font-size: 18px;
-    margin-right: 10px;
-}
-
-/* --- RIGHT IMAGE AREA STYLES --- */
-.ghost-hero-image-area {
-    flex: 1; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.books-collage {
-    max-width: 100%; 
-    height: auto;
-    display: block;
-    /* Static styles for realism and hover */
-    /* ENHANCED SHADOW: More prominent and natural */
-    filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.9)); 
-    /* Initial rotation now handled by Framer Motion */
-    transition: transform 0.4s ease-out, filter 0.4s ease-out;
-    cursor: pointer;
-}
-
-/* HOVER EFFECT (Preserved) */
-.ghost-hero-image-area:hover .books-collage {
-    transform: 
-        translateY(-15px) 
-        rotate(0deg)
-        scale(1.03);
-    filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 1)); /* More intense shadow on hover */
-}
-
-/* --- CHAT BUTTON STYLES --- */
-.chat-button-placeholder {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-.chat-btn {
-    background-color: #e54d2e; 
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 900px) {
-    .ghost-content-container {
-        flex-direction: column;
-        padding: 0 20px;
-    }
-
-    .ghost-hero-text-area {
-        max-width: 100%;
-        text-align: center;
-    }
-    
-    .service-list-grid {
-        grid-template-columns: 1fr; 
-        justify-content: center;
-    }
-    
-    .service-item {
-        justify-content: center;
-    }
-    
-    /* Disable complex hover effects on small screens */
-    .books-collage,
-    .ghost-hero-image-area:hover .books-collage {
-        transform: none !important;
-        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.6)); /* Adjusted mobile shadow */
-    }
-}
-`;
-
-// Helper function to dynamically inject CSS styles
-const injectStyles = () => {
-  if (typeof document !== 'undefined' && !document.getElementById('ghost-services-styles')) {
-    const style = document.createElement('style');
-    style.id = 'ghost-services-styles';
-    style.textContent = CSS_STYLES;
-    document.head.appendChild(style);
-  }
-};
-
-injectStyles(); // Inject styles when the component file is loaded
-
-// --- Component Definition ---
+import React, { useRef } from "react";
+import { Award, BookOpen } from "lucide-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const GhostServices = () => {
-    // We'll use the Intersection Observer to trigger Framer Motion animations
-    const [contentRef, isContentVisible] = useIntersectionObserver({
-        threshold: 0.15, 
-    });
-    
-    return (
-        <section className="ghostwriting-hero-section">
-            <motion.div 
-                ref={contentRef} // ATTACH THE REF TO THE MAIN MOTION CONTAINER
-                className="ghost-content-container"
-                variants={containerVariants}
-                initial="hidden"
-                animate={isContentVisible ? "visible" : "hidden"} // Animate when visible
-            >
-                
-                {/* 1. Left Content Area (Text) - Each child uses itemVariants */}
-                <div className="ghost-hero-text-area">
-                    <motion.h1 className="ghost-hero-title" variants={itemVariants}>
-                        Premium Ghostwriting Services <br />
-                        Tailored To Your Needs
-                    </motion.h1>
-                    
-                    <motion.p className="ghost-hero-description" variants={itemVariants}>
-                        Are you looking for professional ghostwriting services to help share your story? Our
-                        ghostwriting company is here to make it happen. We have a team of the best ghostwriters
-                        for hire who excel at crafting everything from detailed narratives to tales of adventure or
-                        stories of struggle and success. We'll help give your story the voice it deserves—one that
-                        inspires and resonates with your audience.
-                    </motion.p>
-                    
-                    {/* Bullet Points Grid - Also uses itemVariants, but each pair as one motion.div */}
-                    <motion.div className="service-list-grid" variants={itemVariants}>
-                        {services.map((pair, index) => (
-                            <React.Fragment key={index}>
-                                <div className="service-item">
-                                    <span className="check-icon">✓</span> 
-                                    <span className="service-name">{pair[0]}</span>
-                                </div>
-                                <div className="service-item">
-                                    <span className="check-icon">✓</span> 
-                                    <span className="service-name">{pair[1]}</span>
-                                </div>
-                            </React.Fragment>
-                        ))}
-                    </motion.div>
-                </div>
+  const containerRef = useRef(null);
 
-                {/* 2. Right Image Area - Uses imageVariants */}
-                <motion.div 
-                    className="ghost-hero-image-area"
-                    variants={imageVariants}
-                    initial="hidden"
-                    animate={isContentVisible ? "visible" : "hidden"}
-                >
-                    <img 
-                        src={BOOKS_IMAGE_PLACEHOLDER} 
-                        alt="Three professionally designed book covers" 
-                        className="books-collage"
-                    />
-                </motion.div>
-            </motion.div>
-            
-            {/* The Chat button is separate, you'll likely use a fixed position component for it */}
-            <div className="chat-button-placeholder">
-                <button className="chat-btn">Chat</button>
+  const customStyles = `
+    .ghost-sticky-services-section {
+        padding: 100px 0;
+        background-color: var(--bg-color, #f7f9fc);
+        position: relative;
+        transition: background-color 0.3s ease;
+    }
+
+    .ghost-sticky-container {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 30px;
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 0 20px;
+        align-items: stretch;
+        box-sizing: border-box;
+    }
+
+    .ghost-sticky-left {
+        position: relative;
+        height: 100%;
+    }
+
+    .ghost-sticky-wrapper {
+        position: sticky;
+        top: 140px; /* Comfortable margin below the fixed navbar */
+        align-self: start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ghost-sticky-image-container {
+        width: 100%;
+        max-width: 650px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        perspective: 1000px;
+    }
+
+    .ghost-sticky-lottie {
+        width: 100%;
+        height: auto;
+        display: block;
+        transform: scale(1.3);
+        transform-origin: center;
+    }
+
+    .ghost-sticky-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .ghost-sticky-heading {
+        font-size: 35px;
+        font-weight: 600;
+        color: var(--text-color);
+        margin: 0 0 15px 0;
+        text-transform: uppercase;
+        line-height: 1.25;
+        letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 1024px) {
+        .ghost-sticky-heading {
+            font-size: 30px;
+        }
+    }
+
+    .ghost-sticky-divider {
+        width: 80px;
+        height: 4px;
+        background-color: #000000;
+        margin-bottom: 30px;
+        border-radius: 2px;
+    }
+
+    .ghost-sticky-desc {
+        font-size: 16px;
+        line-height: 1.75;
+        color: #000000;
+        margin: 0 0 24px 0;
+    }
+
+    .ghost-sticky-desc strong {
+        font-weight: 700;
+        color: #000000;
+    }
+
+    .ghost-sticky-stats-row {
+        display: flex;
+        gap: 40px;
+        margin: 20px 0 35px 0;
+    }
+
+    .ghost-sticky-stat-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .ghost-sticky-stat-icon-wrapper {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    /* --- DARK MODE OVERRIDES --- */
+    [data-theme='dark'] .ghost-sticky-divider,
+    .dark-mode .ghost-sticky-divider {
+        background-color: #ffffff;
+    }
+
+    [data-theme='dark'] .ghost-sticky-desc,
+    .dark-mode .ghost-sticky-desc {
+        color: #ffffff;
+    }
+
+    [data-theme='dark'] .ghost-sticky-desc strong,
+    .dark-mode .ghost-sticky-desc strong {
+        color: #ffffff;
+    }
+
+    [data-theme='dark'] .ghost-sticky-stat-icon-wrapper,
+    .dark-mode .ghost-sticky-stat-icon-wrapper {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+    }
+
+    .ghost-sticky-stat-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ghost-sticky-stat-number {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.1;
+    }
+
+    .ghost-sticky-stat-label {
+        font-size: 13.5px;
+        font-weight: 500;
+        color: var(--text-color);
+        opacity: 0.75;
+        margin-top: 2px;
+    }
+
+    .ghost-sticky-learn-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-color);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        text-decoration: none;
+        width: fit-content;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .ghost-sticky-learn-more:hover {
+        color: #14b8a6;
+        transform: translateX(4px);
+    }
+
+    .ghost-sticky-learn-more .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .ghost-sticky-learn-more:hover .arrow {
+        transform: translateX(4px);
+    }
+
+    /* --- RESPONSIVE MEDIA QUERIES --- */
+    @media (max-width: 900px) {
+        .ghost-sticky-services-section {
+            padding: 60px 0;
+        }
+
+        .ghost-sticky-container {
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+
+        .ghost-sticky-left {
+            height: auto;
+            width: 100%;
+        }
+
+        .ghost-sticky-wrapper {
+            position: relative;
+            top: 0;
+            margin-bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .ghost-sticky-image-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .ghost-sticky-lottie {
+            width: 100% !important;
+            height: auto !important;
+            transform: scale(1.3);
+        }
+
+        .ghost-sticky-right {
+            text-align: center;
+            align-items: center;
+        }
+
+        .ghost-sticky-divider {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ghost-sticky-stats-row {
+            justify-content: center;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ghost-sticky-stats-row {
+            flex-direction: row;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            width: 100%;
+        }
+        
+        .ghost-sticky-stat-item {
+            flex: 1 1 0px;
+            min-width: 130px;
+            max-width: 170px;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .ghost-sticky-stat-icon-wrapper {
+            width: 42px;
+            height: 42px;
+        }
+
+        .ghost-sticky-stat-icon-wrapper svg {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        .ghost-sticky-stat-number {
+            font-size: 18px;
+        }
+
+        .ghost-sticky-stat-label {
+            font-size: 11px;
+            line-height: 1.2;
+            text-align: left;
+        }
+        
+        .ghost-sticky-right {
+            align-items: stretch;
+        }
+    }
+  `;
+
+  return (
+    <section ref={containerRef} className="ghost-sticky-services-section">
+      <style>{customStyles}</style>
+      <div className="ghost-sticky-container">
+
+        {/* LEFT COLUMN: PINNED BOOK WRITING ILLUSTRATION */}
+        <div className="ghost-sticky-left">
+          <div className="ghost-sticky-wrapper">
+            <div className="ghost-sticky-image-container">
+              <DotLottieReact
+                src="https://lottie.host/c74f14f2-ffd1-4dbd-a200-da00eceb39fe/Od7hAJhDgt.lottie"
+                loop
+                autoplay
+                className="ghost-sticky-lottie"
+              />
             </div>
-            
-        </section>
-    );
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: SCROLLABLE GHOSTWRITING DETAILS */}
+        <div className="ghost-sticky-right">
+          <h2 className="ghost-sticky-heading">
+            EVER DREAM OF BEING A BESTSELLING AUTHOR?
+          </h2>
+          <div className="ghost-sticky-divider"></div>
+
+          <p className="ghost-sticky-desc">
+            Doubleday Publisher provides top quality ghostwriting services that translate your thoughts into expertly written content. When you’re writing your book, article blog, or other written work, our team of experienced writers will ensure that your idea is delivered accurately and professionally.
+          </p>
+
+          <p className="ghost-sticky-desc">
+            Our ghostwriters are skilled in adjusting to your style and voice, ensuring your message is conveyed effectively and clearly. We are aware of the importance of collaboration and confidentiality. That is why we offer an uncomplicated experience through the entire writing process, from the initial idea to the final draft.
+          </p>
+
+          <p className="ghost-sticky-desc">
+            With a wide range of writers with expertise in various styles and genres, We can tackle any task. You may be an entrepreneur searching for captivating blog posts or an author looking to write a novel. Our ghostwriting services can be tailored to meet your needs. We proudly provide top-quality, original content within the desired time frame.
+          </p>
+
+          <p className="ghost-sticky-desc">
+            Our dedication to excellence and confidentiality ensures that you can count on our team to help bring your thoughts to life. You have complete control over your work. We can help you reach your writing goals by providing expert support.
+          </p>
+
+          <p className="ghost-sticky-desc">
+            Find out how the book writing services can assist you in writing a captivating and well-structured manuscript. You can also visit our professional <strong>editing services</strong> for your book. Editing services to refine your <strong>manuscript</strong> further.
+          </p>
+
+          {/* STATISTICS GRID */}
+          <div className="ghost-sticky-stats-row">
+            <div className="ghost-sticky-stat-item">
+              <div className="ghost-sticky-stat-icon-wrapper">
+                <Award size={26} />
+              </div>
+              <div className="ghost-sticky-stat-info">
+                <span className="ghost-sticky-stat-number">10+</span>
+                <span className="ghost-sticky-stat-label">Years of Experience</span>
+              </div>
+            </div>
+
+            <div className="ghost-sticky-stat-item">
+              <div className="ghost-sticky-stat-icon-wrapper">
+                <BookOpen size={26} />
+              </div>
+              <div className="ghost-sticky-stat-info">
+                <span className="ghost-sticky-stat-number">700+</span>
+                <span className="ghost-sticky-stat-label">Books Written</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default GhostServices;

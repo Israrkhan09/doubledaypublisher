@@ -1,60 +1,55 @@
 import React from 'react';
 import './FictionBest.css'; 
 import stackedBooksImage from '../FictionImages/Gemini_Generated_Image_bj70rhbj70rhbj70-removebg-preview.png'; 
-// Import the custom hook
-import useIntersectionObserver from '../FictionHook/FictionHook';
-
-const BookImageStack = ({ isVisible }) => (
-  // Apply animation classes conditionally based on isVisible prop
-  <div 
-    className={`image-stack-container animate-on-scroll ${isVisible ? 'slide-in-left' : ''}`}
-  >
-    {/* This is the large, rounded, light-blue background shape */}
-    <div className="image-stack-backdrop"></div> 
-    
-    {/* This is the white, rounded container holding the books */}
-    <div className="image-stack">
-      {/* Use your single stacked image here */}
-      <img
-        src={stackedBooksImage}
-        alt="Stack of fiction books"
-        className="stacked-books-image" 
-      />
-    </div>
-  </div>
-);
-
-const ContentBlock = ({ isVisible }) => (
-  // Apply animation classes conditionally based on isVisible prop
-  <div 
-    className={`content-block animate-on-scroll ${isVisible ? 'slide-in-right' : ''}`}
-  >
-    <h2 className="content-title"> Unleash Your Novel: Key Strategies for Fiction Writers
-    </h2>
-    <p className="content-text">
-  The world of fiction is limitless, offering endless avenues for creativity, character development, and masterful storytelling. Whether you're planning your first draft or refining a final manuscript, our resources are designed to guide you through every stage. Explore expert tips on plot structure, voice, and world-building to create a truly resonating work of art.
-    </p>
-    <div className="button-group"> 
-      <button className="fiction-btn fiction-btn-resources">Explore Writing Guides</button>
-      <button className="fiction-btn fiction-btn-community">Join Our Writer's Community</button>
-    </div>
-  </div>
-);
 
 const FictionBest = () => {
-  // 1. Create a ref for the outer section-inner div
-  const [sectionRef, isSectionVisible] = useIntersectionObserver({ threshold: 0.2 });
+  return (
+    <section className="fiction-sticky-services-section">
+      <div className="fiction-sticky-container">
 
-  return (
-    <section className="fiction-section">
-      {/* 2. Attach the ref to the element being observed */}
-      <div className="section-inner" ref={sectionRef}>
-        {/* 3. Pass the visibility state down to children */}
-        <BookImageStack isVisible={isSectionVisible} />
-        <ContentBlock isVisible={isSectionVisible} />
-      </div>
-    </section>
-  );
+        {/* LEFT COLUMN: PINNED BOOK STACK */}
+        <div className="fiction-sticky-left">
+          <div className="fiction-sticky-wrapper">
+            <div className="fiction-sticky-image-container">
+              <div className="fiction-image-stack">
+                <img
+                  src={stackedBooksImage}
+                  alt="Stack of fiction books"
+                  className="fiction-stacked-books-image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: SCROLLABLE FICTION DETAILS */}
+        <div className="fiction-sticky-right">
+          <h2 className="fiction-sticky-heading">
+            DISCOVER OUR EXPERTISE IN FICTION WRITING SERVICES
+          </h2>
+          <div className="fiction-sticky-divider"></div>
+
+          <p className="fiction-sticky-desc">
+            At Pegasus Writing, we specialize in creating captivating, informative, well-researched, and interesting non-fiction that captivates readers and offers value. Our writers are proficient in various non-fiction genres, ranging from technology and business to self-help and lifestyle. We ensure that every article is meticulously studied and crafted to meet the particular demands of your target readership.
+          </p>
+
+          <p className="fiction-sticky-desc">
+            If you require a stimulating article, a lucid ebook, or an insightful guide, Our professional writing service is designed to convey your message effectively and clearly. We focus on providing precise, high-quality content representing your distinctive voice and knowledge.
+          </p>
+
+          <p className="fiction-sticky-desc">
+            With many years of experience in non-fiction writing, we are aware of the importance of providing material that is not just informative but also entertaining. Our writers are skilled in making difficult topics understandable and relatable, ensuring your readers are engaged throughout the process.
+          </p>
+
+          <p className="fiction-sticky-desc">
+            For more details on our writing service, check out the pages of our book writing service or our book publication service.
+            Let us assist you in creating powerful non-fiction content that connects with your readers and makes you an authority in your area of expertise.
+          </p>
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default FictionBest;

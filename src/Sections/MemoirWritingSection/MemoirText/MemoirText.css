@@ -1,0 +1,160 @@
+/* --- theme variables --- */
+:root {
+    --hero-bg: #FFFFFF;
+    --text-color: #000000;
+}
+
+[data-theme='dark'], .dark-mode {
+    --hero-bg: #0A0F1F; 
+    --text-color: #FFFFFF; 
+}
+
+.memoir-sticky-services-section {
+    padding: 100px 0;
+    background-color: var(--bg-color, #f7f9fc);
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+[data-theme='dark'] .memoir-sticky-services-section,
+.dark-mode .memoir-sticky-services-section {
+    background-color: var(--hero-bg);
+}
+
+.memoir-sticky-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 20px;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+.memoir-sticky-left {
+    position: relative;
+    height: 100%;
+}
+
+.memoir-sticky-wrapper {
+    position: sticky;
+    top: 140px; /* Comfortable margin below the fixed navbar */
+    align-self: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.memoir-sticky-image-container {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.memoir-sticky-image {
+    width: clamp(110px, 28vw, 155px);
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    transition: transform 0.4s ease;
+}
+
+.memoir-sticky-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.memoir-sticky-heading {
+    font-size: 35px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+}
+
+@media (max-width: 1024px) {
+    .memoir-sticky-heading {
+        font-size: 30px;
+    }
+}
+
+.memoir-sticky-divider {
+    width: 80px;
+    height: 4px;
+    background-color: #000000;
+    margin-bottom: 30px;
+    border-radius: 2px;
+}
+
+.memoir-sticky-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #000000;
+    margin: 0 0 24px 0;
+}
+
+.memoir-sticky-desc strong {
+    font-weight: 700;
+    color: #000000;
+}
+
+/* --- DARK MODE OVERRIDES --- */
+[data-theme='dark'] .memoir-sticky-divider,
+.dark-mode .memoir-sticky-divider {
+    background-color: #ffffff;
+}
+
+[data-theme='dark'] .memoir-sticky-desc,
+.dark-mode .memoir-sticky-desc {
+    color: #ffffff;
+}
+
+[data-theme='dark'] .memoir-sticky-desc strong,
+.dark-mode .memoir-sticky-desc strong {
+    color: #ffffff;
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 900px) {
+    .memoir-sticky-services-section {
+        padding: 60px 0;
+    }
+
+    .memoir-sticky-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .memoir-sticky-left {
+        height: auto;
+    }
+
+    .memoir-sticky-wrapper {
+        position: relative;
+        top: 0;
+        margin-bottom: 20px;
+    }
+
+    .memoir-sticky-image-container {
+        margin: 0 auto;
+    }
+
+    .memoir-sticky-right {
+        text-align: center;
+        align-items: center;
+    }
+
+    .memoir-sticky-divider {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

@@ -19,6 +19,10 @@ import { ParallaxText } from '../Sections/HomeSections/TextScrollerSection/TextS
 import { TopSeller } from '../Sections/HomeSections/BestsellerSection/TopSeller'
 import Navbar from '../Layouts/Navbar/Navbar'
 import { MagneticNavbar } from '../Layouts/Navbar/MagneticNavbar'
+import FeaturedPressSection from '../Sections/HomeSections/FeaturedPressSection/FeaturedPressSection'
+import BookWritingProcess from '../Sections/HomeSections/BookWritingProcess/BookWritingProcess'
+import FeaturedCarousel from '../Sections/AboutSections/FeaturedCarousel/FeaturedCarousel'
+import { WhyChooseUs, ReviewsCarousel, DreamBookCTA } from '../Sections/HomeSections/BrandSections/BrandSections'
 // import MagneticNavbar from '../Layouts/Navbar/MagneticNavbar'
 // import { MagneticNavbar } from '../Layouts/Navbar/MagneticNavbar'
 // import MagneticNavbar from '../Layouts/Navbar/MagneticNavbar'
@@ -36,12 +40,11 @@ const Home = () => {
 
   return (
     <div>
-      {/* <Navbar/> */}
-      <MagneticNavbar/>
-
-      {/* Hero + Book Slider */}
+      <Navbar/>
       <AuroraHero />
-      <BookCarousel />
+      <FeaturedPressSection/>
+      <BookWritingProcess />
+      {/* <BookCarousel /> */}
 
       {/* Portfolio */}
       <PortfolioSection />
@@ -50,44 +53,58 @@ const Home = () => {
 
 
 
- <div style={{backgroundColor: '#0A0F1F', color: 'white' ,  minHeight: '14vh' }}>
-      {/* Top Spacer */}
+      {/*
+      <div style={{backgroundColor: '#0A0F1F', color: 'white' ,  minHeight: '14vh' }}>
       
+        <ParallaxText
+          baseVelocity={-0.8}
+          isPaused={isPaused}
+          onEnter={handleMouseEnter}
+          onLeave={handleMouseLeave}
+        >
+          DRAFTING YOUR MASTERPIECE - PLOT - CHARACTERS - WORLD-BUILDING - EDITING - REVISIONS -
+        </ParallaxText>
 
-      {/* PARALLAX TEXT SCROLLER - FIXED */}
-      <ParallaxText
-        baseVelocity={-0.8}
-        isPaused={isPaused}
-        onEnter={handleMouseEnter}
-        onLeave={handleMouseLeave}
-      >
-        DRAFTING YOUR MASTERPIECE - PLOT - CHARACTERS - WORLD-BUILDING - EDITING - REVISIONS -
-      </ParallaxText>
+         <ParallaxText
+          baseVelocity={0.8}
+          isPaused={isPaused}
+          onEnter={handleMouseEnter}
+          onLeave={handleMouseLeave}
+        >
+          PUBLISH - LITERARY SUCCESS - AGENT - PROOFREADING - COVER DESIGN - MARKETING STRATEGY -
+        </ParallaxText>
 
-       <ParallaxText
-        baseVelocity={0.8}
-        isPaused={isPaused}
-        onEnter={handleMouseEnter}
-        onLeave={handleMouseLeave}
-      >
-        PUBLISH - LITERARY SUCCESS - AGENT - PROOFREADING - COVER DESIGN - MARKETING STRATEGY -
-      </ParallaxText>
-
-      {/* Animated Cards */}
-      
       </div>
+      */}
 
 
 
 
       {/* Services + Bestseller */}
-      
+      <div style={{
+          width: '100%',
+          height: '1px',
+          background: 'var(--divider-bg)',
+          position: 'relative',
+          zIndex: 10
+      }} />
       <BookServicesSection />
       
       {/* <BestsellerSection /> */}
       
       {/* <BookWritingSection/> */}
+      <FeaturedCarousel/>
       <TopSeller/>
+      <div style={{
+          width: '100%',
+          height: '1px',
+          background: 'var(--divider-bg)',
+          position: 'relative',
+          zIndex: 10
+      }} />
+      <WhyChooseUs />
+      <ReviewsCarousel />
+      <DreamBookCTA />
       
       <Footer />
     </div>

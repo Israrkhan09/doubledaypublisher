@@ -1,252 +1,183 @@
-  /* --- Base Structure (Desktop Layout) --- */
-  .fiction-section {
-    padding: 80px 30px;
-    background-color: #0A0F1F;
-    /* FIX: Ensure the main section hides any potential horizontal overflow */
-    overflow-x: hidden; 
-  }
+/* --- theme variables --- */
+:root {
+    --hero-bg: #FFFFFF;
+    --text-color: #000000;
+}
 
-  .section-inner {
-    max-width: 1100px;
-    /* background-color: #533549; */
-    padding-right: 20px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center; 
-    justify-content: space-between;
-    /* gap: 10px; */
-    /* color: white; */
-  }
+[data-theme='dark'], .dark-mode {
+    --hero-bg: #0A0F1F; 
+    --text-color: #FFFFFF; 
+}
 
-  /* --- Content Block (Right Side) --- */
-  /* (No changes needed here) */
-  .content-block {
-    flex: 1; 
-    max-width: 550px;
-    /* background-color: #533549; */
-    /* margin-right: 10px; */
-    padding: 0 30px;
-  }
-  
-  .content-title {
-    font-size: 38px;
-    font-weight: 800;
-    color: #ffffff;
-    text-align: left;
-    margin-bottom: 10px;
-    /* background-color: #533549; */
-    line-height: 1;
-  }
-  
-  .content-text {
-    font-size: 1.05em;
-    line-height: 1.6;
-    color: #ffffff;
-    text-align: left;
-    /* text-align: left; */
-    margin-bottom: 10px;
-  }
-
-  /* --- Button Styling --- */
-  /* (No changes needed here) */
-  .button-group {
-    display: flex;
-    gap: 10px;
-  }
-
-  .fiction-btn {
-    padding: 10px 35px;
-    /* margin-left: -18px; */
-    border: none;
-    border-radius: 5px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    white-space: nowrap; 
-  }
-
-  .fiction-btn-resources {
-    background-color: #ffffff; 
-    border: 1px solid black;
-    color: #000000;
-  }
-
-  .fiction-btn-community {
-    background-color: transparent; 
-    padding: 20px;
-    color: #ffffff;
-    border: 1px solid rgb(255, 255, 255);
-  }
-
-
-  /* ----------------------------------------------------------------
-  * --- Image Stack Styling (Left Side - FIX FOR OVERFLOW) ---
-  * ----------------------------------------------------------------
-  */
-
-  /* 1. Outer container (Crucial Changes here) */
-  .image-stack-container {
-    /* FIX: Change flex basis to allow flexibility and prevent overflow */
-    flex: 0 0 40%; 
-    max-width: 650px; /* Keep a max width for desktop sizing */
-    height: 500px; 
+.fiction-sticky-services-section {
+    padding: 100px 0;
+    background-color: var(--bg-color, #f7f9fc);
     position: relative;
-    display: flex; 
-    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+[data-theme='dark'] .fiction-sticky-services-section,
+.dark-mode .fiction-sticky-services-section {
+    background-color: var(--hero-bg);
+}
+
+.fiction-sticky-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 20px;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+.fiction-sticky-left {
+    position: relative;
+    height: 100%;
+}
+
+.fiction-sticky-wrapper {
+    position: sticky;
+    top: 140px; /* Comfortable margin below the fixed navbar */
+    align-self: start;
+    display: flex;
     justify-content: center;
-    padding: 0; 
-  }
+    align-items: center;
+}
 
-  /* 2. The light-blue background shape */
-  .image-stack-backdrop {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%; 
-    height: 95%;
-    /* background-color: #533549;  */
+.fiction-sticky-image-container {
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
     border-radius: 20px;
-    transform: translate(-50%, -50%) rotate(-7deg); 
-    z-index: 1;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    perspective: 1000px;
+}
 
-  /* 3. The white, rounded card */
-  .image-stack {
+/* Backdrop shape removed */
+
+.fiction-image-stack {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 120%; 
-    height: 95%; 
-    /* background-color: #8b1b1b; */
+    width: 120%;
+    height: 95%;
     border-radius: 15px;
-    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
-    /* The offset positioning that might have caused the issue */
-    transform: translate(-55%, -55%); 
+    transform: translate(-55%, -55%);
     z-index: 2;
-    
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; 
-    cursor: pointer; 
-  }
+    overflow: hidden;
+    cursor: pointer;
+}
 
-  /* 4. Styling for the single composite image (Books) */
-  .stacked-books-image {
-      max-width: 110%; 
-      max-height: 140%; 
-      width: auto; 
-      height: auto; 
-      object-fit: contain; 
-      transform: translateY(0%) translateX(0%) rotate(-3deg); 
-      /* filter: drop-shadow(5px 5px 18px rgba(0,0,0,0.4));  */
-      transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-  }
+.fiction-stacked-books-image {
+    max-width: 110%;
+    max-height: 140%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transform: translateY(0%) translateX(0%) rotate(-3deg);
+}
 
-  /* 5. Hover Animation */
-  .image-stack:hover .stacked-books-image {
-      transform: translateY(-2%) translateX(2%) rotate(-5deg) scale(1.03); 
-      /* filter: drop-shadow(8px 8px 25px rgba(0,0,0,0.5));  */
-  }
+.fiction-sticky-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+}
 
+.fiction-sticky-heading {
+    font-size: 35px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+}
 
-  /* ----------------------------------------------------------------
-  * --- SCROLL ANIMATION STYLES (Keep Animation Styles) ---
-  * ----------------------------------------------------------------
-  */
-
-  /* 1. Base hidden state for elements that will be animated */
-  .animate-on-scroll {
-    opacity: 0;
-    transition: opacity 1s ease-out, transform 1s ease-out;
-  }
-
-  /* 2. Slide-in from Left (For the image stack) */
-  .animate-on-scroll.slide-in-left {
-    transform: translateX(-50px);
-  }
-
-  .animate-on-scroll.slide-in-left.slide-in-left { 
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-
-  /* 3. Slide-in from Right (For the content block) */
-  .animate-on-scroll.slide-in-right {
-    transform: translateX(50px);
-  }
-
-  .animate-on-scroll.slide-in-right.slide-in-right { 
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-
-  /* ----------------------------------------------------------------
-  * --- Mobile Responsiveness ---
-  * ----------------------------------------------------------------
-  */
-
-  @media (max-width: 992px) {
-    .section-inner {
-      flex-direction: column;
-      text-align: center;
-      gap: 30px;
+@media (max-width: 1024px) {
+    .fiction-sticky-heading {
+        font-size: 30px;
     }
-    
-    .image-stack-container {
-      flex: none;
-      width: 100%;
-      max-width: 350px; 
-      height: 350px;
-      margin: 0 auto;
-      padding: 0; 
-    }
+}
 
-    .image-stack-backdrop {
-        transform: translate(-50%, -50%) rotate(-5deg); 
-        width: 95%;
-        height: 90%;
+.fiction-sticky-divider {
+    width: 80px;
+    height: 4px;
+    background-color: #000000;
+    margin-bottom: 30px;
+    border-radius: 2px;
+}
+
+.fiction-sticky-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #000000;
+    margin: 0 0 24px 0;
+}
+
+.fiction-sticky-desc strong {
+    font-weight: 700;
+    color: #000000;
+}
+
+/* --- DARK MODE OVERRIDES --- */
+[data-theme='dark'] .fiction-sticky-divider,
+.dark-mode .fiction-sticky-divider {
+    background-color: #ffffff;
+}
+
+[data-theme='dark'] .fiction-sticky-desc,
+.dark-mode .fiction-sticky-desc {
+    color: #ffffff;
+}
+
+[data-theme='dark'] .fiction-sticky-desc strong,
+.dark-mode .fiction-sticky-desc strong {
+    color: #ffffff;
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 900px) {
+    .fiction-sticky-services-section {
+        padding: 60px 0;
     }
 
-    .image-stack {
-        width: 90%; 
-        height: 90%;
-        transform: translate(-50%, -50%); 
+    .fiction-sticky-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
     }
 
-    .stacked-books-image {
-        max-width: 120%; 
-        max-height: 120%;
-        transform: translateY(-5%) translateX(0%) rotate(-3deg); 
-        filter: drop-shadow(3px 3px 10px rgba(0,0,0,0.2));
-    }
-    
-    .image-stack:hover .stacked-books-image {
-        transform: translateY(-5%) translateX(0%) rotate(-3deg) scale(1); 
-        filter: drop-shadow(3px 3px 10px rgba(0,0,0,0.2)); 
+    .fiction-sticky-left {
+        height: auto;
     }
 
-    .button-group {
-      justify-content: center;
-      flex-wrap: wrap;
+    .fiction-sticky-wrapper {
+        position: relative;
+        top: 0;
+        margin-bottom: 20px;
     }
 
-    .content-block {
-      padding: 0;
+    .fiction-sticky-image-container {
+        max-width: 310px;
+        height: 310px;
+        margin: 0 auto;
     }
 
-    .content-title {
-      font-size: 2em;
+    .fiction-sticky-right {
+        text-align: center;
+        align-items: center;
     }
-  }
 
-  /* Mobile override for animation */
-  @media (max-width: 768px) {
-    .animate-on-scroll {
-      opacity: 1;
-      transform: none !important;
-      transition: none;
+    .fiction-sticky-divider {
+        margin-left: auto;
+        margin-right: auto;
     }
-  }
+}

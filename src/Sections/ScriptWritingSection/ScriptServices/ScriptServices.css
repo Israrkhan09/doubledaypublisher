@@ -1,0 +1,152 @@
+/* src/components/HeroSection.css */
+
+/* --- Global Reset & Scroll Prevention --- */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* --- Theme Variables --- */
+:root {
+    --hero-bg-light: #F8FBFD;
+    --hero-bg-dark: #0A0F1F;
+    --hero-text-light: #17373C;
+    --hero-text-dark: #FFFFFF;
+    --accent-green: #00c49a;
+}
+
+/* --- Hero Section Container --- */
+.story-container {
+    display: grid; 
+    place-items: center; 
+    text-align: center;
+    padding: 100px 50px;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    z-index: 10; 
+    transition: background-color 0.4s ease;
+    
+    /* Default Light Mode Background */
+    background-color: var(--hero-bg-light);
+    color: var(--hero-text-light);
+}
+
+
+/* Dark Mode Background Toggle */
+[data-theme='dark'] .story-container,
+.dark-mode .story-container {
+    background-color: transparent;   /* ✅ make it transparent */
+    color: var(--hero-text-dark);
+}
+
+
+/* Overlay for Background Images (if used) */
+.story-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.story-content {
+    max-width: 650px;
+    position: relative; 
+    z-index: 3; 
+    text-align: center;
+    word-break: break-word; 
+}
+
+/* --- Animations --- */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(-30px); 
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.story-container.is-visible .reveal-item {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+.story-title { 
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    transition-delay: 0.1s;
+}
+
+.story-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    transition-delay: 0.3s;
+}
+
+/* --- 🎯 DYNAMIC THEME BUTTONS --- */
+.story-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    transition-delay: 0.5s;
+}
+
+.story-new-btns {
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+}
+
+/* LIGHT MODE BUTTON (Dark color on light bg) */
+.story-btn-secondary {
+    background-color: #1B1B1B;
+    color: #FFFFFF !important;
+}
+
+.story-btn-secondary:hover {
+    background-color: #000000;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* DARK MODE BUTTON OVERRIDE (White color on dark bg) */
+[data-theme='dark'] .story-btn-secondary,
+.dark-mode .story-btn-secondary {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+}
+
+[data-theme='dark'] .story-btn-secondary:hover,
+.dark-mode .story-btn-secondary:hover {
+    background-color: #f0f0f0 !important;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.story-new-btns:active {
+    transform: translateY(-1px);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .story-container { padding: 60px 20px; }
+    .story-title { font-size: 2.2rem; }
+    .story-buttons { flex-direction: column; width: 100%; }
+    .story-new-btns { width: 100%; max-width: 320px; }
+}

@@ -1,0 +1,179 @@
+:root{
+  --bg: #ffffff;
+  --text: #000;
+  --card: rgba(0,0,0,0.05);
+}
+
+/* DARK MODE VARIABLES FIX */
+
+[data-theme="dark"]{
+  --bg: transparent;
+  --text:#ffffff;
+  --card: rgba(255,255,255,0.06);
+}
+
+/* DARK MODE CONTACT BOX */
+
+[data-theme="dark"] .dream-section .contact-bar{
+  background: transparent;
+}
+
+[data-theme="dark"] .dream-section .contact-item{
+  background: #ffffff;
+  color: #000;
+}
+
+[data-theme="dark"] .dream-section .contact-item:last-child{
+  border-right:none;
+}
+
+/* SECTION */
+
+section.dream-section{
+  width:100%;
+  background:var(--bg);
+  color:var(--text);
+  padding-top: 60px; /* Pushes content and image down, reducing bottom gap */
+  transition:all .3s ease;
+}
+
+/* CONTAINER */
+
+.dream-section .dream-container{
+  width:90%;
+  max-width:1400px;
+  margin:auto;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:40px;
+}
+
+/* LEFT CONTENT */
+
+.dream-section .dream-text{
+  max-width:600px;
+}
+
+/* HEADING */
+
+.dream-section .dream-text h2{
+  font-size:35px;
+  font-weight:600;
+  margin-bottom:20px;
+  color: #173F5F;
+}
+
+@media (max-width: 1024px) {
+  .dream-section .dream-text h2 {
+    font-size: 30px;
+  }
+}
+
+/* DESCRIPTION */
+
+.dream-section .dream-text p{
+  font-size:17px;
+  line-height:1.7;
+  margin-bottom:30px;
+}
+
+/* BUTTON */
+
+.dream-section .dream-btn{
+  background:transparent;
+  color:inherit;
+  border:1px solid currentColor;
+
+  padding:14px 30px;
+
+  border-radius:40px;
+
+  letter-spacing:1px;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.dream-section .dream-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* ANIMATION */
+
+.dream-section .dream-animation{
+  width:100%;
+  max-width:420px;
+}
+
+/* CONTACT BAR */
+
+.dream-section .contact-bar{
+  width:100%;
+  margin-top:40px;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+}
+
+/* CONTACT ITEM */
+
+.dream-section .contact-item{
+  background:var(--card);
+
+  padding:30px;
+
+  font-size:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  /* background-color: red; */
+
+  gap:10px;
+
+  border-right:1px solid rgba(0,0,0,0.08);
+}
+
+.dream-section .contact-item:last-child{
+  border-right:none;
+}
+
+/* SCROLL ANIMATION */
+
+.fade-up{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all .8s ease;
+}
+
+.fade-up.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.dream-section .dream-container{
+  flex-direction:column;
+  text-align:center;
+}
+
+.dream-section .contact-bar{
+  grid-template-columns:1fr;
+}
+
+.dream-section .contact-item{
+  border-right:none;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+}
+
+.dream-section .contact-item:last-child{
+  border-bottom:none;
+}
+
+}

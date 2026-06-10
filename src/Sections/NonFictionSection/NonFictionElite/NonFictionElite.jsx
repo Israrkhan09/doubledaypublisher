@@ -26,15 +26,7 @@ const NonFictionElite = () => {
                         sharp, engaging, and true to their voice. Business guides, memoirs, self-help, history, you
                         name it, we've done it. If you have the idea, we'll help you put it into words that stick.
                     </p>
-                    {/* <p className="non-fiction-text reveal-item" style={{ transitionDelay: '0.4s' }}>
-                        We've worked with authors from all over, helping them shape ideas into books that feel
-                        sharp, engaging, and true to their voice. Business guides, memoirs, self-help, history, you
-                        name it, we've done it. If you have the idea, we'll help you put it into words that stick.
-                    </p> */}
-                    <div className="button-group reveal-item" style={{ transitionDelay: '0.6s' }}>
-                        <button className="btn btn-call">Call Now</button>
-                        <button className="btn btn-consultation">Get Free Consultation</button>
-                    </div>
+                    
                 </div>
 
                 {/* Right Image Block */}

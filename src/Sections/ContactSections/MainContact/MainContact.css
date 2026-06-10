@@ -1,55 +1,70 @@
-/* --- Base Contact Section --- */
 .contact-section {
-    padding: 60px 0;
-    background-color: #d8dad8; /* Light neutral background for contrast */
+    padding: 40px 0;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
 }
 
+[data-theme='dark'] .contact-section,
+.dark-mode .contact-section {
+    background-color: #0f172a;
+}
+
+/* Main container */
 .contact-container {
-    max-width: 1100px;
-    height: 700px;
+    max-width: 800px; /* Smaller more compact container */
+    height: auto;
     margin: 0 auto;
     display: flex;
-    gap: 60px; /* Space between the two columns */
-    padding: 0 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Subtle lift effect */
+    gap: 20px;
+    padding: 0 15px 30px 15px;
     background-color: #ffffff;
-    border-radius: 8px; /* Soft edges */
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* --- COLUMN 1: Details Panel --- */
 .contact-details-panel {
     flex: 1;
-    padding: 40px;
-    background-color: #1a1a2e; /* Deep, luxury background color (e.g., dark navy) */
+    padding: 20px 24px;
+    background-color: #1a1a2e;
     color: #fff;
     border-radius: 8px 0 0 8px;
 }
 
-.contact-title {
-    font-size: 38px;
-    font-weight: 700;
+.contact-details-title {
+    font-size: 26px;
+    font-weight: 600;
     margin-bottom: 10px;
-    color: #ffd700; /* Subtle gold/brass accent color */
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 .contact-subtitle {
     font-size: 16px;
-    font-weight: 300;
+    color: #000000;
+    font-weight: 500;
     margin-bottom: 20px;
-    opacity: 0.8;
+    transition: color 0.3s ease;
+}
+
+/* Dark mode adjustment for contact subtitle */
+[data-theme='dark'] .contact-subtitle,
+.dark-mode .contact-subtitle {
+    color: #ffffff;
 }
 
 .contact-intro-text {
-    margin-bottom: 40px;
+    margin-bottom: 18px;
     line-height: 1.6;
-    font-size: 15px;
+    font-size: 16px;
 }
 
-/* Contact List Styling */
+/* Contact items */
 .contact-list {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
 }
 
 .contact-item {
@@ -60,7 +75,7 @@
 .contact-icon {
     font-size: 1.7rem;
     margin-right: 15px;
-    color: #ffd700; /* Gold/Brass accent */
+    color: #14b8a6;
 }
 
 .contact-info h4 {
@@ -76,9 +91,7 @@
     opacity: 0.9;
     font-size: 15px;
     text-decoration: none;
-    transition: color 0.3s;
 }
-
 .contact-info a:hover {
     color: #ffd700;
 }
@@ -86,73 +99,200 @@
 /* --- COLUMN 2: Form Panel --- */
 .contact-form-panel {
     flex: 1;
-    padding: 40px;
+    padding: 20px;
 }
 
 .form-header {
-    font-size: 1.7rem;
+    font-size: 22px;
     font-weight: 600;
-    margin-bottom: 30px;
-    color: #333;
+    margin-bottom: 18px;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
     display: block;
     font-weight: 500;
-    margin-bottom: 8px;
     color: #555;
-    font-size: 0.9rem;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
     width: 100%;
-    padding: 12px;
+    padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border-color: #1a1a2e; /* Dark focus color */
+    border-color: #1a1a2e;
     box-shadow: 0 0 5px rgba(26, 26, 46, 0.1);
     outline: none;
 }
 
-/* Submit Button */
 .submit-button {
-    background-color: #1a1a2e;
+    background-color: #0A0F1F;
     color: #fff;
-    padding: 15px 30px;
-    border: none;
+    padding: 10px 20px;
     border-radius: 4px;
+    border: none;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: background-color 0.3s;
 }
 
 .submit-button:hover {
-    background-color: #0d0d1a; /* Darker on hover */
+    background-color: #161f38;
 }
 
 .privacy-note {
     font-size: 0.85rem;
     color: #777;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .privacy-note a {
     color: #1a1a2e;
     text-decoration: underline;
 }
+
+/* =====================================================
+   RESPONSIVE FIXES
+==================================================== */
+
+/* Tablets and Mobile: Stack vertically */
+@media (max-width: 960px) {
+
+    /* Remove gap above footer */
+    .contact-section {
+        padding: 40px 0 0 0 !important;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        margin-bottom: 0 !important; /* ensures footer touches section */
+        max-width: 100%;
+        width: 90%;
+    }
+
+    .contact-details-panel {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .contact-form-panel {
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+
+/* =========================================
+   LIGHT MODE SUPPORT (NO DESIGN CHANGE)
+========================================= */
+
+.light-mode .contact-section,
+[data-theme="light"] .contact-section{
+    background-color:#ffffff;
+}
+
+.light-mode .contact-container,
+[data-theme="light"] .contact-container{
+    background-color:#ffffff;
+}
+
+/* LEFT PANEL */
+
+.light-mode .contact-details-panel,
+[data-theme="light"] .contact-details-panel{
+    background-color:#f4f4f4;
+    color:#111;
+}
+
+.light-mode .contact-intro-text,
+[data-theme="light"] .contact-intro-text{
+    color:#444;
+}
+
+.light-mode .contact-info h4,
+[data-theme="light"] .contact-info h4{
+    color:#222;
+}
+
+.light-mode .contact-info a,
+.light-mode .contact-info p,
+[data-theme="light"] .contact-info a,
+[data-theme="light"] .contact-info p{
+    color:#333;
+}
+
+.light-mode .contact-info a:hover,
+[data-theme="light"] .contact-info a:hover{
+    color:#b48b00;
+}
+
+/* RIGHT FORM PANEL */
+
+.light-mode .form-group label,
+[data-theme="light"] .form-group label{
+    color:#333;
+}
+
+.light-mode .form-group input,
+.light-mode .form-group textarea,
+.light-mode .form-group select,
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group textarea,
+[data-theme="light"] .form-group select{
+    background:#ffffff;
+    border:1px solid #ccc;
+    color:#111;
+}
+
+.light-mode .form-group input:focus,
+.light-mode .form-group textarea:focus,
+.light-mode .form-group select:focus,
+[data-theme="light"] .form-group input:focus,
+[data-theme="light"] .form-group textarea:focus,
+[data-theme="light"] .form-group select:focus{
+    border-color:#1a1a2e;
+}
+
+/* BUTTON */
+
+.light-mode .submit-button,
+[data-theme="light"] .submit-button{
+    background:#0A0F1F;
+    color:#fff;
+}
+
+.light-mode .submit-button:hover,
+[data-theme="light"] .submit-button:hover{
+    background:#161f38;
+}
+
+/* PRIVACY TEXT */
+
+.light-mode .privacy-note,
+[data-theme="light"] .privacy-note{
+    color:#666;
+}
+
+.light-mode .privacy-note a,
+[data-theme="light"] .privacy-note a{
+    color:#1a1a2e;
+}
+
+
