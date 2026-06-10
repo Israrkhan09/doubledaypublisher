@@ -82,7 +82,7 @@ const getStyles = (isMobile, isTabletOrMobile) => ({
     transition: "color 0.3s ease",
   },
   bookTitle: {
-    fontSize: isTabletOrMobile ? 'clamp(24px, 6vw, 30px)' : '35px',
+    fontSize: isTabletOrMobile ? '28px' : '35px',
     marginBottom: '15px',
     color: '#173F5F', // Dynamic title color
     fontWeight: 600,

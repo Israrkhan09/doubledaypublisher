@@ -87,7 +87,7 @@ const FictionStepsSection = () => {
 
     @media (max-width: 1024px) {
         .memoir-heading {
-            font-size: 30px;
+            font-size: 28px;
         }
     }
 
@@ -282,6 +282,20 @@ const FictionStepsSection = () => {
     @media (max-width: 768px) {
         .memoir-section {
             padding: 100px 20px 80px;
+        }
+        .flip-card-outer {
+            height: 290px;
+        }
+        .card-face {
+            padding: 24px 20px;
+        }
+        .card-icon-wrapper {
+            width: 55px;
+            height: 55px;
+            margin-bottom: 14px;
+        }
+        .card-title {
+            margin-bottom: 10px;
         }
     }
   `;

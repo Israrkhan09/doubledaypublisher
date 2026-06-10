@@ -104,7 +104,7 @@
 
 @media (max-width: 1024px) {
     .fiction-sticky-heading {
-        font-size: 30px;
+        font-size: 28px;
     }
 }
 
@@ -166,8 +166,8 @@
     }
 
     .fiction-sticky-image-container {
-        max-width: 310px;
-        height: 310px;
+        max-width: 450px;
+        height: 450px;
         margin: 0 auto;
     }
 

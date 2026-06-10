@@ -192,7 +192,7 @@ const itemVariants = {
   };
   const mainHeadline1 = {
     ...styles.mainHeadline1,
-    fontSize: isMobile ? "clamp(24px, 7vw, 32px)" : "40px",
+    fontSize: isMobile ? "30px" : "40px",
   };
   const subHeadline = {
     ...styles.subHeadline,

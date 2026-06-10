@@ -141,6 +141,7 @@ const FictionCTASection = () => {
 
         .fiction-cta-title {
             text-align: center;
+            font-size: 28px;
         }
 
         .fiction-cta-desc {
