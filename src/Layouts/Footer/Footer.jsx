@@ -78,22 +78,22 @@ const Footer = () => {
 
                     {/* Social Icons (Placeholder) */}
                     <div className="social-icons">
-    <a href="#" aria-label="Instagram">
+    <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
         <FontAwesomeIcon icon={faInstagram} />
     </a>
-    <a href="#" aria-label="Facebook">
+    <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
         <FontAwesomeIcon icon={faFacebook} />
     </a>
-    <a href="#" aria-label="LinkedIn">
+    <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
         <FontAwesomeIcon icon={faLinkedin} />
     </a>
-    <a href="#" aria-label="Pinterest">
+    <a href="https://www.pinterest.com/" target="_blank" rel="noreferrer" aria-label="Pinterest">
         <FontAwesomeIcon icon={faPinterest} />
     </a>
-    <a href="#" aria-label="YouTube">
+    <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube">
         <FontAwesomeIcon icon={faYoutube} />
     </a>
-    <a href="#" aria-label="Twitter / X">
+    <a href="https://x.com/" target="_blank" rel="noreferrer" aria-label="Twitter / X">
         <FontAwesomeIcon icon={faXTwitter} />
     </a>
 </div>

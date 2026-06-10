@@ -61,7 +61,7 @@ const QuickViewModal = ({ book, onClose }) => {
 
                         <div className="modal-book-description">
                             {displayDescription}
-                            <a href="#" className="modal-read-more-link">Read more &gt;</a>
+                            <a href={learnMoreLink || "/contact-us"} className="modal-read-more-link">Read more &gt;</a>
                         </div>
 
                         {/* Order Section */}

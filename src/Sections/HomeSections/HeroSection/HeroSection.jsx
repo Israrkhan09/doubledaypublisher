@@ -85,7 +85,7 @@ const HeroSection = () => {
                     Our book writing service is dedicated to helping authors turn their dreams
                     into published reality. Are you one of the dreamers? Allow us to transform
                     your dreams into reality with the expertise of our professional book writers!
-                    Our <a href="#" className="ghost-link">Ghost book writing services</a> aren't
+                    Our <a href="/ghost-writing" className="ghost-link">Ghost book writing services</a> aren't
                     limited to any genre or style.
                 </p>
 
