@@ -18,6 +18,7 @@ import FeaturedPressSection from '../Sections/HomeSections/FeaturedPressSection/
 import BookWritingProcess from '../Sections/HomeSections/BookWritingProcess/BookWritingProcess'
 import FeaturedCarousel from '../Sections/AboutSections/FeaturedCarousel/FeaturedCarousel'
 import { WhyChooseUs, ReviewsCarousel, DreamBookCTA } from '../Sections/HomeSections/BrandSections/BrandSections'
+import { TopSeller } from '../Sections/HomeSections/BestsellerSection/TopSeller'
 // import MagneticNavbar from '../Layouts/Navbar/MagneticNavbar'
 // import { MagneticNavbar } from '../Layouts/Navbar/MagneticNavbar'
 // import MagneticNavbar from '../Layouts/Navbar/MagneticNavbar'
