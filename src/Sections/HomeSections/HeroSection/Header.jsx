@@ -12,6 +12,7 @@ import facebookLogo from "../images/homeHeroImages/facebook-logo.jpg";
 import trustLogo from "../images/homeHeroImages/trust-pilot.webp";
 import './HeroSection.css';
 import heroVideo from "../../../assets/Home-Hero-Video/1115783_Man_Glasses_3840x2160 (1).mp4";
+import mobileHeroVideo from "../../../assets/Home-Hero-Video/0_Man_Office_Worker_1080x1920.mp4";
 
 const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 const MOBILE_BREAKPOINT = 768;
@@ -196,7 +197,7 @@ export const AuroraHero = () => {
 
   const sectionContainer = {
     ...styles.sectionContainer,
-    padding: isMobile ? "7.5rem 1rem 2.5rem 1rem" : "6rem 2rem",
+    padding: isMobile ? "5.5rem 1rem 1.5rem 1rem" : "6rem 2rem",
   };
 
   const contentGridStyle = {
@@ -217,15 +218,15 @@ export const AuroraHero = () => {
 
   const mainHeadlineStyle = {
     ...styles.mainHeadline,
-    fontSize: isMobile ? "30px" : "40px",
+    fontSize: isMobile ? "26px" : "40px",
     textAlign: isMobile ? "center" : "left",
   };
 
   const subHeadlineStyle = {
     ...styles.subHeadline,
-    fontSize: isMobile ? "15px" : "16px",
+    fontSize: isMobile ? "14px" : "16px",
     textAlign: isMobile ? "center" : "left",
-    marginBottom: isMobile ? "1.5rem" : "2rem",
+    marginBottom: isMobile ? "1rem" : "2rem",
   };
 
   const ctaRowStyle = {
@@ -260,13 +261,24 @@ export const AuroraHero = () => {
 
   const trustLogoStyle = {
     ...styles.trustLogo,
-    height: isMobile ? "55px" : "110px",
-    width: isMobile ? "85px" : "110px",
+    height: isMobile ? "45px" : "110px",
+    width: isMobile ? "75px" : "110px",
   };
 
   const formContainerStyle = {
     ...styles.formContainer,
     margin: isMobile ? "0 auto" : "0",
+    padding: isMobile ? "1rem" : "1.5rem",
+  };
+
+  const inputStyle = {
+    ...styles.input,
+    padding: isMobile ? "0.5rem 0.75rem" : "0.75rem 1rem",
+  };
+
+  const formFieldStyle = {
+    ...styles.formField,
+    marginBottom: isMobile ? "0.5rem" : "0.75rem",
   };
 
   return (
@@ -274,6 +286,7 @@ export const AuroraHero = () => {
     <motion.section style={sectionContainer}>
       {/* Background Video */}
       <video
+        key={isMobile ? "mobile" : "desktop"}
         autoPlay
         loop
         muted
@@ -290,7 +303,7 @@ export const AuroraHero = () => {
           pointerEvents: "none",
         }}
       >
-        <source src={heroVideo} type="video/mp4" />
+        <source src={isMobile ? mobileHeroVideo : heroVideo} type="video/mp4" />
       </video>
 
       {/* Dark Overlay for Readability */}
@@ -400,41 +413,41 @@ export const AuroraHero = () => {
             </span>
           </motion.div>
 
-          <motion.div style={styles.formField} variants={itemVariants}>
+          <motion.div style={formFieldStyle} variants={itemVariants}>
             <input
               type="text"
               placeholder="Full Name"
-              style={styles.input}
+              style={inputStyle}
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
             />
           </motion.div>
 
-          <motion.div style={styles.formField} variants={itemVariants}>
+          <motion.div style={formFieldStyle} variants={itemVariants}>
             <input
               type="email"
               placeholder="Email"
-              style={styles.input}
+              style={inputStyle}
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
             />
           </motion.div>
 
-          <motion.div style={styles.formField} variants={itemVariants}>
+          <motion.div style={formFieldStyle} variants={itemVariants}>
             <input
               type="tel"
               placeholder="Phone"
-              style={styles.input}
+              style={inputStyle}
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
             />
           </motion.div>
 
-          <motion.div style={styles.formField} variants={itemVariants}>
+          <motion.div style={formFieldStyle} variants={itemVariants}>
             <textarea
               placeholder="Talk About Your Project"
               rows={4}
-              style={{ ...styles.input, resize: "vertical" }}
+              style={{ ...inputStyle, resize: "vertical" }}
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
             />

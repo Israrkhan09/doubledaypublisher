@@ -158,12 +158,12 @@ transform:translateX(-50%);
 @media(max-width:768px){
 
 .press-section{
---overlap-offset: 105px; /* Stacked form height is larger */
-padding: 40px 20px 0px;
+--overlap-offset: 35px; /* Stacked form height is larger, but reduced overlap offset to close gap */
+padding: 30px 20px 0px;
 }
 
 .press-carousel{
-margin-bottom: 20px;
+margin-bottom: 15px;
 }
 
 .press-form-container{
