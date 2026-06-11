@@ -59,7 +59,7 @@ const styles = {
   },
   mainHeadline1: {
     fontSize: "20px",
-    color: "#173F5F",
+    color: "var(--headline-color)",
     fontWeight: 700,
     lineHeight: 1.2,
     marginBottom: "1rem",
@@ -201,6 +201,31 @@ const MemoirMain = () => {
       <div style={contentGrid}>
         {/* Hero Text */}
         <motion.div style={heroTextContainer} variants={containerVariants} initial="hidden" animate="visible">
+          {/* Badge */}
+          <motion.div
+            variants={itemVariants}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "8px 20px",
+              borderRadius: "999px",
+              border: "1px solid rgba(23, 63, 95, 0.25)",
+              backgroundColor: "#ffffff",
+              color: "#173F5F",
+              fontSize: "13px",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              width: "fit-content",
+              margin: isMobile ? "0 auto" : "0",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
+            }}
+          >
+            <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#173F5F", flexShrink: 0 }} />
+            Professional Memoir Writing
+          </motion.div>
+
           <motion.h1 style={mainHeadline1} variants={itemVariants}>
             THE BEST MEMOIR WRITING SERVICES YOU CAN FIND WORLDWIDE
           </motion.h1>

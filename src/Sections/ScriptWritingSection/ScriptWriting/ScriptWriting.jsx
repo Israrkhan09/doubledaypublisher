@@ -89,7 +89,7 @@ const CSS_STYLES = `
 /* Switches to White Background and Dark Text in Light Mode */
 .light-mode .script-writing-section,
 [data-theme='light'] .script-writing-section {
-    --ghost-bg: #ffffff;
+    --ghost-bg: #F7F9FC;
     --ghost-text: #1a1a1a;
 }
 
@@ -139,7 +139,7 @@ const CSS_STYLES = `
 .text-content h2 {
     font-size: 35px;
     font-weight: 600;
-    color: #173F5F; 
+    color: var(--headline-color, #173F5F); 
     margin-bottom: 20px;
     line-height: 1.2;
     transition: color 0.4s ease;

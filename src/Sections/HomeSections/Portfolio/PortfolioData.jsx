@@ -12,38 +12,56 @@ import image_path_2 from "../images/main-fiction/Fiction-2.jpg";
 import image_path_3 from "../images/main-fiction/Fiction-3.jpg";
 import image_path_4 from "../images/main-fiction/Fiction-4.jpg";
 import image_path_5 from "../images/main-fiction/Fiction-5.jpg";
-import image_path_6 from "../images/main-fiction/Fiction-6.jpg";
+// import image_path_6 from "../images/main-fiction/Fiction-6.jpg";
 
 import image_path_7 from "../images/main-nonfiction/nonfiction-1.jpg";
 import image_path_8 from "../images/main-nonfiction/nonfiction-2.jpg";
 import image_path_9 from "../images/main-nonfiction/nonfiction-3.jpg";
 import image_path_10 from "../images/main-nonfiction/nonfiction-4.jpg";
 import image_path_11 from "../images/main-nonfiction/nonfiction-5.jpg";
-import image_path_12 from "../images/main-nonfiction/nonfiction-6.jpg";
+// import image_path_12 from "../images/main-nonfiction/nonfiction-6.jpg";
 
 import image_path_13 from "../images/main-memoirs/memoirs-1.jpg";
 import image_path_14 from "../images/main-memoirs/memoirs-2.jpg";
 import image_path_15 from "../images/main-memoirs/memoirs-3.jpg";
 import image_path_16 from "../images/main-fantasy/fantasy-9.jpg";
 import image_path_17 from "../images/main-fantasy/fantasy-10.jpg";
-import image_path_18 from "../images/main-fantasy/fantasy-11.jpg";
+// import image_path_18 from "../images/main-fantasy/fantasy-11.jpg";
 
 import image_path_19 from "../images/main-fantasy/fantasy-1.jpg";
 import image_path_20 from "../images/main-fantasy/fantasy-2.jpg";
 import image_path_21 from "../images/main-fantasy/fantasy-3.jpg";
 import image_path_22 from "../images/main-fantasy/fantasy-4.jpg";
 import image_path_23 from "../images/main-fantasy/fantasy-5.jpg";
-import image_path_24 from "../images/main-fantasy/fantasy-6.jpg";
+// import image_path_24 from "../images/main-fantasy/fantasy-6.jpg";
 
 import image_path_25 from "../images/main-children/children-1.jpg";
 import image_path_26 from "../images/main-children/children-2.jpg";
 import image_path_27 from "../images/main-children/children-3.jpg";
 import image_path_28 from "../images/main-children/children-4.jpg";
 import image_path_29 from "../images/main-children/children-5.jpg";
-import image_path_30 from "../images/main-children/children-6.jpg";
+// import image_path_30 from "../images/main-children/children-6.jpg";
+
+// Doubleday Images
+import db_12_1 from "../../../assets/doubleday-images/12-1.webp";
+import db_3_1 from "../../../assets/doubleday-images/3-1.webp";
+import db_4_1 from "../../../assets/doubleday-images/4-1.webp";
+import db_6_1 from "../../../assets/doubleday-images/6-1.webp";
+import db_7_1 from "../../../assets/doubleday-images/7-1.webp";
+import db_8_1 from "../../../assets/doubleday-images/8-1.webp";
+import db_9_1 from "../../../assets/doubleday-images/9-1.webp";
+import db_b_10 from "../../../assets/doubleday-images/b-10.webp";
+import db_f_1 from "../../../assets/doubleday-images/f-1.webp";
+import db_f_10 from "../../../assets/doubleday-images/f-10.webp";
+import db_f_11 from "../../../assets/doubleday-images/f-11.webp";
+import db_f_5 from "../../../assets/doubleday-images/f-5.webp";
+import db_f_6 from "../../../assets/doubleday-images/f-6.webp";
+import db_f_7 from "../../../assets/doubleday-images/f-7.webp";
+
 import './minPortfolio.css'
 
 const categories = [
+  "All",
   "Fiction Book",
   "Non-Fiction Book",
   "Memoir",
@@ -52,150 +70,65 @@ const categories = [
 ];
 
 const portfolioCovers = [
-  { id: 1, src: image_path_1, title: "Circe", category: "Fiction Book" },
-  { id: 2, src: image_path_2, title: "Bright Edge", category: "Fiction Book" },
-  {
-    id: 3,
-    src: image_path_3,
-    title: "The Overstory",
-    category: "Fiction Book",
-  },
-  {
-    id: 4,
-    src: image_path_4,
-    title: "Fiction Title A",
-    category: "Fiction Book",
-  },
-  {
-    id: 5,
-    src: image_path_5,
-    title: "Fiction Title B",
-    category: "Fiction Book",
-  },
-  {
-    id: 6,
-    src: image_path_6,
-    title: "Fiction Title C",
-    category: "Fiction Book",
-  },
+  // Fiction Book (10 images total - 5 original, 5 Doubleday)
+  { id: 101, src: image_path_1, title: "Circe", category: "Fiction Book" },
+  { id: 102, src: image_path_2, title: "Bright Edge", category: "Fiction Book" },
+  { id: 103, src: image_path_3, title: "The Overstory", category: "Fiction Book" },
+  { id: 104, src: image_path_4, title: "Fiction Title A", category: "Fiction Book" },
+  { id: 105, src: image_path_5, title: "Fiction Title B", category: "Fiction Book" },
+  { id: 106, src: db_f_1, title: "Fiction DB 1", category: "Fiction Book" },
+  { id: 107, src: db_f_5, title: "Fiction DB 2", category: "Fiction Book" },
+  { id: 108, src: db_f_6, title: "Fiction DB 3", category: "Fiction Book" },
+  { id: 109, src: db_f_7, title: "Fiction DB 4", category: "Fiction Book" },
+  { id: 110, src: db_f_10, title: "Fiction DB 5", category: "Fiction Book" },
 
-  {
-    id: 7,
-    src: image_path_7,
-    title: "Greenwood",
-    category: "Non-Fiction Book",
-  },
-  {
-    id: 8,
-    src: image_path_8,
-    title: "Digital Age",
-    category: "Non-Fiction Book",
-  },
-  {
-    id: 9,
-    src: image_path_9,
-    title: "Non-Fiction A",
-    category: "Non-Fiction Book",
-  },
-  {
-    id: 10,
-    src: image_path_10,
-    title: "Non-Fiction B",
-    category: "Non-Fiction Book",
-  },
-  {
-    id: 11,
-    src: image_path_11,
-    title: "Non-Fiction C",
-    category: "Non-Fiction Book",
-  },
-  {
-    id: 12,
-    src: image_path_12,
-    title: "Non-Fiction D",
-    category: "Non-Fiction Book",
-  },
+  // Non-Fiction Book (10 images total - 5 original, 5 Doubleday)
+  { id: 201, src: image_path_7, title: "Greenwood", category: "Non-Fiction Book" },
+  { id: 202, src: image_path_8, title: "Digital Age", category: "Non-Fiction Book" },
+  { id: 203, src: image_path_9, title: "Non-Fiction A", category: "Non-Fiction Book" },
+  { id: 204, src: image_path_10, title: "Non-Fiction B", category: "Non-Fiction Book" },
+  { id: 205, src: image_path_11, title: "Non-Fiction C", category: "Non-Fiction Book" },
+  { id: 206, src: db_f_11, title: "Non-Fiction DB 1", category: "Non-Fiction Book" },
+  { id: 207, src: db_12_1, title: "Non-Fiction DB 2", category: "Non-Fiction Book" },
+  { id: 208, src: db_3_1, title: "Non-Fiction DB 3", category: "Non-Fiction Book" },
+  { id: 209, src: db_4_1, title: "Non-Fiction DB 4", category: "Non-Fiction Book" },
+  { id: 210, src: db_6_1, title: "Non-Fiction DB 5", category: "Non-Fiction Book" },
 
-  { id: 14, src: image_path_13, title: "The Great Game", category: "Memoir" },
-  { id: 15, src: image_path_14, title: "Memoir B", category: "Memoir" },
-  { id: 16, src: image_path_15, title: "Memoir C", category: "Memoir" },
-  { id: 17, src: image_path_16, title: "Memoir D", category: "Memoir" },
-  { id: 18, src: image_path_17, title: "Memoir E", category: "Memoir" },
-  { id: 19, src: image_path_18, title: "Memoir F", category: "Memoir" },
+  // Memoir (10 images total - 5 original, 5 Doubleday)
+  { id: 301, src: image_path_13, title: "The Great Game", category: "Memoir" },
+  { id: 302, src: image_path_14, title: "Memoir B", category: "Memoir" },
+  { id: 303, src: image_path_15, title: "Memoir C", category: "Memoir" },
+  { id: 304, src: image_path_16, title: "Memoir D", category: "Memoir" },
+  { id: 305, src: image_path_17, title: "Memoir E", category: "Memoir" },
+  { id: 306, src: db_7_1, title: "Memoir DB 1", category: "Memoir" },
+  { id: 307, src: db_8_1, title: "Memoir DB 2", category: "Memoir" },
+  { id: 308, src: db_9_1, title: "Memoir DB 3", category: "Memoir" },
+  { id: 309, src: db_b_10, title: "Memoir DB 4", category: "Memoir" },
+  { id: 310, src: db_f_1, title: "Memoir DB 5", category: "Memoir" },
 
-  {
-    id: 20,
-    src: image_path_19,
-    title: "Aperture",
-    category: "Fantasy & Sci-Fi",
-  },
-  {
-    id: 21,
-    src: image_path_20,
-    title: "Stars Fall",
-    category: "Fantasy & Sci-Fi",
-  },
-  {
-    id: 22,
-    src: image_path_21,
-    title: "Fantasy A",
-    category: "Fantasy & Sci-Fi",
-  },
-  {
-    id: 23,
-    src: image_path_22,
-    title: "Fantasy B",
-    category: "Fantasy & Sci-Fi",
-  },
-  {
-    id: 24,
-    src: image_path_23,
-    title: "Fantasy C",
-    category: "Fantasy & Sci-Fi",
-  },
-  {
-    id: 25,
-    src: image_path_24,
-    title: "Fantasy D",
-    category: "Fantasy & Sci-Fi",
-  },
+  // Fantasy & Sci-Fi (10 images total - 5 original, 5 Doubleday)
+  { id: 401, src: image_path_19, title: "Aperture", category: "Fantasy & Sci-Fi" },
+  { id: 402, src: image_path_20, title: "Stars Fall", category: "Fantasy & Sci-Fi" },
+  { id: 403, src: image_path_21, title: "Fantasy A", category: "Fantasy & Sci-Fi" },
+  { id: 404, src: image_path_22, title: "Fantasy B", category: "Fantasy & Sci-Fi" },
+  { id: 405, src: image_path_23, title: "Fantasy C", category: "Fantasy & Sci-Fi" },
+  { id: 406, src: db_f_5, title: "Fantasy DB 1", category: "Fantasy & Sci-Fi" },
+  { id: 407, src: db_f_6, title: "Fantasy DB 2", category: "Fantasy & Sci-Fi" },
+  { id: 408, src: db_f_7, title: "Fantasy DB 3", category: "Fantasy & Sci-Fi" },
+  { id: 409, src: db_f_10, title: "Fantasy DB 4", category: "Fantasy & Sci-Fi" },
+  { id: 410, src: db_f_11, title: "Fantasy DB 5", category: "Fantasy & Sci-Fi" },
 
-  {
-    id: 26,
-    src: image_path_25,
-    title: "Kids Adventure",
-    category: "Children's Book",
-  },
-  {
-    id: 27,
-    src: image_path_26,
-    title: "Children A",
-    category: "Children's Book",
-  },
-  {
-    id: 28,
-    src: image_path_27,
-    title: "Children B",
-    category: "Children's Book",
-  },
-  {
-    id: 29,
-    src: image_path_28,
-    title: "Children C",
-    category: "Children's Book",
-  },
-  {
-    id: 30,
-    src: image_path_29,
-    title: "Children D",
-    category: "Children's Book",
-  },
-  {
-    id: 31,
-    src: image_path_30,
-    title: "Children E",
-    category: "Children's Book",
-  },
+  // Children's Book (10 images total - 5 original, 5 Doubleday)
+  { id: 501, src: image_path_25, title: "Kids Adventure", category: "Children's Book" },
+  { id: 502, src: image_path_26, title: "Children A", category: "Children's Book" },
+  { id: 503, src: image_path_27, title: "Children B", category: "Children's Book" },
+  { id: 504, src: image_path_28, title: "Children C", category: "Children's Book" },
+  { id: 505, src: image_path_29, title: "Children D", category: "Children's Book" },
+  { id: 506, src: db_12_1, title: "Children DB 1", category: "Children's Book" },
+  { id: 507, src: db_3_1, title: "Children DB 2", category: "Children's Book" },
+  { id: 508, src: db_4_1, title: "Children DB 3", category: "Children's Book" },
+  { id: 509, src: db_6_1, title: "Children DB 4", category: "Children's Book" },
+  { id: 510, src: db_7_1, title: "Children DB 5", category: "Children's Book" }
 ];
 
 
@@ -282,11 +215,27 @@ export const PortfolioSection = () => {
     ["blur(0px)", "blur(2px)", "blur(0px)"],
   );
 
-  const filteredCovers = useMemo(
-    () =>
-      portfolioCovers.filter((c) => c.category === activeFilter).slice(0, 6),
-    [activeFilter],
-  );
+  const filteredCovers = useMemo(() => {
+    if (activeFilter === "All") {
+      const fBook = portfolioCovers.filter(c => c.category === "Fiction Book");
+      const nfBook = portfolioCovers.filter(c => c.category === "Non-Fiction Book");
+      const memoir = portfolioCovers.filter(c => c.category === "Memoir");
+      const fantasy = portfolioCovers.filter(c => c.category === "Fantasy & Sci-Fi");
+      const children = portfolioCovers.filter(c => c.category === "Children's Book");
+
+      const mixed = [];
+      for (let i = 0; i < 3; i++) {
+        if (fBook[i]) mixed.push({ ...fBook[i], id: `all-f-${i}` });
+        if (nfBook[i]) mixed.push({ ...nfBook[i], id: `all-nf-${i}` });
+        if (memoir[i]) mixed.push({ ...memoir[i], id: `all-m-${i}` });
+        if (fantasy[i]) mixed.push({ ...fantasy[i], id: `all-fan-${i}` });
+        if (children[i]) mixed.push({ ...children[i], id: `all-c-${i}` });
+      }
+      return mixed;
+    } else {
+      return portfolioCovers.filter((c) => c.category === activeFilter).slice(0, 10);
+    }
+  }, [activeFilter]);
   const totalFiltered = filteredCovers.length;
 
   return (
@@ -322,8 +271,14 @@ export const PortfolioSection = () => {
                 }
                 .portfolio-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                    grid-template-columns: repeat(5, 1fr);
                     gap: 2.5rem;
+                }
+                @media (max-width: 1024px) {
+                    .portfolio-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 1.5rem;
+                    }
                 }
                 @media (max-width: 768px) {
                     .portfolio-grid {

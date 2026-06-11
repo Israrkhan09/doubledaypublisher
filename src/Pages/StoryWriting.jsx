@@ -54,6 +54,13 @@ const StoryWriting = () => {
     <div>
         <Navbar/>
         <StoryMain/>
+        <div style={{
+            width: '100%',
+            height: '1px',
+            background: 'var(--divider-bg)',
+            position: 'relative',
+            zIndex: 10
+        }} />
         <FinalPublishingCalloutSection/>
         <MemoirStepsSection 
           title="OUR 4-STEP STORY TELLING PROCESS" 

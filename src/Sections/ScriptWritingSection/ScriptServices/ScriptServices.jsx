@@ -94,7 +94,7 @@ const CSS_STYLES = `
 /* Note: Adjust .light-mode if your toggle uses a different class name */
 .light-mode .ghostwriting-hero-section,
 [data-theme='light'] .ghostwriting-hero-section {
-    --hero-bg: #ffffff;
+    --hero-bg: #F7F9FC;
     --hero-text: #1a1a1a;
 }
 
@@ -125,7 +125,7 @@ const CSS_STYLES = `
     font-weight: 600;
     line-height: 1.1;
     margin-bottom: 20px;
-    color: #173F5F; 
+    color: var(--headline-color, #173F5F); 
 }
 
 @media (max-width: 1024px) {

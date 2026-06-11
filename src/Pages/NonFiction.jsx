@@ -13,6 +13,13 @@ const NonFiction = () => {
     <div>
       <Navbar/>
       <NonFictionHero/>
+      <div style={{
+          width: '100%',
+          height: '1px',
+          background: 'var(--divider-bg)',
+          position: 'relative',
+          zIndex: 10
+      }} />
       <NonFictionBest/>
       <NonFictionStepsSection/>
       

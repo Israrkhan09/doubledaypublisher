@@ -10,7 +10,8 @@ import { GetQuotePopup } from "../GetQuotePopup/GetQuotePopup";
 import googleLogo from "../images/homeHeroImages/GMB.jpg";
 import facebookLogo from "../images/homeHeroImages/facebook-logo.jpg";
 import trustLogo from "../images/homeHeroImages/trust-pilot.webp";
-import './HeroSection.css'
+import './HeroSection.css';
+import heroVideo from "../../../assets/Home-Hero-Video/1115783_Man_Glasses_3840x2160 (1).mp4";
 
 const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 const MOBILE_BREAKPOINT = 768;
@@ -73,13 +74,13 @@ const styles = {
     fontWeight: 700,
     lineHeight: 1.2,
     marginBottom: "0px",
-    color: "var(--headline-color)"
+    color: "#ffffff"
   },
 
   subHeadline: {
     fontSize: "16px",
     lineHeight: 1.6,
-    color: "var(--headline-color)",
+    color: "#ffffff",
     marginBottom: "2rem",
   },
 
@@ -200,6 +201,8 @@ export const AuroraHero = () => {
 
   const contentGridStyle = {
     ...styles.contentGrid,
+    position: "relative",
+    zIndex: 1,
     padding: isMobile ? "10px 10px" : "10px 40px",
     justifyContent: isMobile ? "center" : "space-between",
     gap: isMobile ? "1.5rem" : "2rem",
@@ -269,6 +272,41 @@ export const AuroraHero = () => {
   return (
 
     <motion.section style={sectionContainer}>
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      >
+        <source src={heroVideo} type="video/mp4" />
+      </video>
+
+      {/* Dark Overlay for Readability */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(10, 15, 31, 0.65)",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
+
       <div style={contentGridStyle}>
         {/* LEFT CONTENT */}
         <motion.div
